@@ -1,5 +1,13 @@
 # Getting Started with Create React App
 
+
+Welcome to College-Mart
+This is a premier online marketplace, which connecta buyers and sellers in NIT Rourkela campus. With a vast array of categories including electronics, study materials, personal belongings and more, it offers a user-friendly platform for individuals to buy and sell pre-owned goods. 
+
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
