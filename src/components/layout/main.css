@@ -38,7 +38,7 @@ html, body {
 .box {
     width: 50%;
     box-sizing: border-box;
-    background-color: white;
+    background-color: 1E1E1E;
     position: relative;
     overflow: hidden; 
 }
@@ -52,5 +52,5 @@ html, body {
 #firstDiv{
     justify-content: center;
     align-items: center;
-      position: relative;
+    position: relative;
 }
