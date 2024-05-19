@@ -1,6 +1,7 @@
-
 import React from "react"
 import './login.css';
+import { MdEmail } from "react-icons/md";
+import { FaEyeSlash } from "react-icons/fa";
 export default function Login(){
 
     return(
@@ -15,26 +16,23 @@ export default function Login(){
     <form action="#">
       <div class="input-box">
         <input type="email" name="email" id="email" placeholder="email" required />
-        <i class="fa-solid fa-user"></i>
+        <i className="fa-solid fa-user  right-[50px]"><MdEmail /></i>
       </div>
-      <div class="input-box">
+      <div className="input-box">
         <input type="password" name="password" id="password" placeholder="password" required/>
-        <i class="fa-solid fa-lock"></i>
+        <i className="fas fa-3x absolute right-48"><FaEyeSlash /></i>
       </div>
-      <div class="link">
-        <a href="#">forget password?</a>
+      <div className="link">
+        <a>forget password?</a>
       </div>
-      <div class="btn">
-        <button type="submit">submit</button>
-      </div>
-      <div class="account">
-        <p>don't have account <a href="#">sign in</a></p>
-      </div>
-
-      
+        <button id="btn" type="login"><span>Login</span></button>
     </form>
   </div>
-        
+  <div className="dont-have-account">Dont have an account ?</div>
+  <div className="signup">
+    <button>Sign up</button>
+  </div>
+  
         </div>
     </>)
 }

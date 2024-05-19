@@ -25,6 +25,7 @@
 .first h1 {
     font-size: 44px;
     color: #FFFF;
+    font-weight: 700;
 }
 
 
@@ -50,7 +51,7 @@
 }
 
 .first{
-    line-height: 0.3;
+    line-height: 0.9;
 }
 .login-form-container{
     color: white;
@@ -70,13 +71,13 @@
   }
   
   .card form .input-box{
-    width: 100%;
+    width: 150%;
     height: 45px;
     position: relative;
-    margin: 30px 0;
+    margin: 10px 0;
   }
   .card form .input-box input{
-    width: 150%;
+    width: 100%;
     height: 100%;
     border: none;
     outline: none;
@@ -109,7 +110,7 @@
 
   .card form .link a{
     color: #fff;
-    font-size: 13px;
+    font-size: 12px;
     text-transform: capitalize;
     transition: .3s ease;
     text-decoration: none;
@@ -118,11 +119,6 @@
   .card form .link a:hover{
     color: #0ef;
   }
-  
-  .card .btn button:hover{
-    background-color: #fff;
-  }
-  
   .card .account{
     text-align: center;
   }
@@ -133,7 +129,7 @@
     text-transform: capitalize;
   }
   .card .account p a{
-    color: #eee;
+    color: #8d8888;
     font-size: 18px;
     font-weight: 600;
     text-transform: capitalize;
@@ -143,3 +139,43 @@
   .card .account p a:hover{
     color: #0ef;
   }
+#btn{
+    position: absolute;
+    width: 153%;
+    height: 35px;
+    left: 0px;
+    top: 140%;
+    background-color: #9C6FE4;
+    border-radius: 10px;
+    border-width: 0;     
+  }
+  #btn span{
+    font-size: 20px;
+    color: #FFFF;
+    font-weight: 700;
+  } 
+ 
+.signup button{
+   position:absolute;
+   top:102%;
+   left: 70%;
+   padding-left: 18px;
+   padding-top: 10px;
+   padding-bottom: 10px;
+   padding-right: 18px;
+   font-size: 14px;
+   background-color: #333437;
+   border-style: none;
+   color: white;
+   border-radius: 9px;
+}
+.dont-have-account{
+    position: absolute;
+    top:104%;
+    color: white;
+    left: -8%;
+    font-weight: 250;
+}
+.i{
+     
+}
