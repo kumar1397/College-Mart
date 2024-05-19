@@ -3,6 +3,7 @@ import React from "react";
 import './main.css';
 import Frame1 from './Frame1.svg'; 
 import Login from "../Login/login";
+import SignUp from "../signup/sign";
 
 export default function MainPage(){
     return(
@@ -10,12 +11,9 @@ export default function MainPage(){
     <div class="parent-div">
         <div class="box" id="firstDiv">
             
-            <Login/>
+          <SignUp/>
             
         </div>
-
-
-
         <div class="box" id="secondDiv">      
          <img className="img2" src={Frame1} alt="frame1" />
         </div>
