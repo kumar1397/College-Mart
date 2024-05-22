@@ -9,7 +9,7 @@ export default function Login(){
     <div className="loginn">
         <div className="first">
           <h1>Login</h1>
-          <h2>Enter your account details</h2>
+          <h2>Enter your account detailssssss</h2>
         </div>
 
         <div class="card">
