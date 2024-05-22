@@ -11,7 +11,7 @@ export default function MainPage(){
     <div class="parent-div">
         <div class="box" id="firstDiv">
             
-          <SignUp/>
+          <Login/>
             
         </div>
         <div class="box" id="secondDiv">      
