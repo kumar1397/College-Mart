@@ -6,7 +6,7 @@ export default function Login(){
 
     return(
     <>
-    <div className="login">
+    <div className="loginn">
         <div className="first">
           <h1>Login</h1>
           <h2>Enter your account details</h2>
