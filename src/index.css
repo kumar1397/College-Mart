@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.bgblackAuth{
+    background: url('/public/auth/blackbg.svg');
+}
+.bgcolorAuth{
+    background:url('/public/auth/colorbg.svg')
+}
