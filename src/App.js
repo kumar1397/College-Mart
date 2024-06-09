@@ -1,10 +1,8 @@
-import MainPage from "./components/layout/main";
-import  SignUp from "./components/signup/sign";
-
+import Auth from './components/Auth'
 function App() {
   return(
     <>
-   <MainPage/>
+    <Auth/>
     </>
   )
 }
