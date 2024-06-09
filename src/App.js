@@ -1,8 +1,10 @@
 import Auth from './components/Auth'
+import Profile from './components/profile/profile';
 function App() {
   return(
     <>
-    <Auth/>
+ {/* <Profile/> */}
+ <Auth/>
     </>
   )
 }
