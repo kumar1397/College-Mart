@@ -35,11 +35,11 @@ function ProductFormCard() {
 
   return (
     <div className="bg-black h-screen w-full flex justify-center items-center">
-      <div className="w-[80%] mx-auto bg-white shadow-lg rounded-lg overflow-hidden flex">
+      <div className="w-full md:w-4/5 mx-auto bg-white shadow-lg rounded-lg overflow-hidden flex flex-col lg:flex-row">
         {/* Left section for product rules */}
-        <div className="w-1/2 p-8 bg-gray-800 text-white">
-          <h2 className="text-2xl font-semibold mb-6">Product Selling Rules</h2>
-          <ul className="list-disc pl-5">
+        <div className="w-full h-[300px] gap-5 lg:h-auto lg:w-1/2 p-1 bg-gray-800 text-white flex flex-col justify-center items-center ">
+          <h2 className="text-2xl font-semibold mr-12">Product Selling Rules</h2>
+          <ul className="list-disc pl-10 gap-3 flex flex-col">
             <li>Products must be in good condition.</li>
             <li>Provide accurate product details.</li>
             <li>Upload clear and high-quality product images.</li>
@@ -49,7 +49,7 @@ function ProductFormCard() {
         </div>
 
         {/* Right section for product form */}
-        <div className="w-1/2 bg-gray-100 p-8">
+        <div className="w-full lg:w-1/2 bg-gray-100 p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             <h2 className="text-2xl font-semibold mb-6">Upload Product</h2>
 
