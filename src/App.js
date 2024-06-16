@@ -3,8 +3,8 @@ import Profile from './components/profile/profile';
 function App() {
   return(
     <>
- {/* <Profile/> */}
- <Auth/>
+ <Profile/> 
+ {/* <Auth/> */}
     </>
   )
 }
