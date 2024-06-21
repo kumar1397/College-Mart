@@ -1,5 +1,6 @@
 import Auth from './components/Auth'
 import Profile from './components/profile/profile';
+import Home from './components/home-page/home'
 
 import ProductFormCard from './components/product/ProductCard';
 function App() {
@@ -7,7 +8,8 @@ function App() {
     <>
  {/* <Profile/>  */}
  {/* <Auth/> */}
-< ProductFormCard />
+{/* < ProductFormCard /> */}
+    <Home/>
     </>
   )
 }
