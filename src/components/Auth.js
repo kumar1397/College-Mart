@@ -5,6 +5,15 @@ const Auth = () => {
     function toggleVisible(){
         setVisible(!visible);
     }
+    const [user,setUser] = useState({
+        name:"",email:"",phone:"",password:"",cpassword:""
+    });
+    const handleInput = (e) =>{
+        console.log(e);
+        name = e.target.name;
+        value = e.target.value;
+        setUser({...user,[name]:value});
+    }
     return (
         <div className='w-screen h-screen bg-[#000] flex justify-center items-center'>
             <div className='w-10/12 h-10/12 text-[white] flex flex-row'>
@@ -16,7 +25,7 @@ const Auth = () => {
                                 <span className='text-lg font-md'>Enter your account details</span>
                             </div>
                             <div class="card" className='w-full'>
-                                <form action="#" className='bg-transparent flex flex-col gap-3'>
+                                <form method='POST' className='bg-transparent flex flex-col gap-3'>
                                     <div class="input-box">
                                         <input type="email" name="email" id="email" placeholder="Email" onChange={(e)=>{setEmail(e.target.value)}} required className='bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]'/>
                                     </div>
@@ -46,16 +55,19 @@ const Auth = () => {
                             <div class="card" className='w-full'>
                                 <form action="#" className='bg-transparent flex flex-col gap-3'>
                                     <div class="input-box">
-                                        <input type="name" name="name" id="name" onChange={(e)=>{}} placeholder="Name" required className='bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]'/>
+                                        <input type="name" name="name" id="name" onChange={(e)=>{}} placeholder="Name" required value={user.name} onClick={handleInput} className='bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]'/>
                                     </div>
                                     <div class="input-box">
-                                        <input type="number" name="number" id="number" placeholder="Phone Number" required className='bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]'/>
+                                        <input type="number" name="phone" id="phone" placeholder="Phone Number" required value={user.phone} onClick={handleInput} className='bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]'/>
                                     </div>
                                     <div class="input-box">
-                                        <input type="email" name="email" id="email" placeholder="Email" required className='bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]'/>
+                                        <input type="email" name="email" id="email" placeholder="Email" required value={user.email} onClick={handleInput} className='bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]'/>
                                     </div>
                                     <div className="input-box">
-                                        <input type="password" name="password" id="password" placeholder="Password" className='bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]' />
+                                        <input type="password" name="password" id="password" placeholder="Password" value={user.password} onClick={handleInput} className='bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]' />
+                                    </div>
+                                    <div className="input-box">
+                                        <input type="password" name="cpassword" id="cpassword" placeholder="Confirm Password" value={user.cpassword} onClick={handleInput} className='bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]' />
                                     </div>
                                     <div className="link my-5 text-[#6d6d6d] font-medium "><a>forget password?</a></div>
                                     <div><button id="btn" type="login" className='w-8/12 h-10 bg-[#9C6FE4] rounded-lg text-lg font-semibold' >Sign up</button></div>
@@ -70,7 +82,6 @@ const Auth = () => {
                     </div>
                     <div className={`bgcolorAuth w-full h-[80vh]  ${visible ? "block " : "hidden" } `}></div>
                 </div>
-
             </div>
         </div>
     )
