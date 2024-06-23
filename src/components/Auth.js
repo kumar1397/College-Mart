@@ -51,7 +51,7 @@ const Auth = () => {
     }
     const handleLogin = async(e) =>{
         e.preventDefault();
-        const res = await fetch ('http://localhost:4000/login',{
+        const res = await fetch ('http://localhost:4000/signin',{
             method:'POST',
             headers :{
                 "Content-Type":"application/json"
@@ -59,22 +59,25 @@ const Auth = () => {
             body:JSON.stringify(lguser)
         });
         const data = res.json();
-        console.log(data.status);
         if (data.status === 400){
             window.alert(`please fill all the details carefully`)
+            console.log(`please fill all the details carefully`)
         }
-        else if (data.status === 401){
+        if (data.status === 401){
             window.alert(`user is not registered`)
+            console.log(`user is not registered`)
         }
-        else if (data.status === 403){
+        if (data.status === 403){
             window.alert(`incorrect password`)
+            console.log(`incorrect password`)
         }
-        else if (data.status === 500){
+        if (data.status === 500){
             window.alert(`Login failure`)
+            console.log(`Login failure`)
         }
         else{
             window.alert('Login successful')
-            console.log("login done")
+            console.log('Login successful')
         }
     }
     return (
