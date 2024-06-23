@@ -5,6 +5,8 @@ const Auth = () => {
     function toggleVisible(){
         setVisible(!visible);
     }
+
+    //signup
     const [user,setUser] = useState({
         name:'',phone:'',email:'',password:'',cpassword:'',
     })
@@ -38,22 +40,25 @@ const Auth = () => {
             window.alert(`please login to enter`);
         }
     }
-    
-    const [email,setEmail] = useState('');
-    const [password,setPassword] = useState('');
-   
+    //login 
+    const [lguser,setLgUser] = useState({
+        email:'',password:'',
+    })
+    const LoginInput = (e) =>{
+        let name = e.target.name;
+        let value = e.target.value;
+        setLgUser({...lguser,[name]:value})
+    }
     const handleLogin = async(e) =>{
         e.preventDefault();
-        const loginuser = await fetch ('http://localhost:4000/login',{
+        const res = await fetch ('http://localhost:4000/login',{
             method:'POST',
             headers :{
                 "Content-Type":"application/json"
             },
-            body:JSON.stringify({
-                email,password
-            })
+            body:JSON.stringify(lguser)
         });
-        const data = loginuser.json();
+        const data = res.json();
         console.log(data.status);
         if (data.status === 400){
             window.alert(`please fill all the details carefully`)
@@ -85,10 +90,10 @@ const Auth = () => {
                             <div class="card" className='w-full'>
                                 <form method='POST' className='bg-transparent flex flex-col gap-3'>
                                     <div class="input-box">
-                                        <input type="email" name="email" id="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required className='bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]'/>
+                                        <input type="email" name="email" id="email" placeholder="Email" value={lguser.email} onChange={LoginInput} required className='bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]'/>
                                     </div>
                                     <div className="input-box">
-                                        <input type="password" name="password" id="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} className='bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]' />
+                                        <input type="password" name="password" id="password" placeholder="Password" value={lguser.password} onChange={LoginInput} className='bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]' />
                                     </div>
                                     <div className="link my-5 text-[#6d6d6d] font-medium "><a>forget password?</a></div>
                                     <div><button type="login" onClick={handleLogin} className='w-8/12 h-10 bg-[#9C6FE4] rounded-lg text-lg font-semibold'><span>Login</span></button></div>
