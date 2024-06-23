@@ -6,15 +6,23 @@ const jwt = require('jsonwebtoken')
 exports.signup = async (req,res) =>{
     try{
         //get all the data
-        const {name,email,password,role} = req.body;
+        const {name,phone,email,password,cpassword} = req.body;
         //check if user exists
         const existingUser = await User.findOne({email})
 
         if (existingUser){
-            return res.status(400).json({
+            console.log(`user exists already`)
+            return res.status(422).json({
                 success:false,
                 message:`user already exists`
             });
+        }
+        
+        if (password != cpassword){
+            return res.status(421).json({
+                success:false,
+                message:`confirm password is different`
+            })
         }
         let hashedPassword;
         try{
@@ -28,7 +36,7 @@ exports.signup = async (req,res) =>{
 
         }
         const user = await User.create({
-            name,email,password:hashedPassword,role
+            name,phone,email,password:hashedPassword
         })
         return res.status(200).json({
             success:true,
@@ -36,7 +44,7 @@ exports.signup = async (req,res) =>{
         });
     }
     catch{
-        console.error(error);
+        console.log(`user not register`);
         return res.status(400).json({
             success:false,
             message:`user cannot be registered, plz try later`
