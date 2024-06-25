@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Auth = () => {
+    const navigate = useNavigate();
     const [visible, setVisible] = useState(true);
     function toggleVisible() {
         setVisible(!visible);
     }
-
     //signup
     const [user, setUser] = useState({
         name: '', phone: '', email: '', password: '', cpassword: '',
@@ -59,6 +59,8 @@ const Auth = () => {
         } else {
             window.alert('Login successful');
             console.log('Login successful');
+            navigate('/Hero')
+
         }
     };
 
