@@ -1,7 +1,7 @@
 const Form = require("../models/ProductForm")
 const { uploadImageToCloudinary } = require("../utils/imageUploader")
 // Function to create a new course
-exports.createCourse = async (req, res) => {
+exports.createProduct = async (req, res) => {
     try {
         // Get user ID from request object
         const userId = req.user.id

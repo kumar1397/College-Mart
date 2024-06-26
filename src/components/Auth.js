@@ -59,7 +59,7 @@ const Auth = () => {
         } else {
             window.alert('Login successful');
             console.log('Login successful');
-            navigate('/Hero')
+            navigate('/Home')
 
         }
     };
