@@ -1,40 +1,89 @@
-// import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Auth = () => {
-    const [visible,setVisible] = useState(true);
-    function toggleVisible(){
+    const navigate = useNavigate();
+    const [visible, setVisible] = useState(true);
+    function toggleVisible() {
         setVisible(!visible);
     }
-    const [user,setUser] = useState({
-        name:"",email:"",phone:"",password:"",cpassword:""
+    //signup
+    const [user, setUser] = useState({
+        name: '', phone: '', email: '', password: '', cpassword: '',
     });
-    const handleInput = (e) =>{
-        console.log(e);
-        name = e.target.name;
-        value = e.target.value;
-        setUser({...user,[name]:value});
-    }
+    const handleInput = (e) => {
+        let name = e.target.name;
+        let value = e.target.value;
+        setUser({ ...user, [name]: value });
+    };
+    const postData = async (e) => {
+        e.preventDefault();
+        console.log("submit clicked");
+        const res = await fetch("http://localhost:4000/signup", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(user),
+        });
+        const data = await res.json();
+        if (res.status === 400 || res.status === 422 || res.status === 421 || res.status === 500) {
+            window.alert(data.message);
+        } else {
+            window.alert(`Registration successful. Please login to enter`);
+        }
+    };
+
+    //login 
+    const [lguser, setLgUser] = useState({
+        email: '', password: '',
+    });
+    const LoginInput = (e) => {
+        let name = e.target.name;
+        let value = e.target.value;
+        setLgUser({ ...lguser, [name]: value });
+    };
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        const res = await fetch('http://localhost:4000/signin', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(lguser)
+        });
+        const data = await res.json();
+        if (res.status === 400 || res.status === 401 || res.status === 403 || res.status === 500) {
+            window.alert(data.message);
+            console.log(data.message);
+        } else {
+            window.alert('Login successful');
+            console.log('Login successful');
+            navigate('/Hero')
+
+        }
+    };
+
     return (
         <div className='w-screen h-screen bg-[#000] flex justify-center items-center'>
             <div className='w-10/12 h-10/12 text-[white] flex flex-row'>
                 <div className='leftdiv w-1/2  h-[80vh]'>
-                    <div className={`login w-full h-full ${visible ? "flex" : "hidden" } flex justify-center items-center bgblackAuth `}>
+                    <div className={`login w-full h-full ${visible ? "flex" : "hidden"} flex justify-center items-center bgblackAuth`}>
                         <div className="w-10/12 h-full flex flex-col gap-12 justify-center">
                             <div className="first flex flex-col">
                                 <span className='text-4xl font-bold'>Login</span>
                                 <span className='text-lg font-md'>Enter your account details</span>
                             </div>
-                            <div class="card" className='w-full'>
+                            <div className='w-full'>
                                 <form method='POST' className='bg-transparent flex flex-col gap-3'>
-                                    <div class="input-box">
-                                        <input type="email" name="email" id="email" placeholder="Email" onChange={(e)=>{setEmail(e.target.value)}} required className='bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]'/>
+                                    <div className="input-box">
+                                        <input type="email" name="email" id="email" placeholder="Email" value={lguser.email} onChange={LoginInput} required className='bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]' />
                                     </div>
                                     <div className="input-box">
-                                        <input type="password" name="password" id="password" placeholder="Password" onChange={(e)=>{setPassword(e.target.value)}} className='bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]' />
+                                        <input type="password" name="password" id="password" placeholder="Password" value={lguser.password} onChange={LoginInput} className='bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]' />
                                     </div>
                                     <div className="link my-5 text-[#6d6d6d] font-medium "><a>forget password?</a></div>
-                                    <div><button id="btn" type="login" className='w-8/12 h-10 bg-[#9C6FE4] rounded-lg text-lg font-semibold'><span>Login</span></button></div>
-
+                                    <div><button type="login" onClick={handleLogin} className='w-8/12 h-10 bg-[#9C6FE4] rounded-lg text-lg font-semibold'><span>Login</span></button></div>
                                 </form>
                             </div>
                             <div className='flex flex-row gap-12 mt-7 items-center'>
@@ -43,35 +92,34 @@ const Auth = () => {
                             </div>
                         </div>
                     </div>
-                    <div className={`bgcolorAuth w-full h-[80vh] ${visible? "hidden " : "block"} `}></div>
+                    <div className={`bgcolorAuth w-full h-[80vh] ${visible ? "hidden " : "block"} `}></div>
                 </div>
                 <div className='rightdiv w-1/2 h-[80vh] '>
-                    <div className={`signup w-full h-full flex justify-center items-center bgblackAuth ${visible? "hidden " : "flex"} transition-all duration-700`}>
+                    <div className={`signup w-full h-full flex justify-center items-center bgblackAuth ${visible ? "hidden " : "flex"} transition-all duration-700`}>
                         <div className="w-10/12 h-full flex flex-col gap-12 justify-center">
                             <div className="first flex flex-col">
                                 <span className='text-4xl font-bold'>Sign Up</span>
                                 <span className='text-lg font-md'>Enter your details</span>
                             </div>
-                            <div class="card" className='w-full'>
-                                <form action="#" className='bg-transparent flex flex-col gap-3'>
-                                    <div class="input-box">
-                                        <input type="name" name="name" id="name" onChange={(e)=>{}} placeholder="Name" required value={user.name} onClick={handleInput} className='bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]'/>
-                                    </div>
-                                    <div class="input-box">
-                                        <input type="number" name="phone" id="phone" placeholder="Phone Number" required value={user.phone} onClick={handleInput} className='bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]'/>
-                                    </div>
-                                    <div class="input-box">
-                                        <input type="email" name="email" id="email" placeholder="Email" required value={user.email} onClick={handleInput} className='bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]'/>
+                            <div className='w-full'>
+                                <form method='POST' className='bg-transparent flex flex-col gap-3'>
+                                    <div className="input-box">
+                                        <input type="name" name="name" id="name" placeholder="Name" required value={user.name} onChange={handleInput} className='bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]' />
                                     </div>
                                     <div className="input-box">
-                                        <input type="password" name="password" id="password" placeholder="Password" value={user.password} onClick={handleInput} className='bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]' />
+                                        <input type="number" name="phone" id="phone" placeholder="Phone Number" required value={user.phone} onChange={handleInput} className='bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]' />
                                     </div>
                                     <div className="input-box">
-                                        <input type="password" name="cpassword" id="cpassword" placeholder="Confirm Password" value={user.cpassword} onClick={handleInput} className='bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]' />
+                                        <input type="email" name="email" id="email" placeholder="Email" required value={user.email} onChange={handleInput} className='bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]' />
+                                    </div>
+                                    <div className="input-box">
+                                        <input type="password" name="password" id="password" placeholder="Password" value={user.password} onChange={handleInput} className='bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]' />
+                                    </div>
+                                    <div className="input-box">
+                                        <input type="password" name="cpassword" id="cpassword" placeholder="Confirm Password" value={user.cpassword} onChange={handleInput} className='bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]' />
                                     </div>
                                     <div className="link my-5 text-[#6d6d6d] font-medium "><a>forget password?</a></div>
-                                    <div><button id="btn" type="login" className='w-8/12 h-10 bg-[#9C6FE4] rounded-lg text-lg font-semibold' >Sign up</button></div>
-
+                                    <div onClick={postData}><button type="signup" className='w-8/12 h-10 bg-[#9C6FE4] rounded-lg text-lg font-semibold'>Sign up</button></div>
                                 </form>
                             </div>
                             <div className='flex flex-row gap-12 mt-7 items-center'>
@@ -80,10 +128,11 @@ const Auth = () => {
                             </div>
                         </div>
                     </div>
-                    <div className={`bgcolorAuth w-full h-[80vh]  ${visible ? "block " : "hidden" } `}></div>
+                    <div className={`bgcolorAuth w-full h-[80vh]  ${visible ? "block " : "hidden"} `}></div>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
+
 export default Auth;

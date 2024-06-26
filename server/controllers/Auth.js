@@ -1,104 +1,106 @@
-const bcrypt = require('bcrypt')
-const User = require('../models/User')
+const express = require('express');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const User = require('../models/User');
 require('dotenv').config();
-const jwt = require('jsonwebtoken')
+const cors = require('cors');
+const app = express();
+app.use(express.json());
+app.use(cors({
+  origin: 'http://localhost:3000', // Your frontend URL
+  credentials: true,
+}));
 
-exports.signup = async (req,res) =>{
-    try{
-        //get all the data
-        const {name,email,password,role} = req.body;
-        //check if user exists
-        const existingUser = await User.findOne({email})
+exports.signup = async (req, res) => {
+    try {
+        const { name, phone, email, password, cpassword } = req.body;
+        const existingUser = await User.findOne({ email });
 
-        if (existingUser){
-            return res.status(400).json({
-                success:false,
-                message:`user already exists`
+        if (existingUser) {
+            console.log(`User already exists`);
+            return res.status(422).json({
+                success: false,
+                message: `User already exists`
             });
         }
-        let hashedPassword;
-        try{
-            hashedPassword = await bcrypt.hash (password,10);
-        }
-        catch{
-            return res.status(500).json({
-                success:false,
-                message:`password hashing failed`
-            })
 
+        if (password !== cpassword) {
+            return res.status(421).json({
+                success: false,
+                message: `Confirm password is different`
+            });
         }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
         const user = await User.create({
-            name,email,password:hashedPassword,role
-        })
-        return res.status(200).json({
-            success:true,
-            message:`user created successfully`,
+            name, phone, email, password: hashedPassword
         });
-    }
-    catch{
-        console.error(error);
-        return res.status(400).json({
-            success:false,
-            message:`user cannot be registered, plz try later`
-        });
-    }
-}
 
-exports.login = async (req,res) =>{
-    try{
-        //fetch email and password from db
-        const {email,password} = req.body;
-        if (!email || !password){
+        return res.status(200).json({
+            success: true,
+            message: `User created successfully`,
+        });
+    } catch (error) {
+        console.log(`User not registered`);
+        return res.status(400).json({
+            success: false,
+            message: `User cannot be registered, please try later`
+        });
+    }
+};
+
+exports.signin = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        if (!email || !password) {
             return res.status(400).json({
-                success:false,
-                message:`please fill all the details carefully`
-            })
+                success: false,
+                message: `Please fill up all the required fields`,
+            });
         }
-        //checking fro registered user
-        const user = await User.findOne({email});
-        //if user is not registered
-        if (!user){
+
+        const user = await User.findOne({ email });
+
+        if (!user) {
             return res.status(401).json({
-                success:false,
-                message:`user is not registered`
-            })
+                success: false,
+                message: `User is not registered with us. Please sign up to continue`,
+            });
         }
-        const payload = {
-            email:user.email,
-            id:user._id,
-            role:user.role,
-        }
-        //verify user password and create jwt token
-        if (await bcrypt.compare(password,user.password)){
-            let token  = jwt.sign(payload,process.env.JWT_SECRET,{expiresIn:"2h"});
-            user =  user.toObject();
-            user.token = token
-            user.password = undefined
+
+        if (await bcrypt.compare(password, user.password)) {
+            const token = jwt.sign(
+                { email: user.email, id: user._id },
+                process.env.JWT_SECRET,
+                { expiresIn: "24h" }
+            );
+
+            user.token = token;
+            user.password = undefined;
+
             const options = {
-                expires:new Date(Date.now() + 3*24*60*60*1000),
-                httpOnly:true,
-            }
-            res.cookie("token",token,options).status(200).json({
-                success:true,
+                expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+                httpOnly: true,
+            };
+
+            res.cookie("token", token, options).status(200).json({
+                success: true,
                 token,
                 user,
-                message:`user logged in successfully`
-            })
+                message: `User login success`,
+            });
+        } else {
+            return res.status(401).json({
+                success: false,
+                message: `Password is incorrect`,
+            });
         }
-        else{
-            return res.status(403).json({
-                success:false,
-                message:`incorrect password`,
-            })
-
-        }
-
-    }
-    catch{
+    } catch (error) {
         console.error(error);
         return res.status(500).json({
-            success:false,
-            message:`Login failure`
+            success: false,
+            message: `Login failure. Please try again`,
         });
     }
-}
+};

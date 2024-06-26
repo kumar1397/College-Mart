@@ -20,6 +20,12 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
+    Products: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "ProductForm",
+        },
+      ],
     
 });
 module.exports = mongoose.model("user",userSchema);

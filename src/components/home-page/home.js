@@ -1,7 +1,6 @@
 import React from 'react'
 import group from './assets/group.png'
 import './App.css';
-// import cardcomponent from './cardcomponent';
 import Cardcomponent from './cardcomponent'
 
 export default function home() {

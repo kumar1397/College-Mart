@@ -9,3 +9,10 @@
 .bgcolorAuth{
     background:url('/public/colorbg.svg ')
 }
+.hnavbg{
+    background: url('/public/hnavbg.svg');
+}
+.herohomebg{
+    background: url('/public/homebg.svg') no-repeat;
+    background-size: 100%;
+}
