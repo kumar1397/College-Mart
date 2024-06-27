@@ -1,8 +1,8 @@
 # College Mart
 Welcome to College-Mart
-This is a premier online marketplace, which connects buyers and sellers on the NIT Rourkela campus. With a vast array of categories including electronics, study materials, personal belongings and more, it offers a user-friendly platform for individuals to buy and sell pre-owned goods. 
+This is a premier online marketplace, which connects buyers and sellers on the NIT Rourkela campus. With a vast array of categories including electronics, study materials, personal belongings and more, it offers a user-friendly platform for students to buy and sell pre-owned goods. 
 
-This App is made using reactjs and css frameworks like tailwing css....
+This App is made using reactjs and css frameworks like tailwing css .It also has a authentication system which can be used to verify the authenticity of the users to make this app usable and spam friendly.
 
 
 
