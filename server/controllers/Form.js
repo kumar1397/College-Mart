@@ -1,83 +1,81 @@
-const Form = require("../models/ProductForm")
-const { uploadImageToCloudinary } = require("../utils/imageUploader")
-// Function to create a new course
-exports.createProduct = async (req, res) => {
-    try {
-        // Get user ID from request object
-        const userId = req.user.id
+const Product = require('../models/Product')
+const cloudinary = require("cloudinary").v2;
+require("dotenv").config();
+function isFileSupported(type,supportedTypes){
+    return supportedTypes.includes(type);
+}
+async function uploadtoCloudinary(file,folder,quality){
+    const options = {folder};   
+    console.log("temp file path",file.tempFilePath)
+    options.resource_type = "auto";
+    if (quality){
+        options.quality = quality;
+    }
+    return await cloudinary.uploader.upload(file.tempFilePath,options);
+}   
 
-        // Get all required fields from request bodys
-        let {
-            ProductName,
-            ProductDescription,
-            price,
-            tag,
-            ProductCondition,
-            BuyDate
+exports.localFileUpload = async(req,res) =>{
+    try{
+        const file = req.files.file;
+        console.log("File incoming",file);
 
-        } = req.body
-        // Get thumbnail image from request files
-        const ProductImage = req.files.ProductImage
+        let path = __dirname + "/files" + Date.now() +'.' + `${file.name.split('.')[1]}`;
+        console.log("path",path);
+        file.mv(path,(err) =>{
+            console.log(err);
+        });
 
-        // Check if any of the required fields are missing
-        if (
-            !ProductName ||
-            !ProductDescription ||
-            !whatYouWillLearn ||
-            !price ||
-            !tag ||
-            !ProductImage ||
-            !ProductCondition ||
-            !BuyDate
+        res.json({
+            success:true,
+            message:"local file uploaded successfully",
+        })
 
-        ) {
-            return res.status(400).json({
-                success: false,
-                message: "All Fields are Mandatory",
-            })
+    }
+    catch(error){
+        console.log(error);
+
+    }
+}
+
+exports.fileUpload = async (req,res) =>{
+    try{
+        const {name,description,buydate,condition,tag} = req.body;
+        const file = req.files.image;
+        if (!file){
+            console.log(`no files were uploaded`);
         }
 
-        // Upload the Thumbnail to Cloudinary
-        const Image = await uploadImageToCloudinary(
-            ProductImage,
-            process.env.FOLDER_NAME
-        )
-        console.log(Image)
-        // Create a new course with the given details
-        const newProduct = await Form.create({
-            ProductName,
-            ProductDescription,
-            price,
-            tag,
-            ProductCondition,
-            BuyDate,
-            ProductImage: Image.secure_url,
+        const supportedTypes = ["jpg","jpeg","png"];
+        const filetype = file.name.split('.')[1].toLowerCase();
+        if (!isFileSupported(filetype,supportedTypes)){
+            return res.status(400).json({
+                success:false,
+                message:`file format not supported. Allowable formats are png,jpg and jpeg`
+            })
+        }
+        
+        console.log(`correct format`)
+        console.log(process.env.FOLDER_NAME)
+        const response = await uploadtoCloudinary(file,process.env.FOLDER_NAME,50);
+        console.log(`file uploaded`);
+        console.log(response);
+        const productdata = await Product.create({
+            name,description,buydate,condition,tag,imgUrl:response.secure_url,
+        }) 
+        console.log(`printing image url`);
+        res.json({
+            successs:true,
+            imgUrl:response.secure_url,
+            message:"image uploaded successfully"
         })
 
-        // Add the new course to the User Schema of the Instructor
-        await User.findByIdAndUpdate(
-            {
-                _id: userId,
-            },
-            {
-                $push: {
-                    Products: newProduct._id,
-                },
-            },
-            { new: true }
-        )
-        res.status(200).json({
-            success: true,
-            data: newCourse,
-            message: "Course Created Successfully",
+    }
+    catch(error){
+        console.error(error);
+        res.status(400).json({
+            success:false,
+            message:`something went wrong`
         })
-    } catch (error) {
-        // Handle any errors that occur during the creation of the course
-        console.error(error)
-        res.status(500).json({
-            success: false,
-            message: "Failed to create course",
-            error: error.message,
-        })
+
     }
 }

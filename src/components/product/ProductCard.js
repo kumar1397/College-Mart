@@ -8,6 +8,7 @@ function ProductFormCard() {
     image: '',
     name: '',
     buyDate: '',
+    tag:'',
     condition: '',
     details: '',
     price: ''
@@ -16,24 +17,35 @@ function ProductFormCard() {
   // Function to handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    console.log(name,value);
     setProduct({ ...product, [name]: value });
   };
 
   // Function to handle image upload
   const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setProduct({ ...product, image: reader.result });
-    };
-    reader.readAsDataURL(file);
+    const { name, value } = e.target;
+    const newvalue = value.split('\\')[2];
+    console.log(name,value,newvalue);
+    setProduct({ ...product, [name]: newvalue });
   };
 
   // Function to handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    // You can handle form submission logic here, such as sending data to an API
-    console.log(product);
+    // console.log(product);
+    const res = await fetch("http://localhost:4000/upload/fileupload", {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json"
+      },
+      body: JSON.stringify(product),
+  });
+  const data = await res.json();
+  if (res.status === 400) {
+      window.alert(data.message);
+  } else {
+      window.alert(`file uploaded`);
+  }
   };
 
   return (
@@ -54,7 +66,7 @@ function ProductFormCard() {
 
         {/* Right section for product form */}
         <div className="w-full lg:w-1/2 bg-[#8C52FF]  p-8 ">
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form method="POST" onSubmit={handleSubmit} className="space-y-6">
             <h2 className="text-2xl font-semibold mb-6 text-white">Upload Product</h2>
 
             {/* Upload Image section */}
@@ -62,7 +74,6 @@ function ProductFormCard() {
               <label htmlFor="image" className="block text-sm font-semibold mb-1 text-white">Product Image</label>
               <input
                 type="file"
-                id="image"
                 name="image"
                 onChange={handleImageUpload}
                 className="w-full px-3 py-2 border border-gray-300 text-gray-500 bg-gray-200 rounded-md focus:outline-none focus:border-blue-500"
@@ -85,7 +96,23 @@ function ProductFormCard() {
               />
             </div>
 
-            {/* Buy Date and Condition section */}
+
+            {/* Product Condition section */}
+            <div>
+              <label htmlFor="condition" className="block text-sm font-semibold mb-1 text-white">Product Condition</label>
+              <input
+                type="text"
+                id="condition"
+                name="condition"
+                value={product.condition}
+                onChange={handleInputChange}
+                placeholder="Enter product condition"
+                className="w-full px-3 py-2 border bg-gray-200  border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                required
+              />
+            </div>
+
+            {/* Buy Date and tag section */}
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label htmlFor="buyDate" className="block text-sm font-semibold mb-1 text-white">Buy Date</label>
@@ -100,20 +127,20 @@ function ProductFormCard() {
                 />
               </div>
               <div>
-                <label htmlFor="condition" className="block text-sm font-semibold text-white mb-1">Condition</label>
+                <label htmlFor="tag" className="block text-sm font-semibold text-white mb-1">Tag</label>
                 <select
-                  id="condition"
-                  name="condition"
-                  value={product.condition}
+                  id="tag"
+                  name="tag"
+                  value={product.tag}
                   onChange={handleInputChange}
                   className="w-full px-3 py-[8.9px] border text-sm  border-gray-300 rounded-md bg-gray-200  focus:outline-none focus:border-blue-500"
                   required
                 >
                   <option value="">Select condition</option>
-                  <option value="New">New</option>
-                  <option value="Used - Like New">Used - Like New</option>
-                  <option value="Used - Good">Used - Good</option>
-                  <option value="Used - Fair">Used - Fair</option>
+                  <option value="electronics">Electronics</option>
+                  <option value="study materials">Study materials</option>
+                  <option value="personal material">Personal material</option>
+                  <option value="miscellaneous">Miscellaneous</option>
                 </select>
               </div>
             </div>
