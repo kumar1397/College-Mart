@@ -1,21 +1,37 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Auth = () => {
     const navigate = useNavigate();
     const [visible, setVisible] = useState(true);
-    function toggleVisible() {
+
+    const toggleVisible = () => {
         setVisible(!visible);
-    }
-    //signup
+    };
+
+    const notify = (message, type) => {
+        if (type === 'error') {
+            toast.error(message);
+        } else {
+            toast.success(message);
+        }
+    };
+
+    // Signup state
     const [user, setUser] = useState({
         name: '', phone: '', email: '', password: '', cpassword: '',
     });
+
+    // Handle input change for signup
     const handleInput = (e) => {
         let name = e.target.name;
         let value = e.target.value;
         setUser({ ...user, [name]: value });
     };
+
+    // Signup function
     const postData = async (e) => {
         e.preventDefault();
         console.log("submit clicked");
@@ -26,23 +42,29 @@ const Auth = () => {
             },
             body: JSON.stringify(user),
         });
+
         const data = await res.json();
+
         if (res.status === 400 || res.status === 422 || res.status === 421 || res.status === 500) {
-            window.alert(data.message);
+            notify(data.message, 'error');
         } else {
-            window.alert(`Registration successful. Please login to enter`);
+            notify('Registration successful. Please login to enter', 'success');
         }
     };
 
-    //login 
+    // Login state
     const [lguser, setLgUser] = useState({
         email: '', password: '',
     });
+
+    // Handle input change for login
     const LoginInput = (e) => {
         let name = e.target.name;
         let value = e.target.value;
         setLgUser({ ...lguser, [name]: value });
     };
+
+    // Login function
     const handleLogin = async (e) => {
         e.preventDefault();
         const res = await fetch('http://localhost:4000/signin', {
@@ -52,15 +74,16 @@ const Auth = () => {
             },
             body: JSON.stringify(lguser)
         });
-        const data = await res.json();
-        if (res.status === 400 || res.status === 401 || res.status === 403 || res.status === 500) {
-            window.alert(data.message);
-            console.log(data.message);
-        } else {
-            window.alert('Login successful');
-            console.log('Login successful');
-            navigate('/Home')
 
+        const data = await res.json();
+
+        if (res.status === 400 || res.status === 401 || res.status === 403 || res.status === 500) {
+            notify(data.message, 'error');
+        } else {
+            notify('Login successful', 'success');
+            setTimeout(() => {
+                navigate('/home');
+            }, 2000);
         }
     };
 
@@ -82,7 +105,7 @@ const Auth = () => {
                                     <div className="input-box">
                                         <input type="password" name="password" id="password" placeholder="Password" value={lguser.password} onChange={LoginInput} className='bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]' />
                                     </div>
-                                    <div className="link my-5 text-[#6d6d6d] font-medium "><a>forget password?</a></div>
+                                    <div className="link my-5 text-[#6d6d6d] font-medium cursor-pointer "><a>forget password?</a></div>
                                     <div><button type="login" onClick={handleLogin} className='w-8/12 h-10 bg-[#9C6FE4] rounded-lg text-lg font-semibold'><span>Login</span></button></div>
                                 </form>
                             </div>
@@ -118,7 +141,7 @@ const Auth = () => {
                                     <div className="input-box">
                                         <input type="password" name="cpassword" id="cpassword" placeholder="Confirm Password" value={user.cpassword} onChange={handleInput} className='bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]' />
                                     </div>
-                                    <div className="link my-5 text-[#6d6d6d] font-medium "><a>forget password?</a></div>
+                                    <div className="link my-5 text-[#6d6d6d] font-mediumn cursor-pointer "><a>forget password?</a></div>
                                     <div onClick={postData}><button type="signup" className='w-8/12 h-10 bg-[#9C6FE4] rounded-lg text-lg font-semibold'>Sign up</button></div>
                                 </form>
                             </div>
@@ -131,6 +154,7 @@ const Auth = () => {
                     <div className={`bgcolorAuth w-full h-[80vh]  ${visible ? "block " : "hidden"} `}></div>
                 </div>
             </div>
+            <Toaster />
         </div>
     );
 };
