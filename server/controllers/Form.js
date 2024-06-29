@@ -40,10 +40,8 @@ exports.localFileUpload = async(req,res) =>{
 exports.fileUpload = async (req,res) =>{
     try{
         const {name,description,buydate,condition,tag} = req.body;
-        const file = req.files.image;
-        if (!file){
-            console.log(`no files were uploaded`);
-        }
+        const file = req.files.filename;
+
 
         const supportedTypes = ["jpg","jpeg","png"];
         const filetype = file.name.split('.')[1].toLowerCase();

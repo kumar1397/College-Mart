@@ -5,10 +5,10 @@ import VerticalCarousel from './crousal';
 
 function ProductFormCard() {
   const [product, setProduct] = useState({
-    image: '',
+    filename: '',
     name: '',
     buyDate: '',
-    tag:'',
+    tag: '',
     condition: '',
     details: '',
     price: ''
@@ -17,7 +17,7 @@ function ProductFormCard() {
   // Function to handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(name,value);
+    console.log(name, value);
     setProduct({ ...product, [name]: value });
   };
 
@@ -25,27 +25,27 @@ function ProductFormCard() {
   const handleImageUpload = (e) => {
     const { name, value } = e.target;
     const newvalue = value.split('\\')[2];
-    console.log(name,value,newvalue);
+    console.log(name, value, newvalue);
     setProduct({ ...product, [name]: newvalue });
   };
 
   // Function to handle form submission
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(product);
     const res = await fetch("http://localhost:4000/upload/fileupload", {
       method: "POST",
       headers: {
-          "Content-Type": "application/json"
+        "Content-Type": "multipart/form-data"
       },
       body: JSON.stringify(product),
-  });
-  const data = await res.json();
-  if (res.status === 400) {
+    });
+    const data = await res.json();
+    if (res.status === 400) {
       window.alert(data.message);
-  } else {
+    } else {
       window.alert(`file uploaded`);
-  }
+    }
   };
 
   return (
@@ -53,7 +53,7 @@ function ProductFormCard() {
       <div className="w-full md:w-[90%] mx-auto bg-white shadow-lg rounded-lg overflow-hidden flex flex-col lg:flex-row my-2">
         {/* Left section for product rules */}
         <div className="w-full h-[400px] lg:h-auto lg:w-1/2 p-4 bg-gray-800 text-white flex flex-col items-center">
-        <VerticalCarousel/>
+          <VerticalCarousel />
           <h2 className="text-2xl font-semibold mb-4 text-red-500">Product Selling Rules</h2>
           <ul className="list-disc pl-5">
             <li>Products must be in good condition.</li>
@@ -74,7 +74,7 @@ function ProductFormCard() {
               <label htmlFor="image" className="block text-sm font-semibold mb-1 text-white">Product Image</label>
               <input
                 type="file"
-                name="image"
+                name="filename"
                 onChange={handleImageUpload}
                 className="w-full px-3 py-2 border border-gray-300 text-gray-500 bg-gray-200 rounded-md focus:outline-none focus:border-blue-500"
                 required
