@@ -1,6 +1,7 @@
 import Auth from './components/Auth'
 import Home from './components/home-page/Home'
 import Hero from './components/Hero'
+
 import { Route, Routes,BrowserRouter as Router } from 'react-router-dom';
 import ProductFormCard from './components/product/ProductCard';
 import Profile from './components/profile/profile'
