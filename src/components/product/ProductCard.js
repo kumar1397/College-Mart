@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import VerticalCarousel from './crousal';
-
+import InfiniteScrollContainer from './newcrousal';
 function ProductFormCard() {
   const [product, setProduct] = useState({
     filename: '',
@@ -52,16 +52,10 @@ function ProductFormCard() {
     <div className="bg-black h-screen w-full flex justify-center items-center">
       <div className="w-full md:w-[90%] mx-auto bg-white shadow-lg rounded-lg overflow-hidden flex flex-col lg:flex-row my-2">
         {/* Left section for product rules */}
-        <div className="w-full h-[400px] lg:h-auto lg:w-1/2 p-4 bg-gray-800 text-white flex flex-col items-center">
-          <VerticalCarousel />
-          <h2 className="text-2xl font-semibold mb-4 text-red-500">Product Selling Rules</h2>
-          <ul className="list-disc pl-5">
-            <li>Products must be in good condition.</li>
-            <li>Provide accurate product details.</li>
-            <li>Upload clear and high-quality product images.</li>
-            <li>Set a reasonable price for your product.</li>
-            <li>Ensure timely delivery after purchase.</li>
-          </ul>
+        <div className="w-full h-[400px] lg:h-auto lg:w-1/2 p-4 bg-gray-800 text-white flex justify-around flex-col items-center">
+          <div  className='bg-red-400 w-full'>
+        <InfiniteScrollContainer/>
+        </div>
         </div>
 
         {/* Right section for product form */}

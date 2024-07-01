@@ -49,6 +49,9 @@ const Auth = () => {
             notify(data.message, 'error');
         } else {
             notify('Registration successful. Please login to enter', 'success');
+            setTimeout(() => {
+                toggleVisible();
+              }, 2000);
         }
     };
 
