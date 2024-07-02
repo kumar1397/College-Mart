@@ -17,8 +17,8 @@ const products = [
 
 const ProductList = () => {
   return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Products</h2>
+    <div className="container mx-auto p-4 mt-12">
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {products.map(product => (
           <ProductCard key={product.id} product={product} />
