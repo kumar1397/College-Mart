@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+
 
 const Navbar = () => {
   // State to manage the navbar's visibility
@@ -13,27 +13,20 @@ const Navbar = () => {
 
   // Array containing navigation items
   const navItems = [
-    { id: 1, text: 'HOME' },
-    { id: 2, text: 'SHOP' },
-    { id: 3, text:  'BLOG' },
-    { id: 4, text: 'ABOUT ' },
-    { id: 5, text: 'CONTACT' },
+    { id: 1, text: 'Home' },
+    { id: 2, text: 'Company' },
+    { id: 3, text: 'Resources' },
+    { id: 4, text: 'About' },
+    { id: 5, text: 'Contact' },
   ];
 
   return (
-    <div className='bg-[#925FE2] flex justify-between items-center h-24 mx-auto px-4 text-white w-full fixed md:h-52 '>
-     {/* <img src="/collegermart-high-resolution-logo-white-transparent.svg" alt="Logo" className=' w-44 h-36' /> */}
-      <div className="flex flex-col justify-center bg-[#925FE2] mx-24 my-auto">
-          <div className="font-semibold flex items-center uppercase">
-            <div className="w-10 h-[2px] mr-3 bg-cyan-700"></div>The
-          </div>
-          <h1 className="uppercase text-[55px] md:text-[40px] leading-[1.1] font-semibold mb-4">College Mart <br />
-            <span className="font-light">one stop solution</span></h1>
-          <Link to={'/'} className='self-start uppercase font-semibold border-b-2 border-primary'>Discover More</Link>
-        </div>
+    <div className='bg-[#925FE2] shadow-lg flex justify-between items-center h-24 w-full mx-auto px-4 text-white fixed'>
+      {/* Logo */}
+      <h1 className="text-3xl font-bold text-white font-sans">COLLEGE MART</h1>
 
       {/* Desktop Navigation */}
-      <ul className='hidden md:flex -mt-32'>
+      <ul className='hidden md:flex'>
         {navItems.map(item => (
           <li
             key={item.id}

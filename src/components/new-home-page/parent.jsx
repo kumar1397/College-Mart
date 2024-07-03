@@ -10,7 +10,7 @@ function Home02() {
   return (
     <div className="min-h-screen flex flex-col relative ">
      <Navbar/>
-      <main className="flex-grow mt-36 ">
+      <main className="flex-grow mt-28 ">
        
 
         {/* <div className="flex flex-col justify-center bg-[#925FE2]">
