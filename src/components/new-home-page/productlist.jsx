@@ -37,27 +37,26 @@ const ProductList = () => {
 
   return (
     <div className="container mx-auto p-4 mt-12">
-      <div className="mb-4">
-        <h2 className="text-2xl font-bold mb-2">Filter Products</h2>
-        <div className="flex space-x-4">
+      <div className=" shadow-md rounded-lg h-fit  mb-6 fixed  px-2 ">
+        <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0 sm:space-x-4">
           <input
             type="number"
             placeholder="Min Price"
             value={minPrice}
             onChange={(e) => setMinPrice(e.target.value)}
-            className="border p-2 rounded"
+            className="border p-2 rounded w-full sm:w-1/3 "
           />
           <input
             type="number"
             placeholder="Max Price"
             value={maxPrice}
             onChange={(e) => setMaxPrice(e.target.value)}
-            className="border p-2 rounded"
+            className="border p-2 rounded w-full sm:w-1/3"
           />
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="border p-2 rounded"
+            className="border p-2 rounded w-full sm:w-1/3"
           >
             <option value="">All Categories</option>
             {categories.map(category => (
@@ -66,13 +65,13 @@ const ProductList = () => {
           </select>
           <button
             onClick={handleFilter}
-            className="bg-blue-500 text-white p-2 rounded"
+            className="bg-[#925FE2] text-white p-2 rounded w-full text-sm sm:w-auto "
           >
             Apply Filter
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-14">
         {filteredProducts.map(product => (
           <ProductCard key={product.id} product={product} />
         ))}
