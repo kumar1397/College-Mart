@@ -11,6 +11,7 @@
 }
 .hnavbg{
     background: url('/public/hnavbg.svg');
+    background-size: 100%;
 }
 .herohomebg{
     background: url('/public/homebg.svg') no-repeat;
