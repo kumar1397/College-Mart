@@ -36,27 +36,27 @@ const ProductList = () => {
   };
 
   return (
-    <div className="container mx-auto p-4 mt-12">
-      <div className=" shadow-md rounded-lg h-fit  mb-6 fixed  px-2 ">
+    <div className="container mx-auto p-4 mt-9 cursor-pointer   ">
+      <div className=" shadow-md rounded-lg h-fit  mb-6   fixed  px-2  ">
         <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0 sm:space-x-4">
           <input
             type="number"
             placeholder="Min Price"
             value={minPrice}
             onChange={(e) => setMinPrice(e.target.value)}
-            className="border p-2 rounded w-full sm:w-1/3 "
+            className="border p-2 rounded w-full   sm:w-1/3  "
           />
           <input
             type="number"
             placeholder="Max Price"
             value={maxPrice}
             onChange={(e) => setMaxPrice(e.target.value)}
-            className="border p-2 rounded w-full sm:w-1/3"
+            className="border p-2 rounded w-full  sm:w-1/3 "
           />
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="border p-2 rounded w-full sm:w-1/3"
+            className="border p-2 rounded w-full sm:w-1/3 cursor-pointer"
           >
             <option value="">All Categories</option>
             {categories.map(category => (
@@ -65,18 +65,19 @@ const ProductList = () => {
           </select>
           <button
             onClick={handleFilter}
-            className="bg-[#925FE2] text-white p-2 rounded w-full text-sm sm:w-auto "
+            className="bg-[#925FE2] text-white p-2 rounded w-full text-sm sm:w-auto cursor-pointer"
           >
             Apply Filter
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-14">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-14 cursor-pointer">
         {filteredProducts.map(product => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
     </div>
+ 
   );
 };
 

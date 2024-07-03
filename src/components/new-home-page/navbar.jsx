@@ -21,7 +21,7 @@ const Navbar = () => {
   ];
 
   return (
-    <div className='bg-[#925FE2] shadow-lg flex justify-between items-center h-24 w-full mx-auto px-4 text-white fixed'>
+    <div className='bg-[#925FE2] shadow-lg flex justify-between items-center h-20 w-full mx-auto px-4 text-white fixed'>
       {/* Logo */}
       <h1 className="text-3xl font-bold text-white font-sans">COLLEGE MART</h1>
 
