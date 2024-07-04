@@ -14,7 +14,7 @@ const ProductCard = ({ product }) => {
       <p className="text-gray-600">{product.price}</p>
       
       {showDetails && (
-        <div className="mt-4 cursor-pointer">
+        <div className="mt-4 cursor-pointer transition-transform duration-300 ease-in-out">
           <p><strong>Description:</strong> {product.description}</p>
           <p><strong>Buy Date:</strong> {product.buyDate}</p>
           <p><strong>Condition:</strong> {product.condition}</p>

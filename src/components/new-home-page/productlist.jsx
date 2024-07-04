@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect } from 'react';
 import ProductCard from './productcard';
 
 const products = [
@@ -15,6 +15,7 @@ const products = [
   { id: 11, name: 'Product 11', price: 1100, image: 'https://via.placeholder.com/200', description: 'Description of Product 11', buyDate: '2023-11-01', condition: 'New', category: 'Bedding' },
   { id: 12, name: 'Product 12', price: 1200, image: 'https://via.placeholder.com/200', description: 'Description of Product 12', buyDate: '2023-12-01', condition: 'Refurbished', category: 'Cycle' },
 ];
+
 
 const categories = ["Electronics", "Study materials", "Clothing", "Bedding", "Cycle", "Entertainment", "Miscellaneous"];
 
@@ -34,11 +35,18 @@ const ProductList = () => {
     });
     setFilteredProducts(filtered);
   };
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+
 
   return (
-    <div className="container mx-auto p-4 mt-9 cursor-pointer   ">
-      <div className=" shadow-md rounded-lg h-fit  mb-6   fixed  px-2  ">
-        <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0 sm:space-x-4">
+    <div className="container mx-auto p-4 mt-9 cursor-pointer    ">
+      <div className=" shadow-md rounded-lg h-fit  mb-6  px-2 w-full  items-center flex   ">
+        <div className="flex flex-col sm:flex-row justify-between h-fit items-center w-full  space-y-4 sm:space-y-0 sm:space-x-">
           <input
             type="number"
             placeholder="Min Price"
@@ -51,7 +59,7 @@ const ProductList = () => {
             placeholder="Max Price"
             value={maxPrice}
             onChange={(e) => setMaxPrice(e.target.value)}
-            className="border p-2 rounded w-full  sm:w-1/3 "
+            className="border-[#925FE2] p-2 rounded w-full   sm:w-1/3 "
           />
           <select
             value={selectedCategory}
@@ -71,11 +79,16 @@ const ProductList = () => {
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-14 cursor-pointer">
-        {filteredProducts.map(product => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-14 cursor-pointer ">
+      {filteredProducts.map(product => (
+        <div
+          key={product.id}
+          className={`transition-opacity duration-700 ${isMounted ? 'opacity-100' : 'opacity-0'} hover:scale-105 `}
+        >
+          <ProductCard product={product} />
+        </div>
+      ))}
+    </div>
     </div>
  
   );
