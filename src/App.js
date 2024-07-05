@@ -1,6 +1,5 @@
 import Auth from './components/Auth'
-import Home from './components/home-page/Home'
-import Hero from './components/Hero'
+import Hero from './components/hero/Hero'
 import Home02 from './components/new-home-page/parent';
 
 

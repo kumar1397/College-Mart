@@ -1,16 +1,12 @@
 import React from 'react'
 import Heronavbar from './Heronavbar'
-import { FaInstagram } from "react-icons/fa6";
-import { FaTwitter } from "react-icons/fa";
-import { FaGooglePlusG } from "react-icons/fa6";
-import { FaFacebookF } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
-import { FaGithub } from "react-icons/fa";
-import { FaLinkedinIn } from "react-icons/fa";
+import { FaInstagram , FaGooglePlusG } from "react-icons/fa6";
+import { FaTwitter , FaGithub , FaLinkedinIn , FaFacebookF } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import AutoPlay from './Carousel';
 const Hero = () => {
   return (
-    <div>
+    <div className='overflow-x-hidden scroll-auto' >
       <Heronavbar />
       <div className='herohomebg w-stretch h-[50vh] flex justify-center text-white'>
         <div className="flex flex-col justify-center">
@@ -27,6 +23,7 @@ const Hero = () => {
         <span className='text-xl font-medium px-7 pt-4 mont'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi nisi esse vitae necessitatibus quasi tempora itaque. At rem illo omnis placeat, quasi voluptates! Modi, quo quia vitae mollitia nam molestiae, quae alias nostrum itaque illo recusandae eius, pariatur eos. Accusamus pariatur quia deleniti corporis blanditiis? Consequatur voluptatem sunt ipsum iure facere quod, culpa rerum ullam!lore
         </span>
       </div>
+      <AutoPlay/>
       <div className='flex flex-row items-center h-[15vh] w-full justify-around bg-black'>
         <div className='w-1/2 flex flex-col justify-center items-center text-[#f5f5f5] '>
           <span className='text-3xl font-bold playwrite'>College Mart</span>

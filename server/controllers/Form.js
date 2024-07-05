@@ -54,7 +54,7 @@ exports.fileUpload = async (req,res) =>{
         
         console.log(`correct format`)
         console.log(process.env.FOLDER_NAME)
-        const response = await uploadtoCloudinary(file,process.env.FOLDER_NAME,50);
+        const response = await uploadtoCloudinary(file,process.env.FOLDER_NAME,70);
         console.log(`file uploaded`);
         console.log(response);
         const productdata = await Product.create({
