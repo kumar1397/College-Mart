@@ -27,7 +27,7 @@ const FormPage = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="w-full max-w-2xl p-8 bg-white shadow-lg rounded-lg">
+      <div className="w-full max-w-2xl p-8 bg-blue-50 shadow-lg rounded-lg">
         <h2 className="text-4xl font-bold mb-8 text-center text-blue-600">Sell Your Item</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-6">
