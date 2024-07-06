@@ -25,6 +25,7 @@ const ProductList = () => {
   const [maxPrice, setMaxPrice] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
 
+
   const handleFilter = () => {
     const filtered = products.filter(product => {
       return (

@@ -20,7 +20,7 @@ const Hero = () => {
       </div>
       <div className='bg-[#D9D9D9] w-full h-[50vh] flex flex-col pt-7'>
         <div className='flex justify-center text-[40px] font-bold exo'>About Us</div>
-        <span className='text-xl font-medium px-7 pt-4 mont'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi nisi esse vitae necessitatibus quasi tempora itaque. At rem illo omnis placeat, quasi voluptates! Modi, quo quia vitae mollitia nam molestiae, quae alias nostrum itaque illo recusandae eius, pariatur eos. Accusamus pariatur quia deleniti corporis blanditiis? Consequatur voluptatem sunt ipsum iure facere quod, culpa rerum ullam!lore
+        <span className='text-xl font-medium px-7 pt-4 mont'>Welcome to College Mart, your go-to open marketplace exclusively for college students! Here at College Mart, we understand the unique needs and budgets of students. Our platform is designed to make buying and selling items easier, safer, and more affordable. Whether you’re looking to offload textbooks from last semester, find stylish dorm decor, or snag a great deal on a used laptop, College Mart is here to help. Join our community today and experience the convenience of student-to-student commerce.
         </span>
       </div>
       <AutoPlay/>
