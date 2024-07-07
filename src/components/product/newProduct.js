@@ -1,57 +1,128 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 
-const FileUploadForm = () => {
+const FormPage = () => {
   const [formData, setFormData] = useState({
     name: '',
     description: '',
-    buydate: '',
+    date: '',
     price: '',
     tag: '',
+    category: '',
+    images: [],
   });
-  const [file, setFile] = useState(null);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+  const handleImageChange = (e) => {
+    setFormData({ ...formData, images: [...e.target.files] });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const data = new FormData();
-    data.append('name', formData.name);
-    data.append('description', formData.description);
-    data.append('buydate', formData.buydate);
-    data.append('price', formData.price);
-    data.append('tag', formData.tag);
-    data.append('filename', file);
-
-    try {
-      const response = await axios.post('http://localhost:4000/upload/fileupload', data, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
-    }
+    // Handle form submission logic here
+    console.log(formData);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name" />
-      <input type="text" name="description" value={formData.description} onChange={handleChange} placeholder="Description" />
-      <input type="date" name="buydate" value={formData.buydate} onChange={handleChange} placeholder="Buy Date" />
-      <input type="number" name="price" value={formData.price} onChange={handleChange} placeholder="Price" />
-      <input type="text" name="tag" value={formData.tag} onChange={handleChange} placeholder="Tag" />
-      <input type="file" name="filename" onChange={handleFileChange} />
-      <button type="submit">Submit</button>
-    </form>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="w-full max-w-2xl p-8 bg-blue-50 shadow-lg rounded-lg">
+        <h2 className="text-4xl font-bold mb-8 text-center text-blue-600">Sell Your Item</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700">Name</label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="mt-1 block w-full p-4 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              required
+            />
+          </div>
+
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700">Description</label>
+            <textarea
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              className="mt-1 block w-full p-4 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              required
+            />
+          </div>
+
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700">Date</label>
+            <input
+              type="date"
+              name="date"
+              value={formData.date}
+              onChange={handleChange}
+              className="mt-1 block w-full p-4 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              required
+            />
+          </div>
+
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700">Price</label>
+            <input
+              type="number"
+              name="price"
+              value={formData.price}
+              onChange={handleChange}
+              className="mt-1 block w-full p-4 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              required
+            />
+          </div>
+
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700">Tag</label>
+            <input
+              type="text"
+              name="tag"
+              value={formData.tag}
+              onChange={handleChange}
+              className="mt-1 block w-full p-4 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              required
+            />
+          </div>
+
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700">Category</label>
+            <input
+              type="text"
+              name="category"
+              value={formData.category}
+              onChange={handleChange}
+              className="mt-1 block w-full p-4 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              required
+            />
+          </div>
+
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700">Upload Images</label>
+            <input
+              type="file"
+              name="images"
+              onChange={handleImageChange}
+              className="mt-1 block w-full p-4 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              multiple
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="mt-8 w-full py-4 bg-blue-600 text-white font-bold rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
   );
 };
 
-export default FileUploadForm;
+export default FormPage;

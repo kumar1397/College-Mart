@@ -1,3 +1,4 @@
+
 import Auth from "./components/Auth";
 import Hero from "./components/hero/Hero";
 import Home02 from "./components/new-home-page/parent";
@@ -6,6 +7,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import ProductFormCard from "./components/product/newProduct";
 import Profile from "./components/profile/profile";
+
 function App() {
   return (
     <div>

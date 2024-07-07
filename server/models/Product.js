@@ -1,5 +1,11 @@
 const mongoose = require("mongoose");
 
+const imageSchema = new mongoose.Schema({
+  url:{
+    type:String,
+    required:true,
+  }
+})
 const formSchema = new mongoose.Schema({
     name: { 
       type: String,
@@ -17,9 +23,7 @@ const formSchema = new mongoose.Schema({
       enum:["Electronics","Study materials","Clothing","Bedding","Cycle","Entertainment","Miscellaneous"],
       type: String, 
     },
-    imgUrl: {
-      type: String,
-    },
+    imgUrl: [imageSchema]
    
 })
 

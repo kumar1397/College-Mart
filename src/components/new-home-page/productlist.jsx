@@ -25,6 +25,7 @@ const ProductList = () => {
   const [maxPrice, setMaxPrice] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
 
+
   const handleFilter = () => {
     const filtered = products.filter(product => {
       return (
@@ -79,11 +80,11 @@ const ProductList = () => {
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-14 cursor-pointer ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-14 cursor-pointer  ">
       {filteredProducts.map(product => (
         <div
           key={product.id}
-          className={`transition-opacity duration-700 ${isMounted ? 'opacity-100' : 'opacity-0'} hover:scale-105 `}
+          className={`transition-opacity duration-700 ${isMounted ? 'opacity-100' : 'opacity-0'} `}
         >
           <ProductCard product={product} />
         </div>
