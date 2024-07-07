@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu, AiOutlineUser, AiOutlineLogout } from "react-icons/ai";
-import { FaShoppingCart } from "react-icons/fa";
 import AuthContext from "../../contexts/AuthContext";
 
 const Navbar = () => {
@@ -9,10 +9,10 @@ const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const navItems = [
-    { id: 1, text: "Home" },
-    { id: 2, text: "Products" },
-    { id: 3, text: "Add Products" },
-    { id: 4, text: "Cart" },
+    { id: 1, text: "Home", path: "/" },
+    { id: 2, text: "Products", path: "/products" },
+    { id: 3, text: "Add Products", path: "/add-products" },
+    { id: 4, text: "Cart", path: "/cart" },
   ];
 
   const handleNav = () => setNav(!nav);
@@ -22,7 +22,7 @@ const Navbar = () => {
     <div className="bg-[#925FE2] shadow-lg flex justify-between z-20 items-center h-20 w-full px-6 text-white fixed">
       <div className="flex items-center space-x-2">
         <img
-          src="https://via.placeholder.com/40" 
+          src="https://via.placeholder.com/40" // Replace with your logo URL
           alt="Logo"
           className="h-10 w-10"
         />
@@ -35,7 +35,7 @@ const Navbar = () => {
             key={item.id}
             className="p-4 hover:bg-white rounded-xl m-2 cursor-pointer duration-300 hover:text-black"
           >
-            {item.text}
+            <Link to={item.path}>{item.text}</Link>
           </li>
         ))}
       </ul>
@@ -55,7 +55,7 @@ const Navbar = () => {
             key={item.id}
             className="p-4 border-b rounded-xl hover:bg-[#00df9a] duration-300 hover:text-black cursor-pointer border-gray-600"
           >
-            {item.text}
+            <Link to={item.path}>{item.text}</Link>
           </li>
         ))}
       </ul>
@@ -94,13 +94,13 @@ const Navbar = () => {
               >
                 <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
                   <li>
-                    <a
-                      href="/profile" // Replace with the actual profile URL
+                    <Link
+                      to="/home/profile"
                       className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left flex items-center"
                     >
                       <AiOutlineUser className="mr-2" />
                       Profile
-                    </a>
+                    </Link>
                   </li>
                   <li>
                     <button
@@ -116,13 +116,13 @@ const Navbar = () => {
             )}
           </>
         ) : (
-          <a
-            href="/login"
+          <Link
+            to="/login"
             className="flex items-center px-5 py-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 text-sm font-medium rounded-lg dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             <AiOutlineUser className="mr-2" />
             Login
-          </a>
+          </Link>
         )}
       </div>
     </div>
