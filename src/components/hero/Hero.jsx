@@ -10,7 +10,7 @@ const Hero = () => {
   return (
     <div className='overflow-x-hidden scroll-auto' >
       <Heronavbar />
-      <div className='herohomebg w-stretch h-[50vh] flex justify-center text-white'>
+      <div className='herohomebg w-stretch h-[50vh] flex justify-center text-white mt-16'>
         <div className="flex flex-col justify-center">
           <div className="font-semibold flex items-center uppercase">
             <div className="w-10 h-[2px] mr-3 bg-cyan-700"></div>The
