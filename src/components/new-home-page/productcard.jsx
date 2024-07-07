@@ -8,13 +8,13 @@ const ProductCard = ({ product }) => {
   };
 
   return (
-    <div className="border p-4 shadow-md  rounded-lg hover:shadow-lg   " onClick={handleClick}>
+    <div className="border p-4 shadow-md  rounded-lg hover:shadow-lg hover:scale-105  hover:bg-[#aa8cda] hover:sticky  " onClick={handleClick}>
       <img src={product.image} alt={product.name} className="w-full h-48 object-cover" />
       <h2 className="text-xl font-bold mt-2">{product.name}</h2>
       <p className="text-gray-600">{product.price}</p>
       
       {showDetails && (
-        <div className="mt-4 cursor-pointer transition-transform duration-300 ease-in-out">
+        <div className="mt-4 cursor-pointer ">
           <p><strong>Description:</strong> {product.description}</p>
           <p><strong>Buy Date:</strong> {product.buyDate}</p>
           <p><strong>Condition:</strong> {product.condition}</p>
