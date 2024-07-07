@@ -15,6 +15,10 @@ const FormPage = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleCategoryChange = (e) => {
+    setFormData({ ...formData, category: e.target.value });
+  };
+
   const handleImageChange = (e) => {
     setFormData({ ...formData, images: [...e.target.files] });
   };
@@ -91,14 +95,22 @@ const FormPage = () => {
 
           <div className="mb-6">
             <label className="block text-sm font-medium text-gray-700">Category</label>
-            <input
-              type="text"
+            <select
               name="category"
               value={formData.category}
-              onChange={handleChange}
+              onChange={handleCategoryChange}
               className="mt-1 block w-full p-4 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
               required
-            />
+            >
+              <option value="">Select a category</option>
+              <option value="Electronics">Electronics</option>
+              <option value="Study Materials">Study Materials</option>
+              <option value="Clothing">Clothing</option>
+              <option value="Bedding">Bedding</option>
+              <option value="Cycle">Cycle</option>
+              <option value="Entertainment">Entertainment</option>
+              <option value="Miscellaneous">Miscellaneous</option>
+            </select>
           </div>
 
           <div className="mb-6">
