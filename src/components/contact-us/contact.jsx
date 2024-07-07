@@ -8,10 +8,10 @@ const ContactUs = () => {
         className="min-h-screen bg-cover bg-center flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
         style={{ backgroundImage: `url(${backgroundImage})` }}
       >
-        <div className="max-w-lg w-full p-8 space-y-8">
+        <div className="max-w-lg w-full p-8 space-y-8 ml-40">
           <div>
             <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
-              Contact Us
+              {/* Contact Us */}
             </h2>
             <p className="mt-2 text-center text-sm text-gray-200">
               We'd love to hear from you! Please fill out the form below and we will get in touch with you shortly.
