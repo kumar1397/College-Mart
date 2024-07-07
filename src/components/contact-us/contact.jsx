@@ -8,7 +8,7 @@ const ContactUs = () => {
         className="min-h-screen bg-cover bg-center flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
         style={{ backgroundImage: `url(${backgroundImage})` }}
       >
-        <div className="max-w-lg w-full p-8 space-y-8 ml-40">
+        <div className="w-full max-w-3xl p-8 space-y-8 bg-opacity-50">
           <div>
             <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
               {/* Contact Us */}
@@ -26,10 +26,10 @@ const ContactUs = () => {
                   name="name"
                   type="text"
                   required
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm bg-white bg-opacity-75"
+                  className="appearance-none rounded-none relative block w-full pl-12 pr-4 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm bg-white bg-opacity-75"
                   placeholder="Your Name"
                 />
-                <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <i className="fas fa-user text-gray-400"></i>
                 </div>
               </div>
@@ -40,10 +40,10 @@ const ContactUs = () => {
                   name="email"
                   type="email"
                   required
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm bg-white bg-opacity-75"
+                  className="appearance-none rounded-none relative block w-full pl-12 pr-4 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm bg-white bg-opacity-75"
                   placeholder="Email address"
                 />
-                <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <i className="fas fa-envelope text-gray-400"></i>
                 </div>
               </div>
@@ -54,10 +54,10 @@ const ContactUs = () => {
                   name="message"
                   required
                   rows="4"
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm bg-white bg-opacity-75"
+                  className="appearance-none rounded-none relative block w-full pl-12 pr-4 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm bg-white bg-opacity-75"
                   placeholder="Your Message"
                 />
-                <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <i className="fas fa-comment text-gray-400"></i>
                 </div>
               </div>
