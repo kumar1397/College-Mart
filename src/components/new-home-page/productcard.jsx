@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import CardComponent from './moreproductdetails';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 
 const ProductCard = ({ product }) => {
   const [showDetails, setShowDetails] = useState(false);
   const [showProduct, setShowProduct] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false); 
 
   const handleCardClick = () => {
     setShowDetails(!showDetails);
@@ -18,11 +20,14 @@ const ProductCard = ({ product }) => {
     setShowProduct(false);
   };
 
+  const handleFavoriteClick = () => {
+    setIsFavorite(!isFavorite);
+  };
   return (
     <div>
       {/* Product Card */}
-      <div className={`border p-4 shadow-md rounded-lg hover:shadow-lg transform transition-transform duration-200 hover:scale-105 cursor-pointer`} onClick={handleCardClick}>
-        <img src={product.image} alt={product.name} className="w-full h-48 object-cover rounded-t-lg" />
+      <div className={`border p-4 shadow-md rounded-lg hover:shadow-lg transform transition-transform duration-200 hover:scale-105 cursor-pointer`} >
+        <img onClick={handleCardClick} src={product.image} alt={product.name} className="w-full h-48 object-cover rounded-t-lg" />
         <h2 className="text-xl font-bold mt-2">{product.name}</h2>
         <p className="text-gray-600">{product.price}</p>
         {showDetails && (
@@ -32,12 +37,19 @@ const ProductCard = ({ product }) => {
             <p className="mb-1"><strong>Condition:</strong> {product.condition}</p>
           </div>
         )}
+          <button
+          onClick={handleFavoriteClick}
+          className="absolute top-4  right-4 text-[#925FE2]"
+        >
+          {isFavorite ? <AiFillHeart size={24} /> : <AiOutlineHeart size={24} />}
+        </button>
         <button
           onClick={handleShowProductClick}
-          className="mt-2 bg-[#925FE2] text-white px-4 py-2 rounded transition hover:bg-purple-700 focus:outline-none"
+          className="mt-2 bg-[#925FE2] text-white px-4 py-2 text-sm rounded transition hover:bg-purple-700 focus:outline-none"
         >
           Show More Product Details
         </button>
+      
       </div>
 
       {/* Detailed Product Card */}
