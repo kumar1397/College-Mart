@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import CardComponent from './moreproductdetails';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { AiOutlinePlusCircle } from 'react-icons/ai';
 
 const ProductCard = ({ product }) => {
   const [showDetails, setShowDetails] = useState(false);
@@ -66,6 +67,7 @@ const ProductCard = ({ product }) => {
           </div>
         </div>
       )}
+      
     </div>
   );
 };
