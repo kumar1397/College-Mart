@@ -1,14 +1,7 @@
-<<<<<<< HEAD
-import React, { useState } from 'react';
-import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
-import { useNavigate } from 'react-router-dom';
-
-=======
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu, AiOutlineUser, AiOutlineLogout } from "react-icons/ai";
 import AuthContext from "../../contexts/AuthContext";
->>>>>>> 0efcaa8cb9a84b9931f82400cdeb6c8e1df26394
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);

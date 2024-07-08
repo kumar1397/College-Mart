@@ -1,0 +1,15 @@
+/* Add this to your tailwind.css or a separate styles.css file */
+@layer utilities {
+    .bg-gradient-animated {
+      @apply bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500;
+      background-size: 200% 200%;
+      animation: gradient-animation 6s ease infinite;
+    }
+  
+    @keyframes gradient-animation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  }
+  
