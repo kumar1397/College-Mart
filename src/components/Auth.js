@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import AuthContext from "../contexts/AuthContext";
 import { CircularProgress, Box, Button, TextField, Container, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -165,7 +166,11 @@ const Auth = () => {
                     />
                   </div>
                   <div className="link my-5 text-[#6d6d6d] font-medium cursor-pointer">
-                    <a>forget password?</a>
+                    <Link to="/forgot-password" style={{ textDecoration: 'none' }}>
+                      <Typography variant="body2" color="primary">
+                        Forgot Password?
+                      </Typography>
+                    </Link>
                   </div>
                   <div>
                     <button
