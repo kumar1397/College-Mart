@@ -20,7 +20,6 @@ function App() {
             <Route path="/home/profile" element={<Profile />} />
             <Route path="/home/form" element={<ProductFormCard />} />
             <Route path="/contactus" element={<ContactUs />} />
-            <Route path="/forgot-password" element={<ForgotPassword />}/>
           </Routes>
         </AuthProvider>
       </Router>

@@ -1,83 +1,51 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { CircularProgress, Box, Button, TextField, Container, Typography } from '@mui/material';
-import toast, { Toaster } from 'react-hot-toast';
+// import React from 'react'
+// import { useState } from "react";
+// import { Link, useNavigate } from "react-router-dom";
+// import axios from 'axios'
 
-const ForgotPassword = () => {
-  const [email, setEmail] = useState('');
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
-//   const handleInput = (e) => {
-//     setEmail(e.target.value);
-//   };
+// function ForgotPassword() {
+//     const [email, setEmail] = useState()
+//     const navigate = useNavigate()
 
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     setLoading(true);
-
-//     const res = await fetch('http://localhost:4000/forgot-password', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify({ email }),
-//     });
-
-//     const data = await res.json();
-//     setLoading(false);
-
-//     if (res.status === 200) {
-//       toast.success('Password reset link sent to your email');
-//       navigate('/');
-//     } else {
-//       toast.error(data.message || 'Something went wrong');
+//     axios.defaults.withCredentials = true;
+//     const handleSubmit = (e) => {
+//         e.preventDefault()
+//         axios.post('http://localhost:3001/forgot-password', {email})
+//         .then(res => {
+//             if(res.data.Status === "Success") {
+//                 navigate('/login')
+               
+//             }
+//         }).catch(err => console.log(err))
 //     }
-//   };
 
-  return (
-    <Container maxWidth="sm">
-      <Box
-        sx={{
-          bgcolor: 'background.paper',
-          p: 4,
-          borderRadius: 2,
-          boxShadow: 3,
-          textAlign: 'center',
-        }}
-      >
-        <Typography variant="h4" gutterBottom>
-          Forgot Password
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          Enter your email to reset your password
-        </Typography>
-        <Box component="form" noValidate >
-          <TextField
-            fullWidth
-            margin="normal"
-            label="Email"
-            name="email"
-            type="email"
-            value={email}
-            // onChange={handleInput}
-            required
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            disabled={loading}
-            sx={{ mt: 3 }}
-          >
-            {loading ? <CircularProgress size={24} /> : 'Submit'}
-          </Button>
-        </Box>
-        <Toaster />
-      </Box>
-    </Container>
-  );
-};
+//     return(
+//         <div className="d-flex justify-content-center align-items-center bg-secondary vh-100">
+//       <div className="bg-white p-3 rounded w-25">
+//         <h4>Forgot Password</h4>
+//         <form onSubmit={handleSubmit}>
+//           <div className="mb-3">
+//             <label htmlFor="email">
+//               <strong>Email</strong>
+//             </label>
+//             <input
+//               type="email"
+//               placeholder="Enter Email"
+//               autoComplete="off"
+//               name="email"
+//               className="form-control rounded-0"
+//               onChange={(e) => setEmail(e.target.value)}
+//             />
+//           </div>
+//           <button type="submit" className="btn btn-success w-100 rounded-0">
+//             Send
+//           </button>
+//           </form>
+        
+//       </div>
+//     </div>
+//     )
+// }
 
-export default ForgotPassword;
+// export default ForgotPassword;

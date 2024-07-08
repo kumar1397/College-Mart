@@ -269,7 +269,7 @@ const Auth = () => {
                     />
                   </div>
                   <div className="link my-5 text-[#6d6d6d] font-medium cursor-pointer">
-                    <a>forget password?</a>
+                  <Link to="/forgot-password">Forgot Password?</Link>
                   </div>
                   <div onClick={postData}>
                     <button
