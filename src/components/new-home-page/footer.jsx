@@ -10,7 +10,7 @@ const Footer = () => {
 
   return (
     <footer
-      className={`bg-black text-white fixed w-full bottom-0 transition-all duration-500 ${expanded ? ' h-44' : 'h-8'}`}
+      className={`bg-black text-white fixed w-full bottom-0 z-20 transition-all duration-500 ${expanded ? ' h-44' : 'h-8'}`}
       onMouseEnter={() => setExpanded(true)}
       onMouseLeave={() => setExpanded(false)}
     >

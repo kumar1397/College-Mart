@@ -7,6 +7,7 @@ import Navbar from './navbar';
 import { Link } from 'react-router-dom';
 import { FaPlus } from "react-icons/fa";
 import HorizontalCarousel from './HorizontalCarousel';
+import BackgroundImagePage from './intropage';
 
 const images = [
   'https://images.pexels.com/photos/824197/pexels-photo-824197.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
@@ -16,10 +17,13 @@ const images = [
 
 function Home02() {
   return (
-    <div className="min-h-screen flex flex-col relative ">
+    <div className="min-h-screen flex flex-col relative mb-5 ">
       <Navbar />
       <div className="py-2  ">
       <HorizontalCarousel images={images} />
+    </div>
+    <div className='p-4'>
+    <BackgroundImagePage />
     </div>
       <main className="flex-grow mt-4 ">
         <ProductList />
