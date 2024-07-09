@@ -1,13 +1,16 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
-import "react-toastify/dist/ReactToastify.css";
 import AuthContext from "../contexts/AuthContext";
+import { CircularProgress, Box, Button, TextField, Container, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const Auth = () => {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
   const [visible, setVisible] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [postLoginLoading, setPostLoginLoading] = useState(false);
 
   const toggleVisible = () => {
     setVisible(!visible);
@@ -37,9 +40,10 @@ const Auth = () => {
     setUser({ ...user, [name]: value });
   };
 
-  // Signup function
+  // Signup 
   const postData = async (e) => {
     e.preventDefault();
+    setLoading(true);
     console.log("submit clicked");
     const res = await fetch("http://localhost:4000/signup", {
       method: "POST",
@@ -50,6 +54,7 @@ const Auth = () => {
     });
 
     const data = await res.json();
+    setLoading(false);
 
     if (
       res.status === 400 ||
@@ -82,6 +87,7 @@ const Auth = () => {
   // Login function
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const res = await fetch("http://localhost:4000/signin", {
       method: "POST",
       headers: {
@@ -91,6 +97,7 @@ const Auth = () => {
     });
 
     const data = await res.json();
+    setLoading(false);
 
     if (
       res.status === 400 ||
@@ -100,38 +107,41 @@ const Auth = () => {
     ) {
       notify(data.message, "error");
     } else {
+      notify("Login successful", "success");
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
       login(data.user, data.token);
-
-      notify("Login successful", "success");
+      setPostLoginLoading(true);
       setTimeout(() => {
         navigate("/home");
-      }, 2000);
+      }, 2000); // Delay to show the spinner for a short period
     }
   };
+
+  useEffect(() => {
+    if (postLoginLoading) {
+      const timer = setTimeout(() => {
+        setPostLoginLoading(false);
+        navigate("/home");
+      }, 10000);
+      return () => clearTimeout(timer);
+    }
+  }, [postLoginLoading, navigate]);
 
   return (
     <div className="w-screen h-screen bg-[#000] flex justify-center items-center">
       <div className="w-10/12 h-10/12 text-[white] flex flex-row">
-        <div className="leftdiv w-1/2  h-[80vh]">
+        <div className="leftdiv w-1/2 h-[80vh]">
           <div
-            className={`login w-full h-full ${
-              visible ? "flex" : "hidden"
-            } flex justify-center items-center bgblackAuth`}
+            className={`login w-full h-full ${visible ? "flex" : "hidden"} flex justify-center items-center bgblackAuth`}
           >
             <div className="w-10/12 h-full flex flex-col gap-12 justify-center">
               <div className="first flex flex-col">
                 <span className="text-4xl font-bold">Login</span>
-                <span className="text-lg font-md">
-                  Enter your account details
-                </span>
+                <span className="text-lg font-md">Enter your account details</span>
               </div>
               <div className="w-full">
-                <form
-                  method="POST"
-                  className="bg-transparent flex flex-col gap-3"
-                >
+                <form method="POST" className="bg-transparent flex flex-col gap-3">
                   <div className="input-box">
                     <input
                       type="email"
@@ -155,16 +165,21 @@ const Auth = () => {
                       className="bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]"
                     />
                   </div>
-                  <div className="link my-5 text-[#6d6d6d] font-medium cursor-pointer ">
-                    <a>forget password?</a>
+                  <div className="link my-5 text-[#6d6d6d] font-medium cursor-pointer">
+                    <Link to="/forgot-password" style={{ textDecoration: 'none' }}>
+                      <Typography variant="body2" color="primary">
+                        Forgot Password?
+                      </Typography>
+                    </Link>
                   </div>
                   <div>
                     <button
                       type="login"
                       onClick={handleLogin}
                       className="w-8/12 h-10 bg-[#9C6FE4] rounded-lg text-lg font-semibold"
+                      disabled={loading}
                     >
-                      <span>Login</span>
+                      {loading ? <CircularProgress size={24} /> : <span>Login</span>}
                     </button>
                   </div>
                 </form>
@@ -181,16 +196,12 @@ const Auth = () => {
             </div>
           </div>
           <div
-            className={`bgcolorAuth w-full h-[80vh] ${
-              visible ? "hidden " : "block"
-            } `}
+            className={`bgcolorAuth w-full h-[80vh] ${visible ? "hidden" : "block"}`}
           ></div>
         </div>
-        <div className="rightdiv w-1/2 h-[80vh] ">
+        <div className="rightdiv w-1/2 h-[80vh]">
           <div
-            className={`signup w-full h-full flex justify-center items-center bgblackAuth ${
-              visible ? "hidden " : "flex"
-            } transition-all duration-700`}
+            className={`signup w-full h-full flex justify-center items-center bgblackAuth ${visible ? "hidden" : "flex"} transition-all duration-700`}
           >
             <div className="w-10/12 h-full flex flex-col gap-12 justify-center">
               <div className="first flex flex-col">
@@ -198,10 +209,7 @@ const Auth = () => {
                 <span className="text-lg font-md">Enter your details</span>
               </div>
               <div className="w-full">
-                <form
-                  method="POST"
-                  className="bg-transparent flex flex-col gap-3"
-                >
+                <form method="POST" className="bg-transparent flex flex-col gap-3">
                   <div className="input-box">
                     <input
                       type="name"
@@ -260,8 +268,8 @@ const Auth = () => {
                       className="bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]"
                     />
                   </div>
-                  <div className="link my-5 text-[#6d6d6d] font-mediumn cursor-pointer ">
-                    <a>forget password?</a>
+                  <div className="link my-5 text-[#6d6d6d] font-medium cursor-pointer">
+                  <Link to="/forgot-password">Forgot Password?</Link>
                   </div>
                   <div onClick={postData}>
                     <button
@@ -285,13 +293,16 @@ const Auth = () => {
             </div>
           </div>
           <div
-            className={`bgcolorAuth w-full h-[80vh]  ${
-              visible ? "block " : "hidden"
-            } `}
+            className={`bgcolorAuth w-full h-[80vh] ${visible ? "block" : "hidden"}`}
           ></div>
         </div>
       </div>
       <Toaster />
+      {postLoginLoading && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <CircularProgress size={60} />
+        </div>
+      )}
     </div>
   );
 };

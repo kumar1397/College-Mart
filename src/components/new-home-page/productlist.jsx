@@ -45,7 +45,7 @@ const ProductList = () => {
 
 
   return (
-    <div className="container mx-auto p-4 mt-9 cursor-pointer    ">
+    <div className="container mx-auto p-4 mt-6 cursor-pointer    ">
       <div className=" shadow-md rounded-lg h-fit  mb-6  px-2 w-full  items-center flex   ">
         <div className="flex flex-col sm:flex-row justify-between h-fit items-center w-full  space-y-4 sm:space-y-0 sm:space-x-">
           <input
