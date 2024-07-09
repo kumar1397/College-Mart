@@ -1,6 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
+
 
 const BackgroundImagePage = () => {
+    const [isActive, setIsActive] = useState(false);
+
+    const handleClick = () => {
+      setIsActive(!isActive);
+    };
     return (
         <div className="relative max-w-7xl mx-auto rounded-lg  w-full mt-12 h-96 bg-cover bg-center" style={{ backgroundImage: 'url(https://images.pexels.com/photos/824197/pexels-photo-824197.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)' }}>
             <div className="absolute inset-0 bg-black rounded-lg opacity-50"></div> {/* Optional overlay for better contrast */}
@@ -25,8 +31,16 @@ const BackgroundImagePage = () => {
                         Facilitating seamless, fee-free transactions between buyers and sellers within our college community
                     </p>
                 </div>
-
             </div>
+            <div
+        className={`bg-red-400 text-white mx-auto w-full cursor-pointer max-w-44 px-4 py-2 justify-center flex align-middle rounded my-3 hover:bg-[#925FE2] transition-all duration-300 ease-in-out ${
+          isActive ? 'transform scale-110 bg-purple-600' : ''
+        }`}
+        onClick={handleClick}
+      >
+        Sell Your Products
+      </div>
+            
         </div>
     );
 };
