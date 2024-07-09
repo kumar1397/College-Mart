@@ -1,6 +1,11 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { AiOutlineClose, AiOutlineMenu, AiOutlineUser, AiOutlineLogout } from "react-icons/ai";
+import {
+  AiOutlineClose,
+  AiOutlineMenu,
+  AiOutlineUser,
+  AiOutlineLogout,
+} from "react-icons/ai";
 import AuthContext from "../../contexts/AuthContext";
 
 const Navbar = () => {
@@ -21,7 +26,6 @@ const Navbar = () => {
   return (
     <div className="bg-[#925FE2] shadow-lg flex justify-between z-20 items-center h-20 w-full px-6 text-white fixed">
       <div className="flex items-center space-x-2">
-      
         <h1 className="text-2xl font-bold font-sans">COLLEGE MART</h1>
       </div>
 
