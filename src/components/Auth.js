@@ -2,16 +2,15 @@ import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import AuthContext from "../contexts/AuthContext";
-import { CircularProgress, Box, Button, TextField, Container, Typography } from "@mui/material";
+import { CircularProgress, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const Auth = () => {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
-  const [visible, setVisible] = useState(true);
   const [loading, setLoading] = useState(false);
   const [postLoginLoading, setPostLoginLoading] = useState(false);
-
+  const [visible, setVisible] = useState(false);
   const toggleVisible = () => {
     setVisible(!visible);
   };
@@ -129,12 +128,10 @@ const Auth = () => {
   }, [postLoginLoading, navigate]);
 
   return (
-    <div className="w-screen h-screen bg-[#000] flex justify-center items-center">
-      <div className="w-10/12 h-10/12 text-[white] flex flex-row">
+    <div className="w-screen h-screen bg-[#000] flex justify-center items-center relative">
+      <div className="w-10/12 h-10/12 text-[white] flex flex-row ">
         <div className="leftdiv w-1/2 h-[80vh]">
-          <div
-            className={`login w-full h-full ${visible ? "flex" : "hidden"} flex justify-center items-center bgblackAuth`}
-          >
+          <div className={`login w-full h-full flex justify-center items-center bgblackAuth ${visible ? "hidden" : "flex"}`}>
             <div className="w-10/12 h-full flex flex-col gap-12 justify-center">
               <div className="first flex flex-col">
                 <span className="text-4xl font-bold">Login</span>
@@ -195,14 +192,9 @@ const Auth = () => {
               </div>
             </div>
           </div>
-          <div
-            className={`bgcolorAuth w-full h-[80vh] ${visible ? "hidden" : "block"}`}
-          ></div>
         </div>
         <div className="rightdiv w-1/2 h-[80vh]">
-          <div
-            className={`signup w-full h-full flex justify-center items-center bgblackAuth ${visible ? "hidden" : "flex"} transition-all duration-700`}
-          >
+          <div className={`signup w-full h-full flex justify-center items-center bgblackAuth ${visible ? "flex" : "hidden"} transition-all duration-700`}>
             <div className="w-10/12 h-full flex flex-col gap-12 justify-center">
               <div className="first flex flex-col">
                 <span className="text-4xl font-bold">Sign Up</span>
@@ -269,7 +261,7 @@ const Auth = () => {
                     />
                   </div>
                   <div className="link my-5 text-[#6d6d6d] font-medium cursor-pointer">
-                  <Link to="/forgot-password">Forgot Password?</Link>
+                    <Link to="/forgot-password">Forgot Password?</Link>
                   </div>
                   <div onClick={postData}>
                     <button
@@ -292,10 +284,10 @@ const Auth = () => {
               </div>
             </div>
           </div>
-          <div
-            className={`bgcolorAuth w-full h-[80vh] ${visible ? "block" : "hidden"}`}
-          ></div>
         </div>
+        <div className={`bgcolorAuth w-2/5 h-[80vh] absolute transition duration-300 ${visible ? 'transform translate-x-6' : 'transform translate-x-full'}`}>
+        </div> 
+        
       </div>
       <Toaster />
       {postLoginLoading && (
