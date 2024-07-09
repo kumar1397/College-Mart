@@ -20,6 +20,12 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
+    token:{
+        type:String,
+    },
+    resetPasswordExpires:{
+        type:Data,
+    },
     Products: [
         {
           type: mongoose.Schema.Types.ObjectId,

@@ -96,7 +96,7 @@ const Navbar = () => {
                   <li>
                     <Link
                       to="/home/profile"
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left flex items-center"
+                      className=" px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left flex items-center"
                     >
                       <AiOutlineUser className="mr-2" />
                       Profile
@@ -104,7 +104,7 @@ const Navbar = () => {
                   </li>
                   <li>
                     <button
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left flex items-center"
+                      className=" px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left flex items-center"
                       onClick={logout}
                     >
                       <AiOutlineLogout className="mr-2" />
