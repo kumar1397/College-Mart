@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
     if (token && storedUser) {
       setUser(storedUser);
     } else {
-      navigate("/auth");
+      // navigate("");
     }
   }, [navigate]);
 
