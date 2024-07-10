@@ -260,9 +260,6 @@ const Auth = () => {
                       className="bg-transparent w-8/12 h-10 border-b-[1px] border-[#D9D9D9]"
                     />
                   </div>
-                  <div className="link my-5 text-[#6d6d6d] font-medium cursor-pointer">
-                    <Link to="/forgot-password">Forgot Password?</Link>
-                  </div>
                   <div onClick={postData}>
                     <button
                       type="signup"
