@@ -10,9 +10,13 @@ import HorizontalCarousel from './HorizontalCarousel';
 import BackgroundImagePage from './intropage';
 
 const images = [
-  'https://images.pexels.com/photos/824197/pexels-photo-824197.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-  'https://img.freepik.com/free-photo/book-composition-with-open-book_23-2147690555.jpg?t=st=1720154347~exp=1720157947~hmac=b44ae45cf7ecb34cd7ef5ba71de4983a791251f9301aeb9f2ef11887f9c046e4&w=1060',
-  'https://img.freepik.com/free-photo/pink-headphones-wireless-digital-device_53876-96804.jpg?t=st=1720155046~exp=1720158646~hmac=e7906ba438857333272435201efbd700fdf3f62314582cabe61bf8830455d9a2&w=1060',
+  "Frame9.svg",
+  "Frame10.svg",
+  "Frame11.svg",
+  "Frame12.svg",
+  "Frame13.svg",
+  "Frame14.svg",
+  "Frame8.svg"
 ];
 
 function Home02() {
