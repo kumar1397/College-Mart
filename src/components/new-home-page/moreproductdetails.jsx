@@ -2,6 +2,7 @@ import React from 'react';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { FaTag, FaCalendarAlt, FaRegBuilding, FaPhoneAlt, FaEnvelope, FaUser } from 'react-icons/fa';
 
 
 const CardComponent = ({ product }) => {
@@ -32,7 +33,7 @@ const CardComponent = ({ product }) => {
         ))}
       </Slider>
       </div>
-      <div className=' w-full h-[30%] flex justify-evenly flex-row p-2  shadow-lg'>
+      <div className=' w-full h-[20%] flex justify-evenly flex-row p-2'>
         {images.map((image,index)=>(
            <div className='bg-red-500 w-1/3 mx-2'>
              <img src={image} alt={`Slide ${index}`} className="w-full h-full object-fill"/>
@@ -41,8 +42,27 @@ const CardComponent = ({ product }) => {
          
       </div>
     </div>
-    <div className='bg-red-300 w-1/2'>02</div>
-  </div>
+    <div className='w-1/2 p-4 flex flex-col justify-between  border-l border-gray-200 mx-auto '>
+        {/* Product Information */}
+        <div className='mb-6 mx-6'>
+          <h2 className='text-2xl font-bold mb-4'>{product.name}</h2>
+          <p className='flex items-center mb-2 text-gray-700'><FaTag className='mr-2' /> Tag: {product.tag}</p>
+          <p className='flex items-center mb-2 text-gray-700'><FaCalendarAlt className='mr-2' /> Buy Date: {product.buyDate}</p>
+          <p className='flex items-center mb-2 text-gray-700'>Condition: {product.condition}</p>
+          <p className='text-gray-700'>{product.description}</p>
+        </div>
+
+        {/* User Information */}
+        <div className='mx-6'>
+          <h3 className='text-lg font-semibold mb-4'>User Information</h3>
+          <p className='flex items-center mb-2 text-gray-700'><FaUser className='mr-2' /> Name: {product.userName}</p>
+          <p className='flex items-center mb-2 text-gray-700'><FaPhoneAlt className='mr-2' /> Phone: {product.phone}</p>
+          <p className='flex items-center mb-2 text-gray-700'><FaEnvelope className='mr-2' /> Email: {product.email}</p>
+          <p className='flex items-center text-gray-700'><FaRegBuilding className='mr-2' /> Hall Name: {product.hallName}</p>
+        </div>
+      </div>
+    </div>
+
 );
 };
 
