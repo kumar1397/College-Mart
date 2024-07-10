@@ -6,6 +6,7 @@ import ContactUs from "./components/contact-us/contact";
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import ProductFormCard from "./components/product/newProduct";
 import Profile from "./components/profile/profile";
+import ForgotPassword from "./components/forgetPassword/forgetpassword";
 
 function App() {
   return (

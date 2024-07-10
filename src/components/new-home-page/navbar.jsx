@@ -1,6 +1,18 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 
+=======
+import React, { useState, useContext } from "react";
+import { Link } from "react-router-dom";
+import {
+  AiOutlineClose,
+  AiOutlineMenu,
+  AiOutlineUser,
+  AiOutlineLogout,
+} from "react-icons/ai";
+import AuthContext from "../../contexts/AuthContext";
+>>>>>>> 417bffa36b34b6212f76f7c31a6bb2817605e7ec
 
 const Navbar = () => {
   // State to manage the navbar's visibility
@@ -21,9 +33,16 @@ const Navbar = () => {
   ];
 
   return (
+<<<<<<< HEAD
     <div className='bg-[#925FE2] shadow-lg flex justify-between items-center h-20 w-full mx-auto px-4 text-white fixed'>
       {/* Logo */}
       <h1 className="text-3xl font-bold text-white font-sans">COLLEGE MART</h1>
+=======
+    <div className="bg-[#925FE2] shadow-lg flex justify-between z-20 items-center h-20 w-full px-6 text-white fixed">
+      <div className="flex items-center space-x-2">
+        <div className=" w-24 max-w-24"><img src="Group11.svg" alt="" /></div>
+      </div>
+>>>>>>> 417bffa36b34b6212f76f7c31a6bb2817605e7ec
 
       {/* Desktop Navigation */}
       <ul className='hidden md:flex'>
