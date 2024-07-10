@@ -1,3 +1,7 @@
+const User = require("../models/User")
+const mailSender = require("../utils/mailSender")
+const bcrypt = require("bcrypt")
+const crypto = require("crypto")
 // const jwt = require('jsonwebtoken');
 // const nodemailer = require('nodemailer');
 // const User = require('../models/User'); // Ensure this path is correct
@@ -42,10 +46,7 @@
 //       return res.status(500).send({ status: "Error", message: "Internal server error" });
 //     });
 // };
-const User = require("../models/User")
-const mailSender = require("../utils/mailSender")
-const bcrypt = require("bcrypt")
-const crypto = require("crypto")
+
 exports.resetPasswordToken = async (req, res) => {
   try {
     const email = req.body.email
@@ -79,7 +80,7 @@ exports.resetPasswordToken = async (req, res) => {
     res.json({
       success: true,
       message:
-        "Email Sent Successfully, Please Check Your Email to Continue Further",
+        "Email Sent Successfully, Please Check Your Email to Continue Further",token,email,
     })
   } catch (error) {
     return res.json({
