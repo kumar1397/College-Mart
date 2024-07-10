@@ -1,26 +1,28 @@
+// src/components/FormPage.js
+
 import React, { useState } from 'react';
 
-const FormPage = () => {
+function FormPage() {
   const [formData, setFormData] = useState({
-    name: '',
+    itemName: '',
     description: '',
-    date: '',
     price: '',
-    tag: '',
-    category: '',
-    images: [],
+    pictures: [],
   });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
 
-  const handleCategoryChange = (e) => {
-    setFormData({ ...formData, category: e.target.value });
-  };
-
-  const handleImageChange = (e) => {
-    setFormData({ ...formData, images: [...e.target.files] });
+  const handleFileChange = (e) => {
+    setFormData({
+      ...formData,
+      pictures: [...e.target.files],
+    });
   };
 
   const handleSubmit = (e) => {
@@ -30,111 +32,75 @@ const FormPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="w-full max-w-2xl p-8 bg-blue-50 shadow-lg rounded-lg">
-        <h2 className="text-4xl font-bold mb-8 text-center text-blue-600">Sell Your Item</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700">Name</label>
+    <div className="flex h-screen">
+      {/* Rules Section */}
+      <div className="w-1/2 bg-gray-200 p-8">
+        <h2 className="text-2xl font-bold mb-4">Picture Upload Guidelines</h2>
+        <ul className="list-disc list-inside">
+          <li>Ensure pictures are clear and well-lit.</li>
+          <li>Only upload pictures of the item you are listing.</li>
+          <li>Do not upload offensive or inappropriate images.</li>
+          <li>Maximum file size is 5MB per image.</li>
+          <li>Accepted formats: JPEG, PNG.</li>
+        </ul>
+      </div>
+
+      {/* Form Section */}
+      <div className="w-1/2 bg-white p-8">
+        <h2 className="text-2xl font-bold mb-4">List Your Item</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Item Name</label>
             <input
               type="text"
-              name="name"
-              value={formData.name}
+              name="itemName"
+              value={formData.itemName}
               onChange={handleChange}
-              className="mt-1 block w-full p-4 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              required
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
           </div>
-
-          <div className="mb-6">
+          <div>
             <label className="block text-sm font-medium text-gray-700">Description</label>
             <textarea
               name="description"
               value={formData.description}
               onChange={handleChange}
-              className="mt-1 block w-full p-4 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              required
-            />
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            ></textarea>
           </div>
-
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700">Date</label>
-            <input
-              type="date"
-              name="date"
-              value={formData.date}
-              onChange={handleChange}
-              className="mt-1 block w-full p-4 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              required
-            />
-          </div>
-
-          <div className="mb-6">
+          <div>
             <label className="block text-sm font-medium text-gray-700">Price</label>
             <input
               type="number"
               name="price"
               value={formData.price}
               onChange={handleChange}
-              className="mt-1 block w-full p-4 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              required
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
           </div>
-
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700">Tag</label>
-            <input
-              type="text"
-              name="tag"
-              value={formData.tag}
-              onChange={handleChange}
-              className="mt-1 block w-full p-4 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              required
-            />
-          </div>
-
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700">Category</label>
-            <select
-              name="category"
-              value={formData.category}
-              onChange={handleCategoryChange}
-              className="mt-1 block w-full p-4 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              required
-            >
-              <option value="">Select a category</option>
-              <option value="Electronics">Electronics</option>
-              <option value="Study Materials">Study Materials</option>
-              <option value="Clothing">Clothing</option>
-              <option value="Bedding">Bedding</option>
-              <option value="Cycle">Cycle</option>
-              <option value="Entertainment">Entertainment</option>
-              <option value="Miscellaneous">Miscellaneous</option>
-            </select>
-          </div>
-
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700">Upload Images</label>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Upload Pictures</label>
             <input
               type="file"
-              name="images"
-              onChange={handleImageChange}
-              className="mt-1 block w-full p-4 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              name="pictures"
               multiple
-              required
+              accept="image/jpeg,image/png"
+              onChange={handleFileChange}
+              className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
             />
           </div>
-
-          <button
-            type="submit"
-            className="mt-8 w-full py-4 bg-blue-600 text-white font-bold rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-          >
-            Submit
-          </button>
+          <div>
+            <button
+              type="submit"
+              className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Submit
+            </button>
+          </div>
         </form>
       </div>
     </div>
   );
-};
+}
 
 export default FormPage;
