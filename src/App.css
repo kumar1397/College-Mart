@@ -23,3 +23,6 @@
   transform: translate(-50%, -50%);
   z-index: 1000; /* Ensure it's on top of other elements */
 }
+@import "~slick-carousel/slick/slick.css"; 
+@import "~slick-carousel/slick/slick-theme.css";
+

@@ -55,8 +55,8 @@ const ProductCard = ({ product }) => {
 
       {/* Detailed Product Card */}
       {showProduct && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="relative bg-white p-8 rounded-lg shadow-lg max-w-lg w-full">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center  w-full z-50">
+          <div className="relative bg-white p-8 rounded-lg shadow-lg max-w-4xl h-[65%] w-full">
             <button
               onClick={handleCloseProductClick}
               className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full hover:bg-red-600 focus:outline-none"
