@@ -19,7 +19,11 @@ async function uploadtoCloudinary(file, folder, quality) {
 exports.fileUpload = async (req, res) => {
     try {
         const { name, description, buydate, condition, tag } = req.body;
+        if (!req.files) {
+            console.log(`no files were uploaded`);
+        }
         const files = req.files.filename;
+        console.log(files);
         const images = [];
 
         for (let file of files) {
@@ -38,9 +42,9 @@ exports.fileUpload = async (req, res) => {
             images.push({ url: response.secure_url });
         }
         const productdata = await Product.create({
-            name, description, buydate, condition, tag, images,
+            name, description, buydate, condition, tag, imgUrl:images
         });
-        console.log(`Printing image URL`);
+        console.log(productdata);
         res.json({
             success: true,
             imgUrl: images.map(image => image.url),
@@ -55,3 +59,65 @@ exports.fileUpload = async (req, res) => {
         });
     }
 };
+
+exports.updateProduct = async (req, res) => {
+    try {
+        const { userId ,name, description, buydate, condition, tag } = req.body;
+        if (!req.files) {
+            console.log(`no files were uploaded`);
+        }
+        const files = req.files.filename;
+        console.log(files);
+        const images = [];
+        for (let file of files) {
+            const supportedTypes = ["jpg", "jpeg", "png"];
+            const filetype = file.name.split('.').pop().toLowerCase();
+            if (!isFileSupported(filetype, supportedTypes)) {
+                return res.status(415).json({
+                    success: false,
+                    message: `File format not supported. Allowable formats are png, jpg, and jpeg`
+                });
+            }
+            console.log(`going for cloudinary`)
+            const response = await uploadtoCloudinary(file, process.env.FOLDER_NAME, 70);
+            console.log(`File uploaded`);
+            console.log(response);
+            images.push({ url: response.secure_url });
+        }
+        const product = await Product.findByIdAndUpdate(
+            userId,
+            { name, description, buydate, condition, tag, imgUrl:images },
+            { new: true }
+        )
+        res.status(200).json({
+            success: true,
+            message: product, 
+        })
+    } catch (error) {
+        console.error("Error updating section:", error)
+        res.status(500).json({
+            success: false,
+            message: "Internal server error",
+            error: error.message,
+        })
+    }
+}
+
+exports.deleteProduct= async (req, res) => {
+    try {
+      const { userId } = req.body
+      await Product.findByIdAndDelete(userId)
+  
+      res.status(200).json({
+        success: true,
+        message: "Product deleted",
+      })
+    } catch (error) {
+      console.error("Error deleting product:", error)
+      res.status(500).json({
+        success: false,
+        message: "Internal server error",
+        error: error.message,
+      })
+    }
+  }
