@@ -8,7 +8,7 @@ function FormPage() {
     description: '',
     date: '',
     price: '',
-    category: '', // default value
+    category: '', 
     images: [],
   });
 
@@ -29,14 +29,12 @@ function FormPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
     console.log(formData);
   };
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
       <div className="w-full max-w-5xl bg-white rounded-lg shadow-lg p-8 flex">
-        {/* Rules Section */}
         <div className="w-1/2 p-4">
           <h2 className="text-2xl font-bold mb-4">Picture Upload Guidelines</h2>
           <ul className="list-disc list-inside">
@@ -48,10 +46,8 @@ function FormPage() {
           </ul>
         </div>
 
-        {/* Divider */}
         <div className="border-r border-gray-300"></div>
 
-        {/* Form Section */}
         <div className="w-1/2 p-4">
           <h2 className="text-2xl font-bold mb-4">List Your Item</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -111,7 +107,6 @@ function FormPage() {
                 <option value="books">Books</option>
                 <option value="clothing">Clothing</option>
                 <option value="furniture">Furniture</option>
-                {/* Add more categories as needed */}
               </select>
             </div>
             <div>
