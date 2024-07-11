@@ -6,6 +6,7 @@ import ContactUs from "./components/contact-us/contact";
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import ProductFormCard from "./components/product/newProduct";
 import Profile from "./components/profile/profile";
+import ResetPassword from "./components/forgetPassword/resetpassword";
 import ForgotPassword from "./components/forgetPassword/forgetpassword";
 
 function App() {
@@ -20,6 +21,8 @@ function App() {
             <Route path="/home/profile" element={<Profile />} />
             <Route path="/home/form" element={<ProductFormCard />} />
             <Route path="/contactus" element={<ContactUs />} />
+            <Route path="/forgot_password" element={<ForgotPassword/>} />
+            <Route path="/reset" element={< ResetPassword/>} />
           </Routes>
         </AuthProvider>
       </Router>
