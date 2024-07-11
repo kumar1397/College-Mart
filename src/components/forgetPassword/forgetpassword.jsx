@@ -4,11 +4,20 @@ import { Link } from 'react-router-dom';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
+    console.log(email);
     e.preventDefault();
     // Handle password reset logic here
-    console.log('Password reset link sent to:', email);
+    const res = await fetch("http://localhost:4000/reset-password-token", {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({email}),
+    });
+    console.log(res);
+
   };
 
   return (
