@@ -1,5 +1,5 @@
 import React from "react";
-import ProductComponent  from "./UserProfile";
+import ProductComponent from "./userproduct";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 const products = [

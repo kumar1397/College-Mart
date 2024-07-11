@@ -1,41 +1,11 @@
 import React from "react";
-import ProductComponent  from "./UserProfile";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone, faEnvelope } from '@fortawesome/free-solid-svg-icons';
-const products = [
-    {
-        id: 1,
-        name: "Product 1",
-        tag: "Tag 1",
-        buyDate: "2023-01-01",
-        condition: "New",
-        description: "Description of Product 1",
-        images: ["/logo192.png", "/shoes01.webp","/ycle.webp"]
-    },
-    {
-        id: 2,
-        name: "Product 2",
-        tag: "Tag 2",
-        buyDate: "2023-02-01",
-        condition: "Used",
-        description: "Description of Product 2",
-        images: ["/logo192.png", "/shoes01.webp","/ycle.webp"]
-    },
-    {
-        id: 3,
-        name: "Product 3",
-        tag: "Tag 3",
-        buyDate: "2023-02-01",
-        condition: "Used",
-        description: "Description of Product 2",
-        images: ["/logo192.png", "/shoes01.webp","/ycle.webp"]
-    }
 
-];
 export default function Profile() {
     return (
-        <div className="flex flex-col justify-start items-center bg-[#925FE2] h-screen my-auto ">
-            <div className=" h-fit rounded-lg shadow-xl p-8 my-3 mx-auto bg-white max-w-[1200px] w-[90%] sm:w-[90%] sm:flex sm:justify-between">
+        <div className="flex flex-col justify-start items-center h-screen ">
+            <div className=" h-fit rounded-lg shadow-lg p-8 my-3 mx-auto bg-[#ADD8E6] max-w-[1200px] w-[90%] sm:w-[90%] sm:flex sm:justify-between">
                 <div className="w-full sm:w-[30%] flex justify-center items-center  ">
                     <div className=" w-44 h-44 rounded-full bg-green-200 flex justify-center items-center ">01</div>
                 </div>
@@ -46,7 +16,7 @@ export default function Profile() {
                         <h1 className="text-sm">8757224790</h1>
                     </div>
                     <div className="flex items-center">
-                        <FontAwesomeIcon icon={faEnvelope} className="text-gray-700 mr-2" size="sm" />
+                        <FontAwesomeIcon icon={faEnvelope} className="text-gray-700 mr-2" size="sm"/>
                         <h1 className="text-sm">anubhavshaurya3@gmail.com</h1>
                     </div>
                     <div className="w-full   absolute -bottom-2 flex flex-row  left-3 h-10   ">
@@ -77,10 +47,6 @@ export default function Profile() {
                     </div>
                 </div>
             </div>
-            <div className="h-fit overflow-scroll w-full shadow-xl max-w-[1235px] mb-8">
-                <ProductComponent products={products} />
-            </div>
-
         </div>
 
 
