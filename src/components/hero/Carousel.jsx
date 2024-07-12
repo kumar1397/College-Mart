@@ -23,6 +23,7 @@ function AutoPlay() {
     autoplay: true,
     speed: 1000,
     autoplaySpeed: 2000,
+    arrows:false,
     //cssEase: "linear",
     responsive: [
       {
@@ -45,13 +46,13 @@ function AutoPlay() {
   };
 
   return (
-    <div className="relative bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 py-6 w-full mt-20">
+    <div className="relative bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 py-4 w-full mt-20">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold text-white text-center mb-8">Featured Products</h2>
-        <Slider {...settings} className="flex items-center justify-center">
+        <Slider {...settings} className="flex items-center justify-center w-full ">
           {images.map((image, index) => (
             <div key={index} className="p-4">
-              <div className="bg-white rounded-lg overflow-hidden shadow-lg">
+              <div className="bg-white rounded-lg overflow-hidden shadow-lg w-full">
                 <img src={image} alt={`Slide ${index}`} className="w-full h-64 object-cover" />
               </div>
             </div>
