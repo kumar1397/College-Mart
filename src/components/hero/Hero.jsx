@@ -6,7 +6,7 @@ import AutoPlay from './Carousel';
 
 const Hero = () => {
   return (
-    <div className='overflow-x-hidden scroll-auto'>
+    <div className='overflow-x-hidden scroll-auto '>
       <Heronavbar />
       <div className='herohomebg w-full h-[50vh] flex justify-center items-center text-white bg-blue-gray-400 mt-28'>
         <div className="flex flex-col justify-center items-center text-center">
@@ -43,8 +43,9 @@ const Hero = () => {
             </div>
           </div>
         </section>
-        
+        <div className=' -z-10 w-full'>
         <AutoPlay />
+        </div>
       </div>
       <Footer />
     </div>
