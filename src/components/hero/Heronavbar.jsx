@@ -14,7 +14,7 @@ const Heronavbar = () => {
     <div className=' shadow-md fixed w-full'>
      
 
-<nav className=" border-gray-200 dark:bg-gray-90 bg-blueGray-200 shadow-2xl ">
+<nav className=" border-gray-200 dark:bg-gray-90 bg-blueGray-200 shadow-2xl  ">
     <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4 ">
         <a href="http.coms://flowbite" className="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="Group12.svg" className="h-12  w-16" alt="Flowbite Logo" />
