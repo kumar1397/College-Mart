@@ -22,7 +22,7 @@ function App() {
             <Route path="/home/form" element={<ProductFormCard />} />
             <Route path="/contactus" element={<ContactUs />} />
             <Route path="/forgot_password" element={<ForgotPassword/>} />
-            <Route path="/reset" element={< ResetPassword/>} />
+            <Route path="/reset/:token" element={< ResetPassword/>} />
           </Routes>
         </AuthProvider>
       </Router>
