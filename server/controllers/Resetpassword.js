@@ -16,7 +16,7 @@ const crypto = require("crypto")
 //       }
 
 //       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_RESET_PASSWORD, { expiresIn: '1d' });
-      
+
 //       const transporter = nodemailer.createTransport({
 //         service: 'gmail',
 //         auth: {
@@ -52,7 +52,7 @@ exports.resetPasswordToken = async (req, res) => {
     const email = req.body.email
     const user = await User.findOne({ email: email })
     if (!user) {
-      return res.json({
+      return res.status(404).json({
         success: false,
         message: `This Email: ${email} is not Registered With Us Enter a Valid Email `,
       })
@@ -76,23 +76,23 @@ exports.resetPasswordToken = async (req, res) => {
       "Password Reset",
       `Your Link for email verification is ${url}. Please click this url to reset your password.`
     )
-    res.json({
+    res.status(200).json({
       success: true,
-      message:
-        "Email Sent Successfully, Please Check Your Email to Continue Further",
-    })
+      message: 'Email Sent Successfully. Please Check Your Email to Continue Further.',
+    });
   } catch (error) {
-    return res.json({
-      error: error.message,
+    console.error('Error in sending reset message:', error);
+    return res.status(500).json({
       success: false,
-      message: `Some Error in Sending the Reset Message`,
-    })
+      message: 'Some Error in Sending the Reset Message. Please try again later.',
+    });
   }
-}
+};
+
 
 exports.resetPassword = async (req, res) => {
   try {
-    const {token} = req.params;
+    const { token } = req.params;
     const { password, confirmPassword } = req.body;
     console.log(password);
     console.log(confirmPassword);
@@ -130,7 +130,7 @@ exports.resetPassword = async (req, res) => {
       success: true,
       message: `Password Reset Successful`,
     })
-  } 
+  }
   catch (error) {
     console.log(`Some Error in Updating the Password`);
     return res.json({
