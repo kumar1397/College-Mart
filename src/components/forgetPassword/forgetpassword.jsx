@@ -33,7 +33,7 @@ const ForgotPassword = () => {
       console.log(data);
 
       if (res.status ===200) { // Check if the response status is in the range 200-299
-        notify("Email sent successfully. Please login to enter", "success");
+        notify('Email sent successfully. Please check your inbox for the reset link.', 'success');
         console.log(data);
       } else if(res.status=== 404) {
         notify(data.message, "error");
