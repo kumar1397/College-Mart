@@ -1,23 +1,47 @@
 import React, { useState } from 'react';
-import ResetPassword from './resetpassword';
 import { Link } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
-  const handleSubmit = async(e) => {
-    console.log(email);
-    e.preventDefault();
-    // Handle password reset logic here
-    const res = await fetch("http://localhost:4000/reset-password-token", {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({email}),
-    });
-    console.log(res);
 
+  const notify = (message, type) => {
+    if (type === 'error') {
+      toast.error(message);
+    } else if (type === 'success') {
+      toast.success(message);
+    } else {
+      toast(message);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(email);
+
+    try {
+      const res = await fetch('http://localhost:4000/reset-password-token', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json();
+      console.log(data);
+
+      if (res.status ===200) { // Check if the response status is in the range 200-299
+        notify('Email sent successfully. Please check your inbox for the reset link.', 'success');
+        console.log(data);
+      } else if(res.status=== 404) {
+        notify(data.message, "error");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      notify("Failed to send email. Please try again later.", "error");
+    }
   };
 
   return (
@@ -57,6 +81,7 @@ const ForgotPassword = () => {
           </Link>
         </p>
       </div>
+      <Toaster />
     </div>
   );
 };
