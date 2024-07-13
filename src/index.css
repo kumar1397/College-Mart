@@ -11,6 +11,10 @@
   background: url('/public/colorbg.svg ')
 }
 
+.formbg{
+  background-image: linear-gradient( 58.2deg,  rgba(40,91,212,0.73) -3%, rgba(171,53,163,0.45) 49.3%, rgba(255,204,112,0.37)97.7%);
+}
+
 .hnavbg {
   background: url('/public/hnavbg.svg');
   background-size: 100%;

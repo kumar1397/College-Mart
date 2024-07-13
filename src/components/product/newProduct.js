@@ -88,7 +88,7 @@ function FormPage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-r from-purple-500 via-[#925FE2] to-purple-700 flex items-center justify-center bg-[linear-gradient(58.2deg,rgba(40,91,212,0.73) -3%,rgba(171,53,163,0.45) 49.3%,rgba(255,204,112,0.37) 97.7%)]">
+    <div className="relative min-h-screen flex items-center justify-center formbg">
       <div className="w-full max-w-5xl bg-white rounded-lg shadow-lg p-8 flex relative">
         <button
           onClick={handleBack}
