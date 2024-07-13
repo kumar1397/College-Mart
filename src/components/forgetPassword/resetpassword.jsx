@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useParams } from 'react-router-dom';
 
 const ResetPassword = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const handleSubmit = (e) => {
+  const {id, token} = useParams()
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      setError('Passwords do not match!');
-      return;
-    }
-    // Handle password reset logic here
-    console.log('Password has been reset to:', password);
+    const res = await fetch(`http://localhost:4000/reset-password/${token}`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({password,confirmPassword}),
+    });
+    console.log(res);
     navigate('/auth')
     setError('');
   };

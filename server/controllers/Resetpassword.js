@@ -92,9 +92,13 @@ exports.resetPasswordToken = async (req, res) => {
 
 exports.resetPassword = async (req, res) => {
   try {
-    const { password, confirmPassword, token } = req.body
-
+    const {id,token} = req.params;
+    const { password, confirmPassword } = req.body;
+    console.log(password);
+    console.log(confirmPassword);
+    console.log(req.params);
     if (confirmPassword !== password) {
+      console.log(`Password and Confirm Password Does not Match`);
       return res.json({
         success: false,
         message: "Password and Confirm Password Does not Match",
@@ -102,12 +106,14 @@ exports.resetPassword = async (req, res) => {
     }
     const userDetails = await User.findOne({ token: token })
     if (!userDetails) {
+      console.log(`Token is Invalid`);
       return res.json({
         success: false,
         message: "Token is Invalid",
       })
     }
     if (!(userDetails.resetPasswordExpires > Date.now())) {
+      console.log(`Token is Expired, Please Regenerate Your Token`);
       return res.status(403).json({
         success: false,
         message: `Token is Expired, Please Regenerate Your Token`,
@@ -119,11 +125,14 @@ exports.resetPassword = async (req, res) => {
       { password: encryptedPassword },
       { new: true }
     )
+    console.log(`Password Reset Successful`);
     res.json({
       success: true,
       message: `Password Reset Successful`,
     })
-  } catch (error) {
+  } 
+  catch (error) {
+    console.log(`Some Error in Updating the Password`);
     return res.json({
       error: error.message,
       success: false,
