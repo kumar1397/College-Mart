@@ -6,7 +6,7 @@ const ResetPassword = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const {id, token} = useParams()
+  const {token} = useParams()
   const handleSubmit = async(e) => {
     e.preventDefault();
     const res = await fetch(`http://localhost:4000/reset-password/${token}`, {

@@ -92,7 +92,7 @@ exports.resetPasswordToken = async (req, res) => {
 
 exports.resetPassword = async (req, res) => {
   try {
-    const {id,token} = req.params;
+    const {token} = req.params;
     const { password, confirmPassword } = req.body;
     console.log(password);
     console.log(confirmPassword);
