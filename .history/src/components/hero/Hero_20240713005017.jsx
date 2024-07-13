@@ -8,7 +8,7 @@ const Hero = () => {
   return (
     <div className='overflow-x-hidden scroll-auto '>
       <Heronavbar />
-      <div className='herohomebg w-full h-[50vh] flex justify-center items-center text-white bg-blue-gray-400 mt-28'>
+      <div className='herohomebg w-full h-[50vh] flex justify-center items-center text-white bg-primary-red-400 mt-28'>
         <div className="flex flex-col justify-center items-center text-center">
           <div className="font-semibold flex items-center uppercase">
             <div className="w-10 h-[2px] mr-3 bg-cyan-700"></div>The
