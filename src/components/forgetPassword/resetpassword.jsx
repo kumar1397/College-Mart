@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate,useParams } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 
 const ResetPassword = () => {
   const [password, setPassword] = useState('');
@@ -7,6 +8,15 @@ const ResetPassword = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const {token} = useParams()
+const notify = (message, type) => {
+    if (type === 'error') {
+      toast.error(message);
+    } else if (type === 'success') {
+      toast.success(message);
+    } else {
+      toast(message);
+    }
+  };
   const handleSubmit = async(e) => {
     e.preventDefault();
     const res = await fetch(`http://localhost:4000/reset-password/${token}`, {
@@ -17,10 +27,25 @@ const ResetPassword = () => {
       },
       body: JSON.stringify({password,confirmPassword}),
     });
+const data = await res.json();
+    console.log(data);
+    if (res.status ===200) { // Check if the response status is in the range 200-299
+        notify('Password changed successfully', 'success');
+        console.log(data);
+        setTimeout(() => {
+            navigate('/auth'); // Navigate after a delay
+          }, 2000); 
+      } else if(res.status=== 404) {
+        notify(data.message, "error");
+      }
+
     console.log(res);
-    navigate('/auth')
+    
     setError('');
+
+    
   };
+
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-black">
@@ -67,6 +92,7 @@ const ResetPassword = () => {
           </div>
         </form>
       </div>
+<Toaster />
     </div>
   );
 };
