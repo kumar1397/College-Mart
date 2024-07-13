@@ -88,19 +88,19 @@ function FormPage() {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center formbg">
-      <div className="w-full max-w-5xl bg-white rounded-lg shadow-lg p-8 flex relative">
+    <div className="relative min-h-screen flex items-center justify-center bg-[#252525]">
+      <div className="w-full max-w-5xl bg-[#383838] rounded-lg tshadow p-8 flex relative shadow-md shadow-yellow-500">
         <button
           onClick={handleBack}
-          className="absolute top-4 left-4 flex items-center px-3 py-1.5 text-white bg-[#925FE2] hover:bg-[#7d4fbb] rounded-md shadow-md text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#925FE2] transition duration-300"
+          className="absolute top-4 left-4 flex items-center px-3 py-1.5 text-black bg-yellow-500 hover:bg-[#7d4fbb] rounded-md shadow-md text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#925FE2] transition duration-300"
         >
           <ChevronLeftIcon className="h-4 w-4 mr-1" />
           Back
         </button>
 
-        <div className="w-1/2 p-4">
-          <h2 className="text-2xl font-bold mb-4 text-[#925FE2]">Picture Upload Guidelines</h2>
-          <ul className="list-disc list-inside text-gray-600 space-y-2">
+        <div className="w-1/2 p-4 flex flex-col justify-center ">
+          <h2 className="text-[35px] font-bold mb-4 text-yellow-500">Upload Guidelines</h2>
+          <ul className="list-disc list-inside text-[#f5f5f5] space-y-2 text-md">
             <li>Ensure pictures are clear and well-lit.</li>
             <li>Only upload pictures of the item you are listing.</li>
             <li>Do not upload offensive or inappropriate images.</li>
@@ -110,60 +110,60 @@ function FormPage() {
           </ul>
         </div>
 
-        <div className="border-r border-[#925FE2] mx-4"></div>
+        <div className="border-r border-yellow-500 mx-4"></div>
 
         <div className="w-1/2 p-4">
-          <h2 className="text-2xl font-bold mb-4 text-[#925FE2]">List Your Item</h2>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <h2 className="text-2xl font-bold mb-4 text-yellow-500">List Your Item</h2>
+          <form onSubmit={handleSubmit} className="space-y-5 font-medium text-xl text-white">
             <div>
-              <label className="block text-sm font-medium text-[#925FE2]">Item Name</label>
+              {/* <label className="block text-sm font-medium text-[#925FE2]">Item Name</label> */}
               <input
                 type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                placeholder="Enter the name of your item"
-                className="mt-1 block w-full px-3 py-2 border border-[#925FE2] rounded-md shadow-sm focus:outline-none focus:ring-[#925FE2] focus:border-[#925FE2] sm:text-sm transition duration-300"
+                placeholder="Item name"
+                className="mt-1 block w-full px-3 py-2  border-yellow-500 bg-transparent rounded-md shadow-sm focus:outline-none focus:ring-[#925FE2] focus:border-[#925FE2] border-2 sm:text-sm transition duration-300 "
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-[#925FE2]">Description</label>
+              {/* <label className="block text-sm font-medium text-[#925FE2]">Description</label> */}
               <textarea
                 name="description"
                 value={formData.description}
                 onChange={handleChange}
                 placeholder="Provide a detailed description of your item"
-                className="mt-1 block w-full px-3 py-2 border border-[#925FE2] rounded-md shadow-sm focus:outline-none focus:ring-[#925FE2] focus:border-[#925FE2] sm:text-sm transition duration-300"
+                className="mt-1 block w-full px-3 py-2 border-2 border-yellow-500 bg-transparent text-white rounded-md shadow-sm focus:outline-none focus:ring-[#925FE2] focus:border-[#925FE2] sm:text-sm transition duration-300"
               ></textarea>
             </div>
             <div>
-              <label className="block text-sm font-medium text-[#925FE2]">Date</label>
+              {/* <label className="block text-sm font-medium text-[#925FE2]">Date</label> */}
               <input
                 type="date"
                 name="date"
                 value={formData.date}
                 onChange={handleChange}
-                className="mt-1 block w-full px-3 py-2 border border-[#925FE2] rounded-md shadow-sm focus:outline-none focus:ring-[#925FE2] focus:border-[#925FE2] sm:text-sm transition duration-300"
+                className="mt-1 block w-full px-3 py-2 border-2 border-yellow-500 bg-transparent text-white rounded-md shadow-sm focus:outline-none focus:ring-[#925FE2] focus:border-[#925FE2] sm:text-sm transition duration-300"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-[#925FE2]">Price</label>
+              {/* <label className="block text-sm font-medium text-[#925FE2]">Price</label> */}
               <input
                 type="number"
                 name="price"
                 value={formData.price}
                 onChange={handleChange}
                 placeholder="Enter the price"
-                className="mt-1 block w-full px-3 py-2 border border-[#925FE2] rounded-md shadow-sm focus:outline-none focus:ring-[#925FE2] focus:border-[#925FE2] sm:text-sm transition duration-300"
+                className="mt-1 block w-full px-3 py-2 border-2 border-yellow-500 bg-transparent text-white rounded-md shadow-sm focus:outline-none focus:ring-[#925FE2] focus:border-[#925FE2] sm:text-sm transition duration-300"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-[#925FE2]">Category</label>
+              {/* <label className="block text-sm font-medium text-[#925FE2]">Category</label> */}
               <select
                 name="category"
                 value={formData.category}
                 onChange={handleChange}
-                className="mt-1 block w-full px-3 py-2 border border-[#925FE2] bg-white rounded-md shadow-sm focus:outline-none focus:ring-[#925FE2] focus:border-[#925FE2] sm:text-sm transition duration-300"
+                className="mt-1 block w-full px-3 py-2 border-2 border-yellow-500 bg-[#383838] rounded-md shadow-sm focus:outline-none focus:ring-[#925FE2] focus:border-[#925FE2] sm:text-sm transition duration-300"
               >
                 <option value="" disabled>Select a category</option>
                 <option value="electronics">Electronics</option>
@@ -174,21 +174,21 @@ function FormPage() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-[#925FE2]">Upload Pictures</label>
+              {/* <label className="block text-sm font-medium text-[#925FE2]">Upload Pictures</label> */}
               <input
                 type="file"
                 name="images"
                 multiple
                 accept="image/jpeg,image/png,image/jpg"
                 onChange={handleFileChange}
-                className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#925FE2] file:text-white hover:file:bg-[#7d4fbb] transition duration-300"
+                className="mt-1 block w-full text-sm  bg-transparent text-white file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-yellow-500 file:text-black hover:file:bg-[#7d4fbb] transition duration-300"
               />
               {error && <p className="mt-2 text-red-500 text-sm">{error}</p>}
             </div>
             <div>
               <button
                 type="submit"
-                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-[#925FE2] hover:bg-[#7d4fbb] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#925FE2] transition duration-300"
+                className="inline-flex justify-center py-2 px-4 border font-semibold border-transparent shadow-sm text-sm rounded-md text-black bg-yellow-500 hover:bg-[#7d4fbb] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition duration-300"
               >
                 Submit
               </button>
