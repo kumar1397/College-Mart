@@ -55,7 +55,7 @@ exports.resetPassword = async (req, res) => {
     console.log(req.params);
     if (confirmPassword !== password) {
       console.log(`Password and Confirm Password Does not Match`);
-      return res.json({
+      return res.status(404).json({
         success: false,
         message: "Password and Confirm Password Does not Match",
       })
@@ -82,7 +82,7 @@ exports.resetPassword = async (req, res) => {
       { new: true }
     )
     console.log(`Password Reset Successful`);
-    res.json({
+    res.status(200).json({
       success: true,
       message: `Password Reset Successful`,
     })
