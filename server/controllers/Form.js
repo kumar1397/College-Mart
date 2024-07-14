@@ -18,7 +18,7 @@ async function uploadtoCloudinary(file, folder, quality) {
 
 exports.fileUpload = async (req, res) => {
     try {
-        const { name, description, buydate, condition, tag } = req.body;
+        const { name, description, date, price, tag } = req.body;
         if (!req.files) {
             console.log(`no files were uploaded`);
         }
@@ -42,7 +42,7 @@ exports.fileUpload = async (req, res) => {
             images.push({ url: response.secure_url });
         }
         const productdata = await Product.create({
-            name, description, buydate, condition, tag, imgUrl:images
+            name, description, date, price, tag, imgUrl:images
         });
         console.log(productdata);
         res.json({

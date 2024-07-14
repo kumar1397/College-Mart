@@ -16,17 +16,17 @@ const formSchema = new mongoose.Schema({
     type: String,
     required: true 
   },
-  buydate: {
+  date: {
     type: Date, 
     required: true 
   },
-  condition: {
-    type: String,
+  price: {
+    type: Number,
     required: true 
   },
   tag: { 
     type: String,
-    enum: ["Electronics", "Study materials", "Clothing", "Bedding", "Cycle", "Entertainment", "Miscellaneous"],
+    enum: ["Electronics", "Study materials", "Personal belongings", "Cycle", "Entertainment", "Miscellaneous"],
     required: true 
   },
   imgUrl: [imageSchema] 

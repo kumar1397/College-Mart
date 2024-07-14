@@ -1,8 +1,6 @@
-// src/components/FormPage.js
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronLeftIcon } from '@heroicons/react/outline';
+import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 
 function FormPage() {
   const [formData, setFormData] = useState({
@@ -10,7 +8,7 @@ function FormPage() {
     description: '',
     date: '',
     price: '',
-    category: '',
+    tag: '',
     images: [],
   });
   const [error, setError] = useState('');
@@ -26,20 +24,10 @@ function FormPage() {
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
-    const validFormats = ['image/jpeg', 'image/png', 'image/jpg'];
-
     if (files.length > 3) {
       setError('You can upload a maximum of 3 images.');
       return;
     }
-
-    for (let file of files) {
-      if (!validFormats.includes(file.type)) {
-        setError('Only JPEG, JPG, and PNG formats are allowed.');
-        return;
-      }
-    }
-
     setError('');
     setFormData({
       ...formData,
@@ -49,6 +37,7 @@ function FormPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (formData.images.length > 3) {
       setError('You can upload a maximum of 3 images.');
       return;
@@ -59,22 +48,22 @@ function FormPage() {
     data.append('description', formData.description);
     data.append('date', formData.date);
     data.append('price', formData.price);
-    data.append('category', formData.category);
+    data.append('tag', formData.tag);
+
     formData.images.forEach((image, index) => {
-      data.append(`images[${index}]`, image);
+      data.append(`filename`, image); // Cloudinary expects field name as 'file', but it's 'filename' based on your backend
     });
 
     try {
-      const response = await fetch('/api/listing', {
+      const response = await fetch('http://localhost:4000/upload/fileUpload', {
         method: 'POST',
         body: data,
       });
-      
+
       if (response.ok) {
-        
         console.log('Form submitted successfully');
+        setError('');
       } else {
-        
         const errorData = await response.json();
         setError(errorData.message || 'Something went wrong.');
       }
@@ -94,7 +83,7 @@ function FormPage() {
           onClick={handleBack}
           className="absolute top-4 left-4 flex items-center px-3 py-1.5 text-black bg-yellow-500 hover:bg-[#7d4fbb] rounded-md shadow-md text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#925FE2] transition duration-300"
         >
-          <ChevronLeftIcon className="h-4 w-4 mr-1" />
+          <MdOutlineKeyboardArrowLeft className="h-4 w-4 mr-1"/>
           Back
         </button>
 
@@ -116,28 +105,26 @@ function FormPage() {
           <h2 className="text-2xl font-bold mb-4 text-yellow-500">List Your Item</h2>
           <form onSubmit={handleSubmit} className="space-y-5 font-medium text-xl text-white">
             <div>
-              {/* <label className="block text-sm font-medium text-[#925FE2]">Item Name</label> */}
               <input
                 type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Item name"
-                className="mt-1 block w-full px-3 py-2  border-yellow-500 bg-transparent rounded-md shadow-sm focus:outline-none focus:ring-[#925FE2] focus:border-[#925FE2] border-2 sm:text-sm transition duration-300 "
+                className="mt-1 block w-full px-3 py-2  border-yellow-500 bg-transparent rounded-md shadow-sm focus:outline-none focus:ring-[#925FE2] focus:border-[#925FE2] border-2 sm:text-sm transition duration-300"
               />
             </div>
             <div>
-              {/* <label className="block text-sm font-medium text-[#925FE2]">Description</label> */}
               <textarea
                 name="description"
                 value={formData.description}
                 onChange={handleChange}
+                maxLength={100}
                 placeholder="Provide a detailed description of your item"
                 className="mt-1 block w-full px-3 py-2 border-2 border-yellow-500 bg-transparent text-white rounded-md shadow-sm focus:outline-none focus:ring-[#925FE2] focus:border-[#925FE2] sm:text-sm transition duration-300"
               ></textarea>
             </div>
             <div>
-              {/* <label className="block text-sm font-medium text-[#925FE2]">Date</label> */}
               <input
                 type="date"
                 name="date"
@@ -147,7 +134,6 @@ function FormPage() {
               />
             </div>
             <div>
-              {/* <label className="block text-sm font-medium text-[#925FE2]">Price</label> */}
               <input
                 type="number"
                 name="price"
@@ -158,23 +144,22 @@ function FormPage() {
               />
             </div>
             <div>
-              {/* <label className="block text-sm font-medium text-[#925FE2]">Category</label> */}
               <select
-                name="category"
-                value={formData.category}
+                name="tag"
+                value={formData.tag}
                 onChange={handleChange}
                 className="mt-1 block w-full px-3 py-2 border-2 border-yellow-500 bg-[#383838] rounded-md shadow-sm focus:outline-none focus:ring-[#925FE2] focus:border-[#925FE2] sm:text-sm transition duration-300"
               >
                 <option value="" disabled>Select a category</option>
-                <option value="electronics">Electronics</option>
-                <option value="cycle">Cycle</option>
-                <option value="books">Books</option>
-                <option value="clothing">Clothing</option>
-                <option value="furniture">Furniture</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Study materials">Study materials</option>
+                <option value="Personal belongings">Personal belongings</option>
+                <option value="Cycle">Cycle</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Miscellaneous">Miscellaneous</option>
               </select>
             </div>
             <div>
-              {/* <label className="block text-sm font-medium text-[#925FE2]">Upload Pictures</label> */}
               <input
                 type="file"
                 name="images"
