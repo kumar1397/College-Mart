@@ -31,7 +31,7 @@ const ProductCard = ({ product }) => {
         <img onClick={handleCardClick} src={product.image} alt={product.name} className="w-full h-48 object-cover rounded-t-lg" />
         <h2 className="text-xl font-bold mt-2">{product.name}</h2>
         <p className="text-gray-600">{product.price}</p>
-        {showDetails && (
+        {showDetails && ( 
           <div className="mt-4">
             <p className="mb-1"><strong>Description:</strong> {product.description}</p>
             <p className="mb-1"><strong>Buy Date:</strong> {product.buyDate}</p>

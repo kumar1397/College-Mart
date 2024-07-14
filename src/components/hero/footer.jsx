@@ -61,18 +61,18 @@ const Footer = () => {
 
                                 <div class="flex flex-col items-start mt-5 space-y-2">
                                     <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">Home</p>
-                                    <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">Who We Are</p>
-                                    <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">Our Philosophy</p>
+                                    <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">About Us</p>
+                                    <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">Feedback</p>
                                 </div>
                             </div>
 
                             <div>
-                                <p class="font-semibold text-gray-800 dark:text-white">Industries</p>
+                                <p class="font-semibold text-gray-800 dark:text-white">Customer Help</p>
 
                                 <div class="flex flex-col items-start mt-5 space-y-2">
-                                    <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">Retail & E-Commerce</p>
-                                    <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">Information Technology</p>
-                                    <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">Finance & Insurance</p>
+                                    <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">Common Questions</p>
+                                    <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">Privacy</p>
+                                    <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">Rules and Regulations</p>
                                 </div>
                             </div>
                             </div>
@@ -123,29 +123,13 @@ const Footer = () => {
 
                 <hr className="my-6 border-blueGray-300" />
                 <div className="flex flex-wrap items-center md:justify-between justify-center">
-                    <div className="w-full md:w-4/12 px-4 mx-auto text-center">
-                        <div className="text-sm text-blueGray-500 font-semibold py-1">
-                            Copyright © <span id="get-current-year">2021</span>
-                            <a
-                                href="https://www.creative-tim.com/product/notus-js"
-                                className="text-blueGray-500 hover:text-gray-800"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                {' '}
-                                Notus JS by
-                                <a
-                                    href="https://www.creative-tim.com?ref=njs-profile"
-                                    className="text-blueGray-500 hover:text-blueGray-800"
-                                >
-                                    {' '}
-                                    Creative Tim
-                                </a>
-                            </a>
-                            .
-                        </div>
-                    </div>
-                </div>
+  <div className="w-full md:w-4/12 px-4 mx-auto text-center">
+    <div className="text-sm text-blueGray-500 font-semibold py-1">
+      © 2023 AasPaas. All rights reserved - Designed and Developed with ❤️ by SaiRev (Saiyam Jain)
+    </div>
+  </div>
+</div>
+
             </div>
         </footer>
     );
