@@ -9,18 +9,18 @@ const Footer = () => {
         tailwindLink.rel = 'stylesheet';
         tailwindLink.href = 'https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css';
         document.head.appendChild(tailwindLink);
-    
+
         const fontAwesomeLink = document.createElement('link');
         fontAwesomeLink.rel = 'stylesheet';
         fontAwesomeLink.href = 'https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css';
         document.head.appendChild(fontAwesomeLink);
-    
+
         // Cleanup function to remove the links when the component is unmounted
         return () => {
-          document.head.removeChild(tailwindLink);
-          document.head.removeChild(fontAwesomeLink);
+            document.head.removeChild(tailwindLink);
+            document.head.removeChild(fontAwesomeLink);
         };
-      }, []);
+    }, []);
     return (
         <footer className="relative bg-blueGray-200 pt-8 pb-6 ">
             <div className="container mx-auto px-4 ">
@@ -56,25 +56,25 @@ const Footer = () => {
                                 <i className="fab fa-github"></i>
                             </button>
                             <div className='flex justify-between flex-row my-12'>
-                            <div className='f'>
-                                <p class="font-semibold text-gray-800 dark:text-white">Quick Link</p>
+                                <div className='f'>
+                                    <p class="font-semibold text-gray-800 dark:text-white">Quick Link</p>
 
-                                <div class="flex flex-col items-start mt-5 space-y-2">
-                                    <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">Home</p>
-                                    <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">About Us</p>
-                                    <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">Feedback</p>
+                                    <div class="flex flex-col items-start mt-5 space-y-2">
+                                        <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">Home</p>
+                                        <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">About Us</p>
+                                        <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">Feedback</p>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div>
-                                <p class="font-semibold text-gray-800 dark:text-white">Customer Help</p>
+                                <div>
+                                    <p class="font-semibold text-gray-800 dark:text-white">Customer Help</p>
 
-                                <div class="flex flex-col items-start mt-5 space-y-2">
-                                    <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">Common Questions</p>
-                                    <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">Privacy</p>
-                                    <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">Rules and Regulations</p>
+                                    <div class="flex flex-col items-start mt-5 space-y-2">
+                                        <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">Common Questions</p>
+                                        <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">Privacy</p>
+                                        <p class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">Rules and Regulations</p>
+                                    </div>
                                 </div>
-                            </div>
                             </div>
                         </div>
                     </div>
@@ -125,10 +125,13 @@ const Footer = () => {
                 <div className="flex flex-wrap items-center md:justify-between justify-center">
   <div className="w-full md:w-4/12 px-4 mx-auto text-center">
     <div className="text-sm text-blueGray-500 font-semibold py-1">
-      © 2023 AasPaas. All rights reserved - Designed and Developed with ❤️ by SaiRev (Saiyam Jain)
+      © 2023 College Mart. All rights reserved - 
+      <span> ❤️ <a href='https://www.linkedin.com/in/anurag-roy-has-cutome-url/'>Designed by Anurag</a>,</span>
+      <span>  ❤️ <a href='https://www.linkedin.com/in/iswar-kumar-sahu-a01b721a2/'>Developed by Kumar</a>, <a href="https://www.linkedin.com/in/anubhav-shaurya-4b3946257/">Anubhav</a>, <a href="https://www.linkedin.com/in/prateek-kumar-nayak-72976822a/">Prateek</a>,<a href="https://www.linkedin.com/in/mahaprasad-prusty-0163a21b1/">Mahaprasad</a> and <a href="https://www.linkedin.com/in/tanisha-pati-06ab79271/">Tanisha</a>. </span> 
     </div>
   </div>
 </div>
+
 
             </div>
         </footer>
