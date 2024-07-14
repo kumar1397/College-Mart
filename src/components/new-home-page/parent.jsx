@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom';
 import { FaPlus } from "react-icons/fa";
 import HorizontalCarousel from './HorizontalCarousel';
 import BackgroundImagePage from './intropage';
+import { useState,useEffect } from 'react';
+import Spinner from '../spinner/Spinner';
 
 const images = [
   "Frame9.svg",
@@ -20,7 +22,24 @@ const images = [
 ];
 
 function Home02() {
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const handleStart = () => setLoading(true);
+    const handleComplete = () => setLoading(false);
+
+    setLoading(true);
+    setTimeout(() => setLoading(false), 400);
+
+
+    return () => {
+    };
+  }, []);
   return (
+    <div>
+      {loading ? (
+        <Spinner />
+      ) : (
     <div className="min-h-screen flex flex-col relative mb-5 ">
       <Navbar />
       <div className="py-2  ">
@@ -36,6 +55,8 @@ function Home02() {
         <img src="plus-svgrepo-com.svg" className=' w-8 h-8 object-fill transition-transform duration-300 ease-in-out invert' alt="plus" />
         </Link>
       <Footer />
+    </div>
+    )}
     </div>
   );
 }
