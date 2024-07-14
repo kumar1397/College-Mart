@@ -29,7 +29,7 @@ function Home02() {
     const handleComplete = () => setLoading(false);
 
     setLoading(true);
-    setTimeout(() => setLoading(false), 400);
+    setTimeout(() => setLoading(false), 1000);
 
 
     return () => {
