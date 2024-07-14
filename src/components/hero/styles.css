@@ -12,4 +12,9 @@
       100% { background-position: 0% 50%; }
     }
   }
+
+  #about-us {
+    transition: transform 0.1s;
+    perspective: 1000px;
+  }
   
