@@ -9,7 +9,7 @@ const ContactUs = () => {
       <p className="text-lg mb-8">Any questions or remarks?</p>
       
       <div className="flex flex-wrap w-full max-w-6xl min-h-[70vh]">
-        {/* Left Side Div */}
+        
         <div className="w-full md:w-1/2 p-8 relative" style={{ backgroundColor: '#9C6FE4', color: 'white' }}>
           <h2 className="text-2xl font-bold ml-7 mt-5 mb-4 absolute top-0 left-0">Contact Information</h2>
           
@@ -32,7 +32,6 @@ const ContactUs = () => {
             <p>Nit Rourkela </p>
           </div>
 
-          {/* Social Media Links */}
           <div className="flex justify-between">
             <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="bg-black text-white py-2 px-4 rounded-lg hover:bg-gray-800 transition duration-300">GitHub</a>
             <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="bg-black text-white py-2 px-4 rounded-lg hover:bg-gray-800 transition duration-300">LinkedIn</a>
@@ -41,7 +40,6 @@ const ContactUs = () => {
           </div>
         </div>
 
-        {/* Right Side Div */}
         <div className="w-full md:w-1/2 p-8 bg-white text-black">
           <form>
             <div className="flex mb-4 space-x-4">

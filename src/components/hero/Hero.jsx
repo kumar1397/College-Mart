@@ -1,11 +1,31 @@
-import React from 'react';
+import React, { useState,useEffect } from 'react';
 import Heronavbar from './Heronavbar';
 import { Link } from 'react-router-dom';
 import Footer from './footer';
 import AutoPlay from './Carousel';
+import Spinner from '../spinner/Spinner';
 
 const Hero = () => {
+
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const handleStart = () => setLoading(true);
+    const handleComplete = () => setLoading(false);
+
+    setLoading(true);
+    setTimeout(() => setLoading(false), 400);
+
+
+    return () => {
+    };
+  }, []);
+
   return (
+    <div>
+      {loading ? (
+        <Spinner />
+      ) : (
     <div className='overflow-x-hidden scroll-auto '>
       <Heronavbar />
       <div className='herohomebg w-full h-[50vh] flex justify-center items-center text-white bg-blue-gray-400 mt-28'>
@@ -81,6 +101,8 @@ const Hero = () => {
         </div>
       </div>
       <Footer />
+    </div>
+     )}
     </div>
   );
 }
