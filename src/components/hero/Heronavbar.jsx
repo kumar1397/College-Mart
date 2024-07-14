@@ -1,52 +1,44 @@
-import React from 'react'
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 const Heronavbar = () => {
-
   const navigate = useNavigate();
 
   const handleNavigation = (path) => {
     navigate(path);
-  }; 
+  };
 
   return (
-    <div className=' shadow-md fixed w-full'>
-     
-
-<nav className=" border-gray-200 dark:bg-gray-90 bg-blueGray-200 shadow-2xl z-50   ">
-    <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4 ">
-        <a href="http.coms://flowbite" className="flex items-center space-x-3 rtl:space-x-reverse">
-            <img src="Group12.svg" className="h-12  w-16" alt="Flowbite Logo" />
-            <span className="self-center my-auto text-2xl font-semibold whitespace-nowrap dark:text-white">College Mart</span>
-        </a>
-        <div class="flex items-center space-x-6 rtl:space-x-reverse">
-            <Link to={"/auth"} href="#" className="text-md  text-blue-600 dark:text-blue-500 hover:underline">
-            <button class="bg-indigo-500 rounded-tl-full rounded-br-full text-white text-md text-center self-center px-4 py-2 m-2">Login</button>
-            </Link>
+    <div className="fixed w-full bg-white dark:bg-gray-900 shadow-md z-50">
+      <nav className="flex items-center justify-between p-4 max-w-screen-xl mx-auto">
+        <div className="flex items-center space-x-3">
+          <a href="https://flowbite.com" className="flex items-center space-x-3">
+            <img src="Group12.svg" className="h-12 w-16" alt="Flowbite Logo" />
+            <span className="text-2xl font-semibold text-gray-900 dark:text-white">College Mart</span>
+          </a>
         </div>
-    </div>
-</nav>
-<nav className="bg-gray-300 shadow-lg dark:bg-gray-700">
-    <div className="max-w-screen-xl px-4 py-3 mx-auto">
-        <div className="flex items-center justify-end">
-            <ul className="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm">
-                <li>
-                    <a href="#" className="text-gray-900 dark:text-white hover:underline" aria-current="page">Home</a>
-                </li>
-                <li>
-                    <a href="#about-us" className="text-gray-900 dark:text-white hover:underline">About us</a>
-                </li>
-                <li>
-                    <a href="#" className="text-gray-900 dark:text-white hover:underline">Contact us</a>
-                </li>
-            </ul>
+        <ul className="flex space-x-12 text-lg font-medium">
+          <li>
+            <a href="#" className="text-gray-700 dark:text-white hover:text-indigo-500">Home</a>
+          </li>
+          <li>
+            <a href="#about-us" className="text-gray-700 dark:text-white hover:text-indigo-500">About Us</a>
+          </li>
+          <li>
+            <a href="#contact-us" className="text-gray-700 dark:text-white hover:text-indigo-500">Contact Us</a>
+          </li>
+        </ul>
+        <div className="flex items-center">
+          <Link to="/auth">
+            <button className="bg-indigo-500 rounded-full text-white text-md px-4 py-2 hover:bg-indigo-600 transition duration-300">
+              Login
+            </button>
+          </Link>
         </div>
+      </nav>
     </div>
-</nav>
-
-    </div>
-  )
-}
+  );
+};
 
 export default Heronavbar;
