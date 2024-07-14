@@ -21,7 +21,9 @@ const Heronavbar = () => {
             <span className="self-center my-auto text-2xl font-semibold whitespace-nowrap dark:text-white">College Mart</span>
         </a>
         <div class="flex items-center space-x-6 rtl:space-x-reverse">
-            <Link to={"/auth"} href="#" className="text-md  text-blue-600 dark:text-blue-500 hover:underline">Login</Link>
+            <Link to={"/auth"} href="#" className="text-md  text-blue-600 dark:text-blue-500 hover:underline">
+            <button class="bg-indigo-500 rounded-tl-full rounded-br-full text-white text-md text-center self-center px-4 py-2 m-2">Login</button>
+            </Link>
         </div>
     </div>
 </nav>
