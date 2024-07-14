@@ -5,6 +5,7 @@ import { faGithub, faLinkedin, faTwitter, faInstagram } from '@fortawesome/free-
 
 const ContactUs = () => {
   return (
+    
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100  pt-4">
       <h1 className="text-4xl font-bold mb-2 mt-8">Contact Us</h1>
       <p className="text-lg text-gray-600 mb-6">Any questions or remarks? Just leave us a message.</p>

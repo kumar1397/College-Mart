@@ -29,7 +29,7 @@ const Heronavbar = () => {
             <a href="#contact-us" className="text-white hover:text-cyan-500">Contact Us</a>
           </li>
         </ul>
-        <div className="flex items-center">
+        <div className="flex items-center ">
           <Link to="/auth">
             <button className="bg-cyan-500 rounded-full text-white text-md px-4 py-2 hover:bg-cyan-600 transition duration-300">
               Login/Sign-Up

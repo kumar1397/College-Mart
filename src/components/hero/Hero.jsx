@@ -50,11 +50,11 @@ const Hero = () => {
       {loading ? (
         <Spinner />
       ) : (
-        <div className='overflow-x-hidden scroll-auto'>
+        <div className='overflow-x-hidden scroll-auto from-gray-900 via-gray-800 to-gray-900'>
           <Heronavbar />
-          <div className='herohomebg w-full h-[50vh] flex justify-center items-center text-white bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 mt-28'>
+          <div className='herohomebg w-full h-[50vh] flex justify-center items-center text-white bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 mt-20'>
             <div className="flex flex-col justify-center items-center text-center">
-              <div className="font-semibold flex items-center uppercase">
+              <div className="font-semibold flex items-center uppercase ">
                 <div className="w-10 h-[2px] mr-3 bg-cyan-700"></div>The
               </div>
               <h1 className="uppercase text-[35px] md:text-[55px] lg:text-[70px] leading-[1.1] font-semibold mb-4">College Mart<br />
