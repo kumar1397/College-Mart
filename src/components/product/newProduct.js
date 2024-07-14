@@ -1,8 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
+import Spinner from '../spinner/Spinner';
 
 function FormPage() {
+
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const handleStart = () => setLoading(true);
+    const handleComplete = () => setLoading(false);
+
+    setLoading(true);
+    setTimeout(() => setLoading(false), 1000);
+
+
+    return () => {
+    };
+  }, []);
+
+
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -77,6 +94,10 @@ function FormPage() {
   };
 
   return (
+    <div>
+      {loading ? (
+        <Spinner />
+      ) : (
     <div className="relative min-h-screen flex items-center justify-center bg-[#252525]">
       <div className="w-full max-w-5xl bg-[#383838] rounded-lg tshadow p-8 flex relative shadow-md shadow-yellow-500">
         <button
@@ -181,6 +202,8 @@ function FormPage() {
           </form>
         </div>
       </div>
+    </div>
+    )}
     </div>
   );
 }
