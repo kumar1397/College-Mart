@@ -18,8 +18,8 @@ const Hero = () => {
           <Link to={'/'} className='uppercase font-semibold border-b-2 border-primary mt-4'>Discover More</Link>
         </div>
       </div>
-      <div className='text-white w-full flex flex-col items-center'>
-      <section className="about-us bg-gradient-to-r from-gray-100 to-gray-300 py-12">
+      <div id="about-us" className='text-white w-full flex flex-col items-center'>
+      <section  className="about-us bg-gradient-to-r from-gray-100 to-gray-300 py-12">
   <div className="container mx-auto px-4">
     <div className="text-center mb-12">
       <h2 className="text-4xl font-bold text-gray-800">Welcome to College Mart</h2>
@@ -28,7 +28,7 @@ const Hero = () => {
       </p>
     </div>
 
-    <div className="flex flex-wrap items-center justify-center">
+    <div  className="flex flex-wrap items-center justify-center">
       <div className="w-full lg:w-1/2 px-4 mb-8 lg:mb-0">
         <div className="bg-white p-8 rounded-lg shadow-xl">
           <h3 className="text-3xl font-semibold text-gray-800 mb-4">Our Mission</h3>
@@ -68,7 +68,7 @@ const Hero = () => {
             </div>
           </div>
           <p className="text-gray-600 mt-4 text-center">
-            Ready to dive in? <a href="/signup" className="text-blue-500 underline">Sign up today</a> and start exploring College Mart!
+            Ready to dive in? <a href="/auth" className="text-blue-500 underline">Sign up today</a> and start exploring College Mart!
           </p>
         </div>
       </div>

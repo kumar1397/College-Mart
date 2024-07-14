@@ -33,11 +33,13 @@ const BackgroundImagePage = () => {
                 </div>
             </div>
             <div
-        className={`bg-red-400 text-white mx-auto w-full cursor-pointer max-w-44 px-4 py-2 justify-center flex align-middle rounded my-3 hover:bg-[#925FE2] transition-all duration-300 ease-in-out ${
+        className={`bg-red-400  text-white mx-auto w-full cursor-pointer max-w-44 px-4 py-2 justify-center flex align-middle rounded my-3 hover:bg-[#925FE2] transition-all duration-300 ease-in-out ${
           isActive ? 'transform scale-110 bg-purple-600' : ''
         }`}
+        
         onClick={handleClick}
       >
+        
         Sell Your Products
       </div>
             

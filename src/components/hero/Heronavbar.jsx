@@ -21,8 +21,7 @@ const Heronavbar = () => {
             <span className="self-center my-auto text-2xl font-semibold whitespace-nowrap dark:text-white">College Mart</span>
         </a>
         <div class="flex items-center space-x-6 rtl:space-x-reverse">
-            <a href="tel:5541251234" className="text-sm  text-gray-500 dark:text-white hover:underline">(555) 412-1234</a>
-            <Link to={"/auth"} href="#" className="text-sm  text-blue-600 dark:text-blue-500 hover:underline">Login</Link>
+            <Link to={"/auth"} href="#" className="text-md  text-blue-600 dark:text-blue-500 hover:underline">Login</Link>
         </div>
     </div>
 </nav>
@@ -34,10 +33,10 @@ const Heronavbar = () => {
                     <a href="#" className="text-gray-900 dark:text-white hover:underline" aria-current="page">Home</a>
                 </li>
                 <li>
-                    <a href="#" className="text-gray-900 dark:text-white hover:underline">About us</a>
+                    <a href="#about-us" className="text-gray-900 dark:text-white hover:underline">About us</a>
                 </li>
                 <li>
-                    <a href="#" className="text-gray-900 dark:text-white hover:underline">Features</a>
+                    <a href="#" className="text-gray-900 dark:text-white hover:underline">Contact us</a>
                 </li>
             </ul>
         </div>
