@@ -12,7 +12,7 @@ function FormPage() {
     const handleComplete = () => setLoading(false);
 
     setLoading(true);
-    setTimeout(() => setLoading(false), 1000);
+    setTimeout(() => setLoading(false), 400);
 
 
     return () => {
