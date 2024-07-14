@@ -48,14 +48,16 @@ const AutoPlay = () => {
   };
 
   return (
-    <div className="container mx-auto p-6 bg-gray-900 text-white">
-      <Slider {...settings}>
-        {images.map((image, index) => (
-          <div key={index} className="px-2">
-            <img src={image} alt={`Slide ${index}`} className="w-full h-auto rounded-lg" />
-          </div>
-        ))}
-      </Slider>
+    <div className="w-full bg-gray-900 text-white">
+      <div className="mx-auto max-w-screen-xl p-6">
+        <Slider {...settings} className="w-full">
+          {images.map((image, index) => (
+            <div key={index} className="px-2">
+              <img src={image} alt={`Slide ${index}`} className="w-full h-auto rounded-lg" />
+            </div>
+          ))}
+        </Slider>
+      </div>
     </div>
   );
 };
