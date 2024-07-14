@@ -7,7 +7,7 @@ import {
   AiOutlineLogout,
 } from "react-icons/ai";
 import AuthContext from "../../contexts/AuthContext";
-
+import Logo from "./logo.svg"
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
   const [nav, setNav] = useState(false);
@@ -26,7 +26,7 @@ const Navbar = () => {
   return (
     <div className="bg-[#925FE2] shadow-lg flex justify-between z-20 items-center h-20 w-full px-6 text-white fixed">
       <div className="flex items-center space-x-2">
-        <div className=" w-24 max-w-24"><img src="Group11.svg" alt="" /></div>
+        <div className=" w-24 max-w-24"><img src={Logo} alt="" /></div>
       </div>
 
       <ul className="hidden md:flex space-x-4">
