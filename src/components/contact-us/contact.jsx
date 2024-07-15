@@ -7,6 +7,15 @@ import { Link } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 
 const ContactUs = () => {
+  const notify = (message, type) => {
+    if (type === 'error') {
+      toast.error(message);
+    } else if (type === 'success') {
+      toast.success(message);
+    } else {
+      toast(message);
+    }
+  };
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -34,7 +43,7 @@ const ContactUs = () => {
       });
 
       if (response.ok) {
-        alert('Message sent successfully!');
+         notify('Message sent successfully!','success');
         setFormData({
           firstName: '',
           lastName: '',
@@ -43,22 +52,14 @@ const ContactUs = () => {
           message: ''
         });
       } else {
-        alert('Failed to send message.');
+        notify('Failed to send message.','error');
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('Failed to send message.');
+      notify('Failed to send message.','error');
     }
   };
-  const notify = (message, type) => {
-    if (type === 'error') {
-      toast.error(message);
-    } else if (type === 'success') {
-      toast.success(message);
-    } else {
-      toast(message);
-    }
-  };
+ 
 
 
   return (
@@ -105,7 +106,7 @@ const ContactUs = () => {
             </a>
           </div>
         </div>
-
+<Toaster/>
         <div className="w-full md:w-1/2 p-8 bg-white text-black">
           <form onSubmit={handleSubmit}>
             <div className="flex mb-4 space-x-4">
