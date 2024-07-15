@@ -39,8 +39,8 @@ export default function Profile() {
             <Navbar />
             <div className="bg-gray-900 min-h-screen flex">
                 <div className="container mx-auto my-16 flex">
-                    <div className="lg:w-1/3 bg-white rounded-lg shadow-lg overflow-hidden h-full fixed " style={{ marginRight: "65%", marginTop: "2%", marginBottom: "2%"}}>
-                        <div className="h-32 bg-gray-400"></div>
+                    <div className="lg:w-1/3 bg-white rounded-lg shadow-lg overflow-hidden h-full fixed " style={{ marginRight: "55%" }}>
+                        <div className="h-32 bg-gray-200"></div>
                         <div className="flex justify-center -mt-16">
                             <img className="h-32 w-32 bg-white p-2 rounded-full shadow-lg" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" alt="Profile" />
                         </div>
@@ -63,12 +63,12 @@ export default function Profile() {
                         </div>
                     </div>
 
-                    <div className="lg:ml-1/3 w-full bg-gray-400 rounded-lg shadow-lg overflow-y-auto h-full pl-8" style={{ marginLeft: "45%" , marginTop: "2%"}}>
+                    <div className="lg:ml-1/3 w-full bg-white rounded-lg shadow-lg overflow-y-auto h-full pl-8" style={{ marginLeft: "55%" }}>
                         <div className="p-6">
                             <h2 className="text-2xl font-semibold text-gray-800 text-center">Products Posted</h2>
                             <div className="mt-6 space-y-6">
                                 {products.map((product, index) => (
-                                    <div key={product.id} className="p-4 bg-white rounded-lg shadow-sm">
+                                    <div key={product.id} className="p-4 bg-gray-50 rounded-lg shadow-sm">
                                         <h3 className="text-xl font-bold text-gray-800">{product.name}</h3>
                                         <p className="text-gray-600">{product.tag}</p>
                                         <p className="text-gray-600">Buy Date: {product.buyDate}</p>

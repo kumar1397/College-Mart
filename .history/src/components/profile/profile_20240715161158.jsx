@@ -63,7 +63,7 @@ export default function Profile() {
                         </div>
                     </div>
 
-                    <div className="lg:ml-1/3 w-full bg-gray-400 rounded-lg shadow-lg overflow-y-auto h-full pl-8" style={{ marginLeft: "45%" , marginTop: "2%"}}>
+                    <div className="lg:ml-1/3 w-full bg-gray-200 rounded-lg shadow-lg overflow-y-auto h-full pl-8" style={{ marginLeft: "45%" , marginTop: "2%"}}>
                         <div className="p-6">
                             <h2 className="text-2xl font-semibold text-gray-800 text-center">Products Posted</h2>
                             <div className="mt-6 space-y-6">

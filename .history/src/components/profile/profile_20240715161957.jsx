@@ -68,7 +68,7 @@ export default function Profile() {
                             <h2 className="text-2xl font-semibold text-gray-800 text-center">Products Posted</h2>
                             <div className="mt-6 space-y-6">
                                 {products.map((product, index) => (
-                                    <div key={product.id} className="p-4 bg-white rounded-lg shadow-sm">
+                                    <div key={product.id} className="p-4 bg-white rounded-lg shadow-sm mx-auto" style={{ width: "90%" }}>
                                         <h3 className="text-xl font-bold text-gray-800">{product.name}</h3>
                                         <p className="text-gray-600">{product.tag}</p>
                                         <p className="text-gray-600">Buy Date: {product.buyDate}</p>
