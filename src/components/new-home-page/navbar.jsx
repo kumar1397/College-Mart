@@ -18,6 +18,7 @@ const Navbar = () => {
     { id: 2, text: "Products", path: "/products" },
     { id: 3, text: "Add Products", path: "/add-products" },
     { id: 4, text: "Cart", path: "/cart" },
+    { id: 4, text: "Contact Us", path: "/contactus" },
   ];
 
   const handleNav = () => setNav(!nav);

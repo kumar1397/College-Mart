@@ -2,11 +2,14 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faPhone, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faLinkedin, faTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { IoArrowBackCircleSharp } from "react-icons/io5";
+import { Link } from 'react-router-dom';
 
 const ContactUs = () => {
   return (
     
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100  pt-4">
+     <Link to={"/home"}> <IoArrowBackCircleSharp size={40} className='animate-bounce' /></Link>
       <h1 className="text-4xl font-bold mb-2 mt-8">Contact Us</h1>
       <p className="text-lg text-gray-600 mb-6">Any questions or remarks? Just leave us a message.</p>
 
