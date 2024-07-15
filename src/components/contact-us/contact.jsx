@@ -1,15 +1,69 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faPhone, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faLinkedin, faTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { IoArrowBackCircleSharp } from "react-icons/io5";
 import { Link } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 
 const ContactUs = () => {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    message: ''
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('/sendmail', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (response.ok) {
+        alert('Message sent successfully!');
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          message: ''
+        });
+      } else {
+        alert('Failed to send message.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Failed to send message.');
+    }
+  };
+  const notify = (message, type) => {
+    if (type === 'error') {
+      toast.error(message);
+    } else if (type === 'success') {
+      toast.success(message);
+    } else {
+      toast(message);
+    }
+  };
+
+
   return (
-    
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100  pt-4">
-     <Link to={"/home"}> <IoArrowBackCircleSharp size={40} className='animate-bounce' /></Link>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 pt-4">
+      <Link to="/home"><IoArrowBackCircleSharp size={40} className='animate-bounce' /></Link>
       <h1 className="text-4xl font-bold mb-2 mt-8">Contact Us</h1>
       <p className="text-lg text-gray-600 mb-6">Any questions or remarks? Just leave us a message.</p>
 
@@ -36,68 +90,47 @@ const ContactUs = () => {
             <p className="ml-2">Nit Rourkela</p>
           </div>
 
-
           <div className="flex justify-left mt-auto space-x-4">
-      <a
-        href="https://github.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="bg-black text-white py-3 px-4 rounded-full hover:bg-gray-800 shadow-lg transition duration-300"
-      >
-        <FontAwesomeIcon icon={faGithub} size="lg" />
-      </a>
-      <a
-        href="https://linkedin.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="bg-black text-white py-3 px-4 rounded-full hover:bg-gray-800 shadow-lg transition duration-300"
-      >
-        <FontAwesomeIcon icon={faLinkedin} size="lg" />
-      </a>
-      <a
-        href="https://twitter.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="bg-black text-white py-3 px-4 rounded-full hover:bg-gray-800 shadow-lg transition duration-300"
-      >
-        <FontAwesomeIcon icon={faTwitter} size="lg" />
-      </a>
-      <a
-        href="https://instagram.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="bg-black text-white py-3 px-4 rounded-full hover:bg-gray-800 shadow-lg transition duration-300"
-      >
-        <FontAwesomeIcon icon={faInstagram} size="lg" />
-      </a>
-    </div>
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="bg-black text-white py-3 px-4 rounded-full hover:bg-gray-800 shadow-lg transition duration-300">
+              <FontAwesomeIcon icon={faGithub} size="lg" />
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="bg-black text-white py-3 px-4 rounded-full hover:bg-gray-800 shadow-lg transition duration-300">
+              <FontAwesomeIcon icon={faLinkedin} size="lg" />
+            </a>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="bg-black text-white py-3 px-4 rounded-full hover:bg-gray-800 shadow-lg transition duration-300">
+              <FontAwesomeIcon icon={faTwitter} size="lg" />
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="bg-black text-white py-3 px-4 rounded-full hover:bg-gray-800 shadow-lg transition duration-300">
+              <FontAwesomeIcon icon={faInstagram} size="lg" />
+            </a>
+          </div>
         </div>
 
         <div className="w-full md:w-1/2 p-8 bg-white text-black">
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="flex mb-4 space-x-4">
               <div className="w-full">
                 <label className="block text-sm font-medium mb-2" htmlFor="firstName">First Name</label>
-                <input className="w-full bg-transparent border-b-[1px] border-gray-600 focus:outline-none px-4 py-2" type="text" id="firstName" name="firstName" required />
+                <input className="w-full bg-transparent border-b-[1px] border-gray-600 focus:outline-none px-4 py-2" type="text" id="firstName" name="firstName" value={formData.firstName} onChange={handleChange} required />
               </div>
               <div className="w-full">
                 <label className="block text-sm font-medium mb-2" htmlFor="lastName">Last Name</label>
-                <input className="w-full bg-transparent border-b-[1px] border-gray-600 focus:outline-none px-4 py-2" type="text" id="lastName" name="lastName" required />
+                <input className="w-full bg-transparent border-b-[1px] border-gray-600 focus:outline-none px-4 py-2" type="text" id="lastName" name="lastName" value={formData.lastName} onChange={handleChange} required />
               </div>
             </div>
             <div className="flex mb-4 space-x-4">
               <div className="w-full">
                 <label className="block text-sm font-medium mb-2" htmlFor="email">Email</label>
-                <input className="w-full bg-transparent border-b-[1px] border-gray-600  focus:outline-none px-4 py-2" type="email" id="email" name="email" required />
+                <input className="w-full bg-transparent border-b-[1px] border-gray-600 focus:outline-none px-4 py-2" type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
               </div>
               <div className="w-full">
                 <label className="block text-sm font-medium mb-2" htmlFor="phone">Phone</label>
-                <input className="w-full bg-transparent border-b-[1px] border-gray-600 focus:outline-none px-4 py-2" type="tel" id="phone" name="phone" required />
+                <input className="w-full bg-transparent border-b-[1px] border-gray-600 focus:outline-none px-4 py-2" type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} required />
               </div>
             </div>
             <div className="mb-4">
               <label className="block text-sm font-medium mb-2" htmlFor="message">Message</label>
-              <textarea className="w-full px-4 py-2 border-[1px] border-gray-600  rounded-lg  bg-transparent focus:outline-none" id="message" name="message" rows="5" required></textarea>
+              <textarea className="w-full px-4 py-2 border-[1px] border-gray-600 rounded-lg bg-transparent focus:outline-none" id="message" name="message" rows="5" value={formData.message} onChange={handleChange} required></textarea>
             </div>
             <div className="flex justify-end">
               <button className="w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition duration-300" type="submit">Send Message</button>
