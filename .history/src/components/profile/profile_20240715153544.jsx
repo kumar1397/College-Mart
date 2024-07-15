@@ -37,7 +37,7 @@ export default function Profile() {
     return (
         <>
             <Navbar />
-            <div className="bg-black-100 h-full min-h-screen flex flex-col items-center">
+            <div className="bg-gray-100 h-full min-h-screen flex flex-col items-center">
                 <div className="container mx-auto my-16 px-8 lg:flex lg:space-x-8">
                     <div className="lg:w-1/3 bg-white rounded-lg shadow-lg overflow-hidden">
                         <div className="h-32 bg-black-200"></div>

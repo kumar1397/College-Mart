@@ -40,7 +40,7 @@ export default function Profile() {
             <div className="bg-black-100 h-full min-h-screen flex flex-col items-center">
                 <div className="container mx-auto my-16 px-8 lg:flex lg:space-x-8">
                     <div className="lg:w-1/3 bg-white rounded-lg shadow-lg overflow-hidden">
-                        <div className="h-32 bg-black-200"></div>
+                        <div className="h-32 bg-gray-200"></div>
                         <div className="flex justify-center -mt-16">
                             <img className="h-32 w-32 bg-white p-2 rounded-full shadow-lg" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" alt="Profile" />
                         </div>
