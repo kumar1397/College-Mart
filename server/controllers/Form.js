@@ -41,7 +41,7 @@ exports.fileUpload = async (req, res) => {
             images.push({ url: response.secure_url });
         }
         const productdata = await Product.create({
-            name, description, date, price, tag, imgUrl:images
+            name, description, date, price, tag, imgUrl: images
         });
         console.log(`this is the required product data`);
         console.log(productdata);
@@ -60,9 +60,44 @@ exports.fileUpload = async (req, res) => {
     }
 };
 
+exports.getAllProduct = async (req, res) => {
+    try {
+        const allProducts = await Product.find();
+        return res.status(200).json({
+            success: true,
+            data: allProducts,
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(404).json({
+            success: false,
+            message: `Can't Fetch Product Data`,
+            error: error.message,
+        })
+    }
+}
+
+exports.getSingleProduct = async (req, res) => {
+    try {
+        const { userId } = req.body
+        const singleProduct = await Product.findById(userId);
+        res.status(200).json({
+            success: true,
+            data: singleProduct,
+        })
+    } catch (error) {
+        console.error("Error deleting product:", error)
+        res.status(500).json({
+            success: false,
+            message: "Internal server error",
+            error: error.message,
+        })
+    }
+}
+
 exports.updateProduct = async (req, res) => {
     try {
-        const { userId ,name, description, buydate, condition, tag } = req.body;
+        const { userId, name, description, buydate, condition, tag } = req.body;
         if (!req.files) {
             console.log(`no files were uploaded`);
         }
@@ -86,12 +121,12 @@ exports.updateProduct = async (req, res) => {
         }
         const product = await Product.findByIdAndUpdate(
             userId,
-            { name, description, buydate, condition, tag, imgUrl:images },
+            { name, description, buydate, condition, tag, imgUrl: images },
             { new: true }
         )
         res.status(200).json({
             success: true,
-            message: product, 
+            message: product,
         })
     } catch (error) {
         console.error("Error updating section:", error)
@@ -103,21 +138,21 @@ exports.updateProduct = async (req, res) => {
     }
 }
 
-exports.deleteProduct= async (req, res) => {
+exports.deleteProduct = async (req, res) => {
     try {
-      const { userId } = req.body
-      await Product.findByIdAndDelete(userId)
-  
-      res.status(200).json({
-        success: true,
-        message: "Product deleted",
-      })
+        const { userId } = req.body
+        await Product.findByIdAndDelete(userId)
+
+        res.status(200).json({
+            success: true,
+            message: "Product deleted",
+        })
     } catch (error) {
-      console.error("Error deleting product:", error)
-      res.status(500).json({
-        success: false,
-        message: "Internal server error",
-        error: error.message,
-      })
+        console.error("Error deleting product:", error)
+        res.status(500).json({
+            success: false,
+            message: "Internal server error",
+            error: error.message,
+        })
     }
-  }
+}
