@@ -1,115 +1,178 @@
-import React from "react";
-import ProductComponent from "./UserProfile";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPhone, faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import Navbar from "../new-home-page/navbar";
-const products = [
-    {
-        id: 1,
-        name: "Product 1",
-        tag: "Tag 1",
-        buyDate: "2023-01-01",
-        condition: "New",
-        description: "Description of Product 1",
-        images: ["/logo192.png", "/shoes01.webp", "/ycle.webp"]
-    },
-    {
-        id: 2,
-        name: "Product 2",
-        tag: "Tag 2",
-        buyDate: "2023-02-01",
-        condition: "Used",
-        description: "Description of Product 2",
-        images: ["/logo192.png", "/shoes01.webp", "/ycle.webp"]
-    },
-    {
-        id: 3,
-        name: "Product 3",
-        tag: "Tag 3",
-        buyDate: "2023-02-01",
-        condition: "Used",
-        description: "Description of Product 2",
-        images: ["/logo192.png", "/shoes01.webp", "/ycle.webp"]
-    },
-    {
-        id: 1,
-        name: "Product 1",
-        tag: "Tag 1",
-        buyDate: "2023-01-01",
-        condition: "New",
-        description: "Description of Product 1",
-        images: ["/logo192.png", "/shoes01.webp", "/ycle.webp"]
+import React, { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+const Profile = () => {
+  const [profile, setProfile] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get("/home/profile", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setProfile(response.data);
+        console.log("Fetched profile data:", response.data); // Log the fetched profile data
+        setLoading(false);
+      } catch (err) {
+        setError("Failed to fetch profile data.");
+        setLoading(false);
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
+  const handleChange = (e) => {
+    setProfile({ ...profile, [e.target.name]: e.target.value });
+  };
+
+  const handleFileChange = (e) => {
+    if (e.target.files.length > 0) {
+      setProfile({ ...profile, avatar: e.target.files[0] });
     }
+  };
 
-];
-export default function Profile() {
-    return (
-        <>
-            <Navbar />
-            <div class="bg-gradient-to-r from-gray-900 via-gray-800 flex-row to-gray-900  h-[100vh] overflow-scroll dark:bg-gray-800 flex   justify-start items-center bg-gray-500">
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const token = localStorage.getItem("token");
+      const formData = new FormData();
+      if (profile.avatar) formData.append("avatar", profile.avatar);
+      formData.append("bio", profile.bio || "");
+      formData.append("hall_of_residence", profile.hall_of_residence || "");
+      formData.append("room_number", profile.room_number || "");
 
-                <div class="container lg:w-2/6 xl:w-2/7 my-16 mx-8 rounded-lg sm:w-full md:w-2/3 bg-white shadow-xl h-fit transform duration-200 easy-in-out">
-                    <div class="h-32 overflow-hidden">
-                        {/* <img class="w-full rounded-lg" src="https://images.unsplash.com/photo-1605379399642-870262d3d051?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" alt="" /> */}
-                    </div>
-                    <div class="flex justify-center px-5 -mt-12">
-                        <img class="h-32 w-32 bg-white p-2 rounded-full" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" alt="" />
-                    </div>
-                    <div class=" rounded-lg">
-                        <div class="text-center px-14">
-                            <h2 class="text-gray-800 text-3xl font-bold">Mohit Dhiman</h2>
-                            <p class="text-gray-500 text-sm mt-2">mohit@example.com</p>
-                            <p class="text-gray-500 text-sm mt-2">Hall Name: Example Hall</p>
-                            <p class="text-gray-500 text-sm mt-2">Phone: (123) 456-7890</p>
-                            <p class="text-gray-500 text-sm mt-2">Number of Posts: 150</p>
-                        </div>
-                        <hr class="mt-6" />
-                        <div class="flex bg-gray-50 rounded-lg">
-                            <div class="text-center w-1/2 p-4 hover:bg-gray-100 cursor-pointer">
-                                <p><span class="font-semibold">2.5k </span> Followers</p>
-                            </div>
-                            <div class="border"></div>
-                            <div class="text-center w-1/2 p-4 hover:bg-gray-100 cursor-pointer">
-                                <p><span class="font-semibold">2.0k </span> Following</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+      const response = await axios.post("/home/profile", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
+      setProfile(response.data.profile); // Update profile state with response data
+      console.log("Updated profile data:", response.data.profile); // Log the updated profile data
+      alert("Profile updated successfully");
+    } catch (err) {
+      setError("Failed to update profile.");
+    }
+  };
 
-                <div className="w-full h-full overflow-scroll my-10">
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/auth");
+  };
 
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
 
-                    <div className="p-6 ">
-                        <h2 className="text-2xl font-semibold text-gray-800 text-center">Products Posted</h2>
-                        <div className="mt-6 space-y-6">
-                            {products.map((product, index) => (
-                                <div key={product.id} className="p-4 bg-gray-50  max-w-[800px] rounded-lg shadow-sm flex flex-row justify-between ">
-                                    <div>
-                                        <h3 className="text-xl font-bold text-gray-800">{product.name}</h3>
-                                        <p className="text-gray-600">{product.tag}</p>
-                                        <p className="text-gray-600">Buy Date: {product.buyDate}</p>
-                                        <p className="text-gray-600">Condition: {product.condition}</p>
-                                        <p className="text-gray-600">Description: {product.description}</p>
-                                        {index === 0 && <p className="mt-2 text-green-500 font-semibold">Status: Sold</p>}
-                                    </div>
-                                    <div className="mt-2 flex space-x-2">
-                                        {product.images.map((image, imgIndex) => (
-                                            <img key={imgIndex} src={image} alt={`Product ${product.id}`} className="w-16 h-16 rounded-lg shadow-sm" />
-                                        ))}
-                                    </div>
-
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-
-
-                </div>
+  return (
+    <div className="flex flex-col justify-start items-center h-screen">
+      <form onSubmit={handleSubmit}>
+        <div className="h-fit rounded-lg shadow-lg p-8 my-3 mx-auto bg-[#ADD8E6] max-w-[1200px] w-[90%] sm:w-[90%] sm:flex sm:justify-between">
+          <div className="w-full sm:w-[30%] flex justify-center items-center">
+            {profile.avatar && typeof profile.avatar === "string" ? (
+              <img src={profile.avatar} alt="Avatar" className="avatar-image" />
+            ) : profile.avatar && typeof profile.avatar !== "string" ? (
+              <img
+                src={URL.createObjectURL(profile.avatar)}
+                alt="Avatar"
+                className="avatar-image"
+              />
+            ) : null}
+            <input
+              type="file"
+              id="avatar"
+              name="avatar"
+              onChange={handleFileChange}
+              className="input-field"
+            />
+          </div>
+          <div className="w-full mt-1 p-4 rounded-lg relative">
+            <h1 className="text-3xl font-bold mb-2 text-black">
+              {profile.user && profile.user.name}
+            </h1>
+            <div className="flex items-center mb-2">
+              <FontAwesomeIcon
+                icon={faPhone}
+                className="text-gray-700 mr=2"
+                size="sm"
+              />
+              <h1 className="text-sm">{profile.phone}</h1>
             </div>
-        </>
+            <div className="flex items-center">
+              <FontAwesomeIcon
+                icon={faEnvelope}
+                className="text-gray-700 mr=2"
+                size="sm"
+              />
+              <h1 className="text-sm">{profile.user && profile.user.email}</h1>
+            </div>
+            <div className="mt-4">
+              <label
+                htmlFor="bio"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Bio:
+              </label>
+              <input
+                type="text"
+                id="bio"
+                name="bio"
+                value={profile.bio || ""}
+                onChange={handleChange}
+                className="input-field"
+              />
+            </div>
+            <div className="mt-4">
+              <label
+                htmlFor="hall_of_residence"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Hall of Residence:
+              </label>
+              <input
+                type="text"
+                id="hall_of_residence"
+                name="hall_of_residence"
+                value={profile.hall_of_residence || ""}
+                onChange={handleChange}
+                className="input-field"
+              />
+            </div>
+            <div className="mt-4">
+              <label
+                htmlFor="room_number"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Room Number:
+              </label>
+              <input
+                type="text"
+                id="room_number"
+                name="room_number"
+                value={profile.room_number || ""}
+                onChange={handleChange}
+                className="input-field"
+              />
+            </div>
+            <button type="submit" className="btn-primary mt-4">
+              Update Profile
+            </button>
+          </div>
+        </div>
+      </form>
+      <button onClick={handleLogout} className="btn-secondary mt-4">
+        Logout
+      </button>
+    </div>
+  );
+};
 
-
-    )
-}
+export default Profile;
