@@ -148,10 +148,7 @@ const Auth = () => {
                 <span className="text-lg font-md">Enter your account details</span>
               </div>
               <div className="w-full">
-                <form
-                  method="POST"
-                  className="bg-transparent flex flex-col gap-3"
-                >
+               <form method="POST" className="bg-transparent flex flex-col gap-3">
                   <div className="input-box">
                     <input
                       type="email"
@@ -176,10 +173,7 @@ const Auth = () => {
                     />
                   </div>
                   <div className="link my-5 text-[#6d6d6d] font-medium cursor-pointer">
-                    <Link
-                      to="/forgot-password"
-                      style={{ textDecoration: "none" }}
-                    >
+                    <Link to="/forgot-password" style={{ textDecoration: 'none' }}>
                       <Typography variant="body2" color="primary">
                         Forgot Password?
                       </Typography>
@@ -192,11 +186,7 @@ const Auth = () => {
                       className="w-8/12 h-10 bg-[#9C6FE4] rounded-lg text-lg font-semibold"
                       disabled={loading}
                     >
-                      {loading ? (
-                        <CircularProgress size={24} />
-                      ) : (
-                        <span>Login</span>
-                      )}
+                     {loading ? <CircularProgress size={24} /> : <span>Login</span>}
                     </button>
                   </div>
                 </form>
@@ -213,16 +203,12 @@ const Auth = () => {
             </div>
           </div>
           <div
-            className={`bgcolorAuth w-full h-[80vh] ${
-              visible ? "hidden" : "block"
-            }`}
+           className={`bgcolorAuth w-full h-[80vh] ${visible ? "hidden" : "block"}`}
           ></div>
         </div>
         <div className="rightdiv w-1/2 h-[80vh]">
           <div
-            className={`signup w-full h-full flex justify-center items-center bgblackAuth ${
-              visible ? "hidden" : "flex"
-            } transition-all duration-700`}
+            className={`signup w-full h-full flex justify-center items-center bgblackAuth ${visible ? "hidden" : "flex"} transition-all duration-700`}
           >
             <div className="w-10/12 h-full flex flex-col gap-12 justify-center">
               <div className="first flex flex-col">
@@ -230,10 +216,7 @@ const Auth = () => {
                 <span className="text-lg font-md">Enter your details</span>
               </div>
               <div className="w-full">
-                <form
-                  method="POST"
-                  className="bg-transparent flex flex-col gap-3"
-                >
+                <form method="POST" className="bg-transparent flex flex-col gap-3">
                   <div className="input-box">
                     <input
                       type="name"
@@ -293,7 +276,7 @@ const Auth = () => {
                     />
                   </div>
                   <div className="link my-5 text-[#6d6d6d] font-medium cursor-pointer">
-                    <Link to="/forgot-password">Forgot Password?</Link>
+                   <Link to="/forgot-password">Forgot Password?</Link>
                   </div>
 
                   <div onClick={postData}>
@@ -318,9 +301,7 @@ const Auth = () => {
             </div>
           </div>
           <div
-            className={`bgcolorAuth w-full h-[80vh] ${
-              visible ? "block" : "hidden"
-            }`}
+           className={`bgcolorAuth w-full h-[80vh] ${visible ? "block" : "hidden"}`}
           ></div>
         </div>
         <div className={`bgcolorAuth w-2/5 h-[80vh] absolute transition duration-300 ${visible ? 'transform translate-x-6' : 'transform translate-x-full'}`}>
