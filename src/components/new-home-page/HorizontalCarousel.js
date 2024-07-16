@@ -20,10 +20,7 @@ const InfiniteCarousel = ({ images }) => {
 
   useEffect(() => {
     intervalRef.current = setInterval(nextSlide, 3000);
-
-    return () => {
-      clearInterval(intervalRef.current);
-    };
+    return () => clearInterval(intervalRef.current);
   }, []);
 
   useEffect(() => {
@@ -43,7 +40,7 @@ const InfiniteCarousel = ({ images }) => {
   const clonedImages = [images[images.length - 1], ...images, images[0]];
 
   return (
-    <div className="relative w-full max-w-7xl mx-auto mt-20 h-72 rounded-lg  ">
+    <div className="relative w-full max-w-7xl mx-auto mt-20 h-72 rounded-lg">
       <div className="overflow-hidden">
         <div
           className={`flex transition-transform rounded-lg duration-500 ${isTransitioning ? 'ease-in-out' : ''}`}
@@ -58,15 +55,15 @@ const InfiniteCarousel = ({ images }) => {
       </div>
       <button
         onClick={prevSlide}
-        className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-lg hover:bg-gray-200 focus:outline-none"
+        className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition-all duration-300"
       >
-        <FaChevronLeft size={24} />
+        <FaChevronLeft className="text-gray-800 w-6 h-6" />
       </button>
       <button
         onClick={nextSlide}
-        className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-lg hover:bg-gray-200 focus:outline-none"
+        className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition-all duration-300"
       >
-        <FaChevronRight size={24} />
+        <FaChevronRight className="text-gray-800 w-6 h-6" />
       </button>
     </div>
   );

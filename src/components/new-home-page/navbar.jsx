@@ -16,7 +16,7 @@ const Navbar = () => {
   const [isVisible, setIsVisible] = useState(true);
 
   const navItems = [
-    { id: 1, text: "Home", path: "/" },
+    { id: 1, text: "Home", path: "/home" },
     { id: 2, text: "Products", path: "/products" },
     { id: 3, text: "Add Products", path: "/add-products" },
     { id: 4, text: "Cart", path: "/cart" },
@@ -31,12 +31,10 @@ const Navbar = () => {
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       const scrollPercent = (scrollTop / scrollHeight) * 100;
-
       setIsVisible(scrollPercent <= 50);
     };
 
     window.addEventListener("scroll", handleScroll);
-
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -53,7 +51,6 @@ const Navbar = () => {
           <img src={Logo} alt="Logo" className="transform hover:rotate-3 transition-transform duration-300" />
         </div>
       </div>
-
       <ul className="hidden md:flex space-x-4">
         {navItems.map((item) => (
           <li
@@ -64,11 +61,9 @@ const Navbar = () => {
           </li>
         ))}
       </ul>
-
       <div className="block md:hidden" onClick={handleNav}>
         {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
       </div>
-
       <ul
         className={`fixed top-0 left-0 w-[60%] h-full border-r border-r-gray-900 bg-[#000300] ease-in-out duration-500 ${
           nav ? "left-0" : "left-[-100%]"
@@ -84,7 +79,6 @@ const Navbar = () => {
           </li>
         ))}
       </ul>
-
       <div className="relative flex items-center space-x-4">
         {user ? (
           <>
