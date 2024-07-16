@@ -1,6 +1,7 @@
 const Product = require("../models/Product");
 const cloudinary = require("cloudinary").v2;
 require("dotenv").config();
+const express = require("express");
 
 function isFileSupported(type, supportedTypes) {
   return supportedTypes.includes(type);
@@ -11,28 +12,33 @@ async function uploadtoCloudinary(file, folder, quality) {
   if (quality) {
     options.quality = quality;
   }
-  return await cloudinary.uploader.upload(file.tempFilePath, options);
+  return await cloudinary.uploader
+    .upload_stream(options, (error, result) => {
+      if (error) {
+        throw new Error(error);
+      }
+      return result;
+    })
+    .end(file.buffer);
 }
 
 exports.fileUpload = async (req, res) => {
   try {
     const { name, description, date, price, tag } = req.body;
 
-    if (!req.files) {
+    if (!req.files || !req.files.length) {
       return res.status(400).json({
         success: false,
         message: "No files were uploaded",
       });
     }
 
-    const files = Array.isArray(req.files.filename)
-      ? req.files.filename
-      : [req.files.filename];
+    const files = req.files;
     const images = [];
 
     for (let file of files) {
       const supportedTypes = ["jpg", "jpeg", "png"];
-      const filetype = file.name.split(".").pop().toLowerCase();
+      const filetype = file.originalname.split(".").pop().toLowerCase();
 
       if (!isFileSupported(filetype, supportedTypes)) {
         return res.status(415).json({
@@ -113,21 +119,19 @@ exports.updateProduct = async (req, res) => {
   try {
     const { userId, name, description, buydate, condition, tag } = req.body;
 
-    if (!req.files) {
+    if (!req.files || !req.files.length) {
       return res.status(400).json({
         success: false,
         message: "No files were uploaded",
       });
     }
 
-    const files = Array.isArray(req.files.filename)
-      ? req.files.filename
-      : [req.files.filename];
+    const files = req.files;
     const images = [];
 
     for (let file of files) {
       const supportedTypes = ["jpg", "jpeg", "png"];
-      const filetype = file.name.split(".").pop().toLowerCase();
+      const filetype = file.originalname.split(".").pop().toLowerCase();
 
       if (!isFileSupported(filetype, supportedTypes)) {
         return res.status(415).json({
@@ -184,3 +188,12 @@ exports.deleteProduct = async (req, res) => {
     });
   }
 };
+
+// Define your route for file uploads using Multer middleware
+const app = express();
+app.post("/upload", upload.array("filename"), exports.fileUpload);
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
