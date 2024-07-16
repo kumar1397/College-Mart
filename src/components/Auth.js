@@ -202,9 +202,6 @@ const Auth = () => {
               </div>
             </div>
           </div>
-          <div
-           className={`bgcolorAuth w-full h-[80vh] ${visible ? "hidden" : "block"}`}
-          ></div>
         </div>
         <div className="rightdiv w-1/2 h-[80vh]">
           <div
