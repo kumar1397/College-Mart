@@ -140,9 +140,7 @@ const Auth = () => {
       <div className="w-10/12 h-10/12 text-[white] flex flex-row ">
         <div className="leftdiv w-1/2 h-[80vh]">
           <div
-            className={`login w-full h-full ${
-              visible ? "flex" : "hidden"
-            } flex justify-center items-center bgblackAuth`}
+           className={`login w-full h-full ${visible ? "flex" : "hidden"} flex justify-center items-center bgblackAuth`}
           >
             <div className="w-10/12 h-full flex flex-col gap-12 justify-center">
               <div className="first flex flex-col">
