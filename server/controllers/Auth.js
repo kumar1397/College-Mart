@@ -46,7 +46,6 @@ exports.signup = async (req, res) => {
       message: `User created successfully`,
     });
   } catch (error) {
-    console.log(`User not registered`);
     return res.status(400).json({
       success: false,
       message: `User cannot be registered, please try later`,

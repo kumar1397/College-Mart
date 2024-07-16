@@ -29,7 +29,11 @@ const formSchema = new mongoose.Schema({
     enum: ["Electronics", "Study materials", "Personal belongings", "Cycle", "Entertainment", "Miscellaneous"],
     required: true 
   },
-  imgUrl: [imageSchema] 
+  imgUrl: [imageSchema] ,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  }
 });
 
 module.exports = mongoose.model("Product", formSchema);
