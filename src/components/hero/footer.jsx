@@ -78,10 +78,10 @@ const Footer = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="w-full lg:w-6/12 px-4 flex justify-between ">
-                        <div>
+                    <div className="w-full lg:w-6/12 px-4 flex justify-end ">
+                        {/* <div>
                             <img className="w-40 shadow-md rounded-full " src="collegelogo.svg" alt="College Logo" />
-                        </div>
+                        </div> */}
                         <div className="flex flex-wrap mt-6 text-left lg:text-left w-fit ">
                             <div className="w-full lg:w-6/12 px-4">
                                 <h4 className="text-2xl font-semibold text-blueGray-700">Contact Us</h4>
