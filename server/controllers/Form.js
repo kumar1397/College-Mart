@@ -38,12 +38,12 @@ exports.fileUpload = async (req, res) => {
             console.log(`going for cloudinary`)
             const response = await uploadtoCloudinary(file, process.env.FOLDER_NAME, 70);
             console.log(`File uploaded`);
-            console.log(response);
             images.push({ url: response.secure_url });
         }
         const productdata = await Product.create({
             name, description, date, price, tag, imgUrl:images
         });
+        console.log(`this is the required product data`);
         console.log(productdata);
         res.json({
             success: true,
