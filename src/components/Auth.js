@@ -145,9 +145,7 @@ const Auth = () => {
             <div className="w-10/12 h-full flex flex-col gap-12 justify-center">
               <div className="first flex flex-col">
                 <span className="text-4xl font-bold">Login</span>
-                <span className="text-lg font-md">
-                  Enter your account details
-                </span>
+                <span className="text-lg font-md">Enter your account details</span>
               </div>
               <div className="w-full">
                 <form
