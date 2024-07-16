@@ -300,9 +300,6 @@ const Auth = () => {
               </div>
             </div>
           </div>
-          <div
-           className={`bgcolorAuth w-full h-[80vh] ${visible ? "block" : "hidden"}`}
-          ></div>
         </div>
         <div className={`bgcolorAuth w-2/5 h-[80vh] absolute transition duration-300 ${visible ? 'transform translate-x-6' : 'transform translate-x-full'}`}>
         </div> 
