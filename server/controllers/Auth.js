@@ -1,10 +1,13 @@
-const express = require("express");
+// controllers/userController.js
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const Profile = require("../models/Profile");
 require("dotenv").config();
 const cors = require("cors");
+const express = require("express");
 const app = express();
+
 app.use(express.json());
 app.use(
   cors({
@@ -16,40 +19,89 @@ app.use(
 exports.signup = async (req, res) => {
   try {
     const { name, phone, email, password, cpassword } = req.body;
-    const existingUser = await User.findOne({ email });
 
+    // Check if user with the given email already exists
+    const existingUser = await User.findOne({ email });
     if (existingUser) {
-      console.log(`User already exists`);
+      console.log("User already exists");
       return res.status(422).json({
         success: false,
-        message: `User already exists`,
+        message: "User already exists",
       });
     }
 
+    // Check if password and confirm password match
     if (password !== cpassword) {
+      console.log("Passwords do not match");
       return res.status(421).json({
         success: false,
-        message: `Confirm password is different`,
+        message: "Passwords do not match",
       });
     }
 
+    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({
+
+    // Create a new user
+    const user = new User({
       name,
       phone,
       email,
       password: hashedPassword,
     });
 
-    return res.status(200).json({
-      success: true,
-      message: `User created successfully`,
+    // Save the user to the database
+    await user.save();
+
+    // Create a profile for the new user
+    const profile = new Profile({
+      user: user._id,
     });
+
+    // Attempt to save the profile and verify success
+    const savedProfile = await profile.save();
+    if (!savedProfile) {
+      // Optionally, delete the user if profile creation fails to maintain consistency
+      await User.findByIdAndDelete(user._id);
+      throw new Error("Failed to create profile for the user");
+    } else {
+      console.log(`Profile successfully created for user ID: ${user._id}`);
+    }
+
+    // Create a JWT payload
+    const payload = {
+      user: {
+        id: user._id,
+      },
+    };
+
+    // Sign the JWT and send it in the response
+    jwt.sign(
+      payload,
+      process.env.JWT_SECRET, // Use the secret key from environment variables
+      { expiresIn: "1h" }, // Set token expiration time
+      (err, token) => {
+        if (err) {
+          console.error("Error signing token:", err.message);
+          return res.status(500).json({
+            success: false,
+            message: "Error generating token",
+          });
+        }
+
+        console.log("User created successfully");
+        return res.status(201).json({
+          success: true,
+          message: "User created successfully",
+          token, // Include the token in the response
+        });
+      }
+    );
   } catch (error) {
-    console.log(`User not registered`);
-    return res.status(400).json({
+    console.error("Error during user registration:", error.message);
+    return res.status(500).json({
       success: false,
-      message: `User cannot be registered, please try later`,
+      message: "User cannot be registered, please try again later",
     });
   }
 };
@@ -61,7 +113,7 @@ exports.signin = async (req, res) => {
     if (!email || !password) {
       return res.status(400).json({
         success: false,
-        message: `Please fill up all the required fields`,
+        message: "Please fill up all the required fields",
       });
     }
 
@@ -70,7 +122,7 @@ exports.signin = async (req, res) => {
     if (!user) {
       return res.status(401).json({
         success: false,
-        message: `User is not registered with us. Please sign up to continue`,
+        message: "User is not registered with us. Please sign up to continue",
       });
     }
 
@@ -93,24 +145,19 @@ exports.signin = async (req, res) => {
         success: true,
         token,
         user,
-        message: `User login success`,
+        message: "User login success",
       });
     } else {
       return res.status(401).json({
         success: false,
-        message: `Password is incorrect`,
+        message: "Password is incorrect",
       });
     }
   } catch (error) {
     console.error(error);
     return res.status(500).json({
       success: false,
-      message: `Login failure. Please try again`,
+      message: "Login failure. Please try again",
     });
-
-    
   }
 };
-
-
-
