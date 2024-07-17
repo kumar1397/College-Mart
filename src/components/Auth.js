@@ -4,10 +4,6 @@ import toast, { Toaster } from "react-hot-toast";
 import AuthContext from "../contexts/AuthContext";
 import {
   CircularProgress,
-  Box,
-  Button,
-  TextField,
-  Container,
   Typography,
 } from "@mui/material";
 import { Link } from "react-router-dom";

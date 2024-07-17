@@ -58,38 +58,6 @@ exports.fileUpload = async (req, res) => {
             message: `Something went wrong`
         });
       }
-      console.log(`going for cloudinary`);
-      const response = await uploadtoCloudinary(
-        file,
-        process.env.FOLDER_NAME,
-        70
-      );
-      console.log(`File uploaded`);
-      console.log(response);
-      images.push({ url: response.secure_url });
-    }
-    const productdata = await Product.create({
-      name,
-      description,
-      buydate,
-      condition,
-      tag,
-      images,
-    });
-    console.log(`Printing image URL`);
-    res.json({
-      success: true,
-      imgUrl: images.map((image) => image.url),
-      message: "Images uploaded successfully",
-      productdata,
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(400).json({
-      success: false,
-      message: `Something went wrong`,
-    });
-  }
 };
 
 exports.getAllProduct = async (req, res) => {
