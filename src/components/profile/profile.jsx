@@ -14,7 +14,7 @@ const Profile = () => {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("/home/profile", {
+        const response = await axios.get("http://localhost:4000/home/profile", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setProfile(response.data);
@@ -49,12 +49,16 @@ const Profile = () => {
       formData.append("hall_of_residence", profile.hall_of_residence || "");
       formData.append("room_number", profile.room_number || "");
 
-      const response = await axios.post("/home/profile", formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await axios.post(
+        "http://localhost:4000/home/profile",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       setProfile(response.data.profile); // Update profile state with response data
       console.log("Updated profile data:", response.data.profile); // Log the updated profile data

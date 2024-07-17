@@ -22,11 +22,13 @@ app.use(
 );
 
 // Middleware to handle file uploads
-const fileUpload = require("express-fileupload");
-app.use(fileUpload({
-    useTempFiles: true,
-    tempFileDir: '/tmp/'
-}));
+// const fileUpload = require("express-fileupload");
+// app.use(fileUpload({
+//     useTempFiles: true,
+//     tempFileDir: '/tmp/'
+// }));
+
+// fileupload(app);
 
 // Parse JSON data
 app.use(express.json());

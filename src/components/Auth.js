@@ -8,7 +8,6 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import ForgotPassword from "./forgetPassword/forgetpassword";
-
 const Auth = () => {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
@@ -18,7 +17,6 @@ const Auth = () => {
   const toggleVisible = () => {
     setVisible(!visible);
   };
-
   const notify = (message, type) => {
     if (type === "error") {
       toast.error(message);
@@ -26,7 +24,6 @@ const Auth = () => {
       toast.success(message);
     }
   };
-
   // Signup state
   const [user, setUser] = useState({
     name: "",
@@ -35,14 +32,12 @@ const Auth = () => {
     password: "",
     cpassword: "",
   });
-
   // Handle input change for signup
   const handleInput = (e) => {
     let name = e.target.name;
     let value = e.target.value;
     setUser({ ...user, [name]: value });
   };
-
   // Signup
   const postData = async (e) => {
     e.preventDefault();
@@ -55,10 +50,8 @@ const Auth = () => {
       },
       body: JSON.stringify(user),
     });
-
     const data = await res.json();
     setLoading(false);
-
     if (
       res.status === 400 ||
       res.status === 422 ||
@@ -73,20 +66,17 @@ const Auth = () => {
       }, 2000);
     }
   };
-
   // Login state
   const [lguser, setLgUser] = useState({
     email: "",
     password: "",
   });
-
   // Handle input change for login
   const LoginInput = (e) => {
     let name = e.target.name;
     let value = e.target.value;
     setLgUser({ ...lguser, [name]: value });
   };
-
   // Login function
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -98,10 +88,8 @@ const Auth = () => {
       },
       body: JSON.stringify(lguser),
     });
-
     const data = await res.json();
     setLoading(false);
-
     if (
       res.status === 400 ||
       res.status === 401 ||
@@ -120,7 +108,6 @@ const Auth = () => {
       }, 2000); // Delay to show the spinner for a short period
     }
   };
-
   useEffect(() => {
     if (postLoginLoading) {
       const timer = setTimeout(() => {
@@ -130,18 +117,21 @@ const Auth = () => {
       return () => clearTimeout(timer);
     }
   }, [postLoginLoading, navigate]);
-
   return (
     <div className="w-screen h-screen bg-[#000] flex justify-center items-center relative">
       <div className="w-10/12 h-10/12 text-[white] flex flex-row ">
         <div className="leftdiv w-1/2 h-[80vh]">
           <div
-           className={`login w-full h-full ${visible ? "flex" : "hidden"} flex justify-center items-center bgblackAuth`}
+            className={`login w-full h-full ${
+              visible ? "flex" : "hidden"
+            } flex justify-center items-center bgblackAuth`}
           >
             <div className="w-10/12 h-full flex flex-col gap-12 justify-center">
               <div className="first flex flex-col">
                 <span className="text-4xl font-bold">Login</span>
-                <span className="text-lg font-md">Enter your account details</span>
+                <span className="text-lg font-md">
+                  Enter your account details
+                </span>
               </div>
               <div className="w-full">
                 <form
@@ -319,9 +309,11 @@ const Auth = () => {
             }`}
           ></div>
         </div>
-        <div className={`bgcolorAuth w-2/5 h-[80vh] absolute transition duration-300 ${visible ? 'transform translate-x-6' : 'transform translate-x-full'}`}>
-        </div> 
-        
+        {/* <div
+          className={`bgcolorAuth w-2/5 h-[80vh] absolute transition duration-300 ${
+            visible ? "transform translate-x-6" : "transform translate-x-full"
+          }`}
+        ></div> */}
       </div>
       <Toaster />
       {postLoginLoading && (
@@ -332,5 +324,4 @@ const Auth = () => {
     </div>
   );
 };
-
 export default Auth;

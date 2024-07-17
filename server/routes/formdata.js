@@ -1,12 +1,22 @@
-const express = require("express")
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
+const {
+  singleUploadMiddleware,
+  multipleUploadMiddleware,
+} = require("../middleware/multer");
 
-const {fileUpload,updateProduct,deleteProduct,getAllProduct,getSingleProduct} = require('../controllers/Form') 
+const {
+  fileUpload,
+  updateProduct,
+  deleteProduct,
+  getAllProduct,
+  getSingleProduct,
+} = require("../controllers/Form");
 
-router.post('/fileupload',fileUpload);
-router.post('/updateProduct',updateProduct);
-router.post('/deleteProduct',deleteProduct);
-router.get('/getAllProduct',getAllProduct);
-router.get('/getSingleProduct',getSingleProduct);
+router.post("/fileupload", multipleUploadMiddleware, fileUpload);
+router.post("/updateProduct", multipleUploadMiddleware, updateProduct);
+router.post("/deleteProduct", multipleUploadMiddleware, deleteProduct);
+router.get("/getAllProduct", multipleUploadMiddleware, getAllProduct);
+router.get("/getSingleProduct", multipleUploadMiddleware, getSingleProduct);
 
-module.exports = router
+module.exports = router;

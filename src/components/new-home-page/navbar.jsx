@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import {
   AiOutlineClose,
@@ -13,10 +13,10 @@ const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
   const [nav, setNav] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const navItems = [
-    { id: 1, text: "Home", path: "/home" },
+    { id: 1, text: "Home", path: "/" },
     { id: 2, text: "Products", path: "/products" },
     { id: 3, text: "Add Products", path: "/add-products" },
     { id: 4, text: "Cart", path: "/cart" },
@@ -25,45 +25,54 @@ const Navbar = () => {
 
   const handleNav = () => setNav(!nav);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrollPercent = (scrollTop / scrollHeight) * 100;
-      setIsVisible(scrollPercent <= 50);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  const handleSearchChange = (e) => setSearchQuery(e.target.value);
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    // Implement search functionality here
+    console.log("Search query:", searchQuery);
+  };
 
   return (
-    <div
-      className={`bg-[#925FE2] shadow-lg flex justify-between z-20 items-center h-20 w-full px-6 text-white fixed transition-transform duration-300 ${
-        isVisible ? "transform translate-y-0" : "transform -translate-y-full"
-      }`}
-    >
-      <div className="flex items-center space-x-2 transform hover:scale-110 transition-transform duration-300">
+    <div className="bg-[#925FE2] shadow-lg flex justify-between z-20 items-center h-20 w-full px-6 text-white fixed">
+      <div className="flex items-center space-x-2">
         <div className="w-24 max-w-24">
-          <img src={Logo} alt="Logo" className="transform hover:rotate-3 transition-transform duration-300" />
+          <img src={Logo} alt="Logo" />
         </div>
       </div>
+
       <ul className="hidden md:flex space-x-4">
         {navItems.map((item) => (
           <li
             key={item.id}
-            className="p-4 hover:bg-white rounded-xl m-2 cursor-pointer duration-300 hover:text-black transform hover:translate-z-1 hover:scale-105 transition-transform"
+            className="p-4 hover:bg-white rounded-xl m-2 cursor-pointer duration-300 hover:text-black"
           >
             <Link to={item.path}>{item.text}</Link>
           </li>
         ))}
       </ul>
-      <div className="block md:hidden" onClick={handleNav}>
-        {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
+
+      <div className="flex items-center space-x-4">
+        <form onSubmit={handleSearchSubmit} className="hidden md:flex">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={handleSearchChange}
+            className="px-4 py-2 rounded-lg text-black"
+            placeholder="Search..."
+          />
+          <button
+            type="submit"
+            className="px-4 py-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 text-white rounded-lg"
+          >
+            Search
+          </button>
+        </form>
+
+        <div className="block md:hidden" onClick={handleNav}>
+          {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
+        </div>
       </div>
+
       <ul
         className={`fixed top-0 left-0 w-[60%] h-full border-r border-r-gray-900 bg-[#000300] ease-in-out duration-500 ${
           nav ? "left-0" : "left-[-100%]"
@@ -73,19 +82,37 @@ const Navbar = () => {
         {navItems.map((item) => (
           <li
             key={item.id}
-            className="p-4 border-b rounded-xl hover:bg-[#00df9a] duration-300 hover:text-black cursor-pointer border-gray-600 transform hover:translate-z-1 hover:scale-105 transition-transform"
+            className="p-4 border-b rounded-xl hover:bg-[#00df9a] duration-300 hover:text-black cursor-pointer border-gray-600"
           >
             <Link to={item.path}>{item.text}</Link>
           </li>
         ))}
+        <li className="p-4 border-b rounded-xl hover:bg-[#00df9a] duration-300 hover:text-black cursor-pointer border-gray-600">
+          <form onSubmit={handleSearchSubmit} className="flex">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={handleSearchChange}
+              className="px-4 py-2 rounded-lg text-black w-full"
+              placeholder="Search..."
+            />
+            <button
+              type="submit"
+              className="px-4 py-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 text-white rounded-lg"
+            >
+              Search
+            </button>
+          </form>
+        </li>
       </ul>
+
       <div className="relative flex items-center space-x-4">
         {user ? (
           <>
             <button
               id="dropdownDefaultButton"
               onClick={toggleDropdown}
-              className="flex items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transform hover:translate-z-1 hover:scale-105 transition-transform"
+              className="flex items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               type="button"
             >
               <AiOutlineUser className="w-6 h-6 mr-2" />
@@ -115,7 +142,7 @@ const Navbar = () => {
                   <li>
                     <Link
                       to="/home/profile"
-                      className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left flex items-center transform hover:translate-z-1 hover:scale-105 transition-transform"
+                      className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left flex items-center"
                     >
                       <AiOutlineUser className="mr-2" />
                       Profile
@@ -123,7 +150,7 @@ const Navbar = () => {
                   </li>
                   <li>
                     <button
-                      className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left flex items-center transform hover:translate-z-1 hover:scale-105 transition-transform"
+                      className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left flex items-center"
                       onClick={logout}
                     >
                       <AiOutlineLogout className="mr-2" />
@@ -137,7 +164,7 @@ const Navbar = () => {
         ) : (
           <Link
             to="/login"
-            className="flex items-center px-5 py-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 text-sm font-medium rounded-lg dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transform hover:translate-z-1 hover:scale-105 transition-transform"
+            className="flex items-center px-5 py-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 text-sm font-medium rounded-lg dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             <AiOutlineUser className="mr-2" />
             Login
