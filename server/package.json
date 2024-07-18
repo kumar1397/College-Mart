@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "npm install -g nodemon && nodemon index.jss",
+    "start": "nodemon index.js",
     "postinstall": "npm install",
     "dev": "nodemon index.js",
     "build": "echo 'No build step for backend'"
