@@ -80,7 +80,7 @@ const Profile = () => {
     <div className="flex flex-col justify-start items-center h-screen">
       <form onSubmit={handleSubmit}>
         <div className="h-fit rounded-lg shadow-lg p-8 my-3 mx-auto bg-[#ADD8E6] max-w-[1200px] w-[90%] sm:w-[90%] sm:flex sm:justify-between">
-          <div className="w-full sm:w-[30%] flex justify-center items-center">
+          <div className="w-full sm:w-[30%] flex justify-center items-center rounded-full">
             {profile.avatar && typeof profile.avatar === "string" ? (
               <img src={profile.avatar} alt="Avatar" className="avatar-image" />
             ) : profile.avatar && typeof profile.avatar !== "string" ? (
