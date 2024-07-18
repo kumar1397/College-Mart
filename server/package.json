@@ -4,7 +4,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "node index.js"
+    "dev": "nodemon index.js",
+    "prebuild": "npm install",
+    "build": "echo 'No build steps required'",
+    "postbuild": "echo 'Build process completed'"
   },
   "keywords": [],
   "author": "",
@@ -25,5 +28,8 @@
     "multer": "^1.4.5-lts.1",
     "react-toastify": "^10.0.5",
     "streamifier": "^0.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
   }
 }
