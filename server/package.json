@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "postinstall": "npm install",
     "dev": "node index.js",
     "build": "echo 'No build step for backend'"
   },
