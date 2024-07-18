@@ -30,48 +30,38 @@ exports.fileUpload = async (req, res) => {
       : [req.files.filename];
     const images = [];
 
-    for (let file of files) {
-      const supportedTypes = ["jpg", "jpeg", "png"];
-      const filetype = file.name.split(".").pop().toLowerCase();
-
-      if (!isFileSupported(filetype, supportedTypes)) {
-        return res.status(415).json({
-          success: false,
-          message:
-            "File format not supported. Allowable formats are png, jpg, and jpeg",
+        for (let file of files) {
+            const supportedTypes = ["jpg", "jpeg", "png"];
+            const filetype = file.name.split('.').pop().toLowerCase();
+            if (!isFileSupported(filetype, supportedTypes)) {
+                return res.status(415).json({
+                    success: false,
+                    message: `File format not supported. Allowable formats are png, jpg, and jpeg`
+                });
+            }
+            console.log(`going for cloudinary`)
+            const response = await uploadtoCloudinary(file, process.env.FOLDER_NAME, 70);
+            console.log(`File uploaded`);
+            images.push({ url: response.secure_url });
+        }
+        const productdata = await Product.create({
+            name, description, date, price, tag, imgUrl: images
+        });
+        console.log(`this is the required product data`);
+        console.log(productdata);
+        res.json({
+            success: true,
+            imgUrl: images.map(image => image.url),
+            message: "Images uploaded successfully",
+            productdata
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(400).json({
+            success: false,
+            message: `Something went wrong`
         });
       }
-
-      const response = await uploadtoCloudinary(
-        file,
-        process.env.FOLDER_NAME,
-        70
-      );
-      images.push({ url: response.secure_url });
-    }
-
-    const productdata = await Product.create({
-      name,
-      description,
-      date,
-      price,
-      tag,
-      imgUrl: images,
-    });
-
-    res.json({
-      success: true,
-      imgUrl: images.map((image) => image.url),
-      message: "Images uploaded successfully",
-      productdata,
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(400).json({
-      success: false,
-      message: "Something went wrong",
-    });
-  }
 };
 
 exports.getAllProduct = async (req, res) => {
