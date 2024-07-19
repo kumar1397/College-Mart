@@ -6,7 +6,7 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 const singleUploadMiddleware = upload.single("avatar");
-const multipleUploadMiddleware = upload.single("images"); // Limit to 10 files
+const multipleUploadMiddleware = upload.array("filename"); // Limit to 10 files
 
 module.exports = {
   singleUploadMiddleware,
