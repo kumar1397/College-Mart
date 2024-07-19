@@ -33,7 +33,7 @@ function ProductFormCard() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(product);
-    const res = await fetch("http://localhost:4000/upload/fileupload", {
+    const res = await fetch("https://college-mart.onrender.com/upload/fileupload", {
       method: "POST",
       headers: {
         "Content-Type": "multipart/form-data"

@@ -70,7 +70,7 @@ function FormPage() {
     });
 
     try {
-      const response = await fetch('http://localhost:4000/upload/fileUpload', {
+      const response = await fetch('https://college-mart.onrender.com/upload/fileUpload', {
         method: 'POST',
         body: data,
       });

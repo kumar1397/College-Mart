@@ -22,7 +22,7 @@ const images = [
 ];
 
 function Home02() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); //spinner loading
 
   useEffect(() => {
     const handleStart = () => setLoading(true);

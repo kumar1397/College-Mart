@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect,useState } from 'react';
+import { useEffect } from 'react';
 
 
 
@@ -21,42 +21,7 @@ const Footer = () => {
             document.head.removeChild(fontAwesomeLink);
         };
     }, []);
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        message: ''
-    });
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await fetch('/sendmail', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            });
-            if (response.ok) {
-                // Handle success, e.g., show a success message or clear the form
-                console.log('Message sent successfully');
-                setFormData({ name: '', email: '', message: '' });
-            } else {
-                // Handle error, e.g., show an error message
-                console.error('Failed to send message');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
+    
     return (
         <footer className="relative bg-blueGray-200 pt-8 pb-6 ">
             <div className="container mx-auto px-4 ">

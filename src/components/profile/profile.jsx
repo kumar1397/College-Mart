@@ -14,7 +14,7 @@ const Profile = () => {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:4000/home/profile", {
+        const response = await axios.get("https://college-mart.onrender.com/home/profile", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setProfile(response.data);
@@ -50,7 +50,7 @@ const Profile = () => {
       formData.append("room_number", profile.room_number || "");
 
       const response = await axios.post(
-        "http://localhost:4000/home/profile",
+        "https://college-mart.onrender.com/home/profile",
         formData,
         {
           headers: {

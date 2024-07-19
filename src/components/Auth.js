@@ -45,7 +45,7 @@ const Auth = () => {
     e.preventDefault();
     setLoading(true);
     console.log("submit clicked");
-    const res = await fetch("http://localhost:4000/signup", {
+    const res = await fetch("https://college-mart.onrender.com/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -88,7 +88,7 @@ const Auth = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const res = await fetch("http://localhost:4000/signin", {
+    const res = await fetch("https://college-mart.onrender.com/signin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
