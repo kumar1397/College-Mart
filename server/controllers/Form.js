@@ -11,14 +11,21 @@ async function uploadtoCloudinary(fileBuffer, folder, quality) {
   if (quality) {
     options.quality = quality;
   }
-  return await cloudinary.uploader
-    .upload_stream(options, (error, result) => {
-      if (error) {
-        throw new Error("Upload to Cloudinary failed");
+
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      options,
+      (error, result) => {
+        if (error) {
+          return reject(
+            new Error("Upload to Cloudinary failed: " + error.message)
+          );
+        }
+        resolve(result);
       }
-      return result;
-    })
-    .end(fileBuffer);
+    );
+    stream.end(fileBuffer);
+  });
 }
 
 exports.fileUpload = async (req, res) => {
@@ -46,13 +53,25 @@ exports.fileUpload = async (req, res) => {
         });
       }
 
-      const response = await uploadtoCloudinary(
-        file.buffer,
-        process.env.FOLDER_NAME,
-        70
-      );
+      try {
+        const response = await uploadtoCloudinary(
+          file.buffer,
+          process.env.FOLDER_NAME,
+          70
+        );
 
-      images.push({ url: response.secure_url });
+        if (!response || !response.secure_url) {
+          throw new Error("Invalid response from Cloudinary");
+        }
+
+        images.push({ url: response.secure_url });
+      } catch (uploadError) {
+        console.error("Error uploading to Cloudinary:", uploadError);
+        return res.status(500).json({
+          success: false,
+          message: "Error uploading to Cloudinary",
+        });
+      }
     }
 
     const productdata = await Product.create({
