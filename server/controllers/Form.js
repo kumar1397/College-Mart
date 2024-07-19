@@ -6,28 +6,33 @@ function isFileSupported(type, supportedTypes) {
   return supportedTypes.includes(type);
 }
 
-async function uploadtoCloudinary(file, folder, quality) {
+async function uploadtoCloudinary(fileBuffer, folder, quality) {
   const options = { folder, resource_type: "auto" };
   if (quality) {
     options.quality = quality;
   }
-  return await cloudinary.uploader.upload(file.tempFilePath, options);
+  return await cloudinary.uploader
+    .upload_stream(options, (error, result) => {
+      if (error) {
+        throw new Error("Upload to Cloudinary failed");
+      }
+      return result;
+    })
+    .end(fileBuffer);
 }
 
 exports.fileUpload = async (req, res) => {
   try {
     const { name, description, date, price, tag } = req.body;
 
-    if (!req.files) {
+    if (!req.files && !req.file) {
       return res.status(400).json({
         success: false,
         message: "No files were uploaded",
       });
     }
 
-    const files = Array.isArray(req.files.filename)
-      ? req.files.filename
-      : [req.files.filename];
+    const files = req.file ? [req.file] : req.files;
     const images = [];
 
     for (let file of files) {
@@ -36,18 +41,20 @@ exports.fileUpload = async (req, res) => {
       if (!isFileSupported(filetype, supportedTypes)) {
         return res.status(415).json({
           success: false,
-          message: `File format not supported. Allowable formats are png, jpg, and jpeg`,
+          message:
+            "File format not supported. Allowable formats are png, jpg, and jpeg",
         });
       }
-      console.log(`going for cloudinary`);
+
       const response = await uploadtoCloudinary(
-        file,
+        file.buffer,
         process.env.FOLDER_NAME,
         70
       );
-      console.log(`File uploaded`);
+
       images.push({ url: response.secure_url });
     }
+
     const productdata = await Product.create({
       name,
       description,
@@ -56,8 +63,7 @@ exports.fileUpload = async (req, res) => {
       tag,
       imgUrl: images,
     });
-    console.log(`this is the required product data`);
-    console.log(productdata);
+
     res.json({
       success: true,
       imgUrl: images.map((image) => image.url),
@@ -68,7 +74,7 @@ exports.fileUpload = async (req, res) => {
     console.error(error);
     res.status(400).json({
       success: false,
-      message: `Something went wrong`,
+      message: "Something went wrong",
     });
   }
 };
