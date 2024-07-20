@@ -83,11 +83,21 @@ exports.fileUpload = async (req, res) => {
       imgUrl: images,
     });
 
+    const newdata = await Course.findByIdAndUpdate(
+      userId,
+      {
+        $push: {
+          products: productdata._id,
+        },
+      },
+      { new: true }
+    )
     res.json({
       success: true,
       imgUrl: images.map((image) => image.url),
       message: "Images uploaded successfully",
       productdata,
+      newdata
     });
   } catch (error) {
     console.error(error);
