@@ -30,7 +30,7 @@ async function uploadtoCloudinary(fileBuffer, folder, quality) {
 
 exports.fileUpload = async (req, res) => {
   try {
-    const { name, description, date, price, tag } = req.body;
+    const { name, description, date, price, tag, Id } = req.body;
 
     if (!req.files && !req.file) {
       return res.status(400).json({
@@ -82,22 +82,12 @@ exports.fileUpload = async (req, res) => {
       tag,
       imgUrl: images,
     });
-
-    const newdata = await Course.findByIdAndUpdate(
-      userId,
-      {
-        $push: {
-          products: productdata._id,
-        },
-      },
-      { new: true }
-    )
+    
     res.json({
       success: true,
       imgUrl: images.map((image) => image.url),
       message: "Images uploaded successfully",
       productdata,
-      newdata
     });
   } catch (error) {
     console.error(error);
