@@ -1,7 +1,7 @@
 const Product = require("../models/Product");
 const cloudinary = require("cloudinary").v2;
 require("dotenv").config();
-
+const User = require('../models/User')
 function isFileSupported(type, supportedTypes) {
   return supportedTypes.includes(type);
 }
@@ -30,7 +30,7 @@ async function uploadtoCloudinary(fileBuffer, folder, quality) {
 
 exports.fileUpload = async (req, res) => {
   try {
-    const { name, description, date, price, tag } = req.body;
+    const { name, description, date, price, tag, email  } = req.body;
 
     if (!req.files && !req.file) {
       return res.status(400).json({
@@ -73,7 +73,7 @@ exports.fileUpload = async (req, res) => {
         });
       }
     }
-
+  
     const productdata = await Product.create({
       name,
       description,
@@ -82,11 +82,24 @@ exports.fileUpload = async (req, res) => {
       tag,
       imgUrl: images,
     });
+
+    const newdata = await User.findOneAndUpdate(
+      email,
+      {
+        $push: {
+          products: productdata._id,
+        },
+      },
+      { new: true }
+    )
+
+    console.log(newdata);
     res.json({
       success: true,
       imgUrl: images.map((image) => image.url),
       message: "Images uploaded successfully",
       productdata
+
     });
   } catch (error) {
     console.error(error);
