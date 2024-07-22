@@ -20,3 +20,13 @@ router.get("/getAllProduct", multipleUploadMiddleware, getAllProduct);
 router.get("/getSingleProduct", multipleUploadMiddleware, getSingleProduct);
 
 module.exports = router;
+
+
+
+
+
+
+
+
+
+

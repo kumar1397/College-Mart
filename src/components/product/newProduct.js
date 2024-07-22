@@ -43,6 +43,10 @@ function FormPage() {
       setError('You can upload a maximum of 3 images.');
       return;
     }
+    // if(files.length==0){
+    //   setError('Please select a image.');
+    //   return;
+    // }
     setError('');
     setFormData({
       ...formData,
@@ -213,7 +217,7 @@ function FormPage() {
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-2xl font-bold mb-4">Success</h3>
-                <p>Your response has been recorded.</p>
+                <p><i class="fas fa-check-circle"></i> Your product has been successfully uploaded.</p>
                 <button
                   onClick={closePopup}
                   className="mt-4 px-4 py-2 bg-[#925FE2] text-white rounded-md shadow-md hover:bg-[#7d4fbb] transition duration-300"

@@ -5,9 +5,9 @@ require("dotenv").config();
 const profile = require("./routes/profile");
 const user = require("./routes/user");
 const formdata = require("./routes/formdata");
-const PORT = process.env.PORT || 5000;
 const multer = require("multer");
 const bodyParser = require("body-parser");
+const PORT = process.env.PORT || 5000;
 
 // Configure multer to use memory storage
 const storage = multer.memoryStorage();
@@ -21,22 +21,49 @@ app.use(
   })
 );
 
-// Middleware to handle file uploads
-// const fileUpload = require("express-fileupload");
-// app.use(fileUpload({
-//     useTempFiles: true,
-//     tempFileDir: '/tmp/'
-// }));
-
-// fileupload(app);
-
-// Parse JSON data
 app.use(express.json());
 
 // Connect to the database
 const dbConnect = require("./config/database");
 dbConnect();
 
+// Socket.IO setup
+const { createServer } = require("http");
+const { Server } = require("socket.io");
+
+const httpServer = createServer(app);
+
+const io = new Server(httpServer, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log(`User Connected: ${socket.id}`);
+
+  socket.on("join_room", (data) => {
+    socket.join(data);
+    console.log(`User with ID: ${socket.id} joined room: ${data}`);
+  });
+
+  socket.on("send_message", (data) => {
+    socket.to(data.room).emit("receive_message", data);
+    console.log(data);
+  });
+   
+
+  socket.on("disconnect", () => {
+    console.log("User Disconnected", socket.id);
+  });
+});
+
+httpServer.listen(9000, () => {
+  console.log("Socket.IO server is listening at port 9000");
+});
+
+// Cloudinary configuration
 const cloudinary = require("./config/cloudinary");
 cloudinary.cloudinaryConnect();
 
@@ -52,11 +79,11 @@ app.use("/", user);
 app.use("/upload", formdata);
 app.use("/home", profile);
 
-// Start the server
+// Start the Express server
 app.listen(PORT, () => {
-  console.log(`server started at ${PORT}`);
+  console.log(`Express server started at port ${PORT}`);
 });
 
 app.get("/", (req, res) => {
-  res.send(`<h1>hello</h1>`);
+  res.send("<h1>Hello</h1>");
 });

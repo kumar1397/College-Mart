@@ -8,6 +8,8 @@ import ProductFormCard from "./components/product/newProduct";
 import Profile from "./components/profile/profile";
 import ResetPassword from "./components/forgetPassword/resetpassword";
 import ForgotPassword from "./components/forgetPassword/forgetpassword";
+import Chat from "./components/chatapp/chat";
+import MessageBox from "./components/chatapp/messgebox";
 
 function App() {
   return (
@@ -23,6 +25,9 @@ function App() {
             <Route path="/contactus" element={<ContactUs />} />
             <Route path="/forgot_password" element={<ForgotPassword/>} />
             <Route path="/reset/:token" element={< ResetPassword/>} />
+            <Route path="/chat" element={< Chat/>} />
+            <Route path="/chatbox" element={<MessageBox/>} />
+            
           </Routes>
         </AuthProvider>
       </Router>

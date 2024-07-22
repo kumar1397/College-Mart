@@ -1,0 +1,10 @@
+{
+    "folders": [
+		{
+			"path": "../../../chatApp/react-socketio-chat-app"
+		}
+	],
+    "settings": {
+        "editor.fontSize": 15
+    }
+}
