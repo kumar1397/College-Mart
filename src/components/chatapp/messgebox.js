@@ -1,9 +1,9 @@
-// src/components/MessageBox.jsx
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 const MessageBox = ({ socket, username, room }) => {
   const [currMessage, setCurrMessage] = useState('');
-  const [messages, setMessages] = useState([]);
+  const [messagesList, setMessagesList] = useState([]);
+  const messagesEndRef = useRef(null);
 
   const sendMessage = async () => {
     if (currMessage !== '') {
@@ -11,36 +11,51 @@ const MessageBox = ({ socket, username, room }) => {
         room: room,
         author: username,
         message: currMessage,
-        time: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes(),
+        time: new Date(Date.now()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
 
       await socket.emit('send_message', messageData);
-      setMessages([...messages, messageData]);
+      setMessagesList((list) => [...list, messageData]);
       setCurrMessage(''); // Clear the message input after sending
     }
   };
 
   useEffect(() => {
-    socket.on("receive_message", (data) => {
-      setMessages((prevMessages) => [...prevMessages, data]);
-    });
+    const handleMessageReceive = (data) => {
+      setMessagesList((list) => [...list, data]);
+    };
+
+    socket.on('receive_message', handleMessageReceive);
+
+    return () => {
+      socket.off('receive_message', handleMessageReceive); // Clean up the listener on component unmount
+    };
   }, [socket]);
 
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messagesList]);
+
   return (
-    <div className="flex flex-col h-full">
-      <div className="flex-grow overflow-y-auto p-4 bg-gray-100">
-        {messages.map((msg, index) => (
+    <div className="flex flex-col h-full p-4 border rounded-lg shadow-lg">
+      <div className="flex-grow overflow-y-auto p-4  bg-green-100 border rounded-md h-80 w-full ">
+        {messagesList.map((msg, index) => (
           <div
             key={index}
-            className={`mb-4 p-2 rounded-md ${msg.author === username ? 'bg-blue-100 self-end' : 'bg-gray-200 self-start'}`}
+            className={`mb-2 p-2 rounded-lg w-full shadow-md max-w-xs text-sm ${
+              msg.author === username ? 'self-end bg-blue-100' : 'self-start bg-gray-200'
+            }`}
           >
-            <div className="text-sm font-semibold">{msg.author}</div>
-            <div>{msg.message}</div>
-            <div className="text-xs text-gray-600">{msg.time}</div>
+            <div className="flex items-center justify-between">
+              <div className="font-semibold">{msg.author === username ? 'You' : msg.author}</div>
+              <div className="text-xs text-gray-600">{msg.time}</div>
+            </div>
+            <div className="mt-1">{msg.message}</div>
           </div>
         ))}
+        <div ref={messagesEndRef} />
       </div>
-      <div className="flex items-center p-3 border-t border-gray-200 bg-gray-100">
+      <div className="flex items-center mt-4 border-t border-gray-200 pt-4">
         <input
           type="text"
           value={currMessage}
