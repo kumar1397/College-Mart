@@ -25,9 +25,8 @@ function App() {
             <Route path="/contactus" element={<ContactUs />} />
             <Route path="/forgot_password" element={<ForgotPassword/>} />
             <Route path="/reset/:token" element={< ResetPassword/>} />
-            <Route path="/chat" element={< Chat/>} />
-            <Route path="/chatbox" element={<MessageBox/>} />
-            
+            <Route path="/home/chat" element={< Chat/>} />
+            <Route path="/home/chatbox" element={<MessageBox/>} />         
           </Routes>
         </AuthProvider>
       </Router>
