@@ -18,7 +18,7 @@ function Chat() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center h-[100vh] bg-gray-100">
       {!showChat ? (
         <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
           <h3 className="text-2xl font-semibold text-center">Join A Chat</h3>
@@ -44,7 +44,7 @@ function Chat() {
           </div>
         </div>
       ) : (
-        <div className="w-full max-w-md h-full p-4 space-y-4 bg-white rounded-lg shadow-md">
+        <div className="w-full max-w-3xl h-[90%] left-5  p-4 absolute rounded-lg shadow-xl">
           <MessageBox socket={socket} username={username} room={room} />
         </div>
       )}
