@@ -26,6 +26,7 @@
     "crypto": "^1.0.1",
     "express-fileupload": "^1.5.1",
     "flowbite": "^2.4.1",
+    "framer-motion": "^11.3.17",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.14",
     "postcss": "^8.4.39",
