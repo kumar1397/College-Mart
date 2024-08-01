@@ -1,26 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import ProductCard from './ProductCard'; // Ensure the path is correct
+import ProductCard from './ProductCard';
 
-const categories = ["Electronics", "Study materials", "Clothing", "Bedding", "Cycle", "Entertainment", "Miscellaneous"];
-
-const HomePage = () => {
+const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
 
+  const categories = ["Electronics", "Study materials", "Personal belongings", "Cycle", "Entertainment", "Miscellaneous"];
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/products');
-        setProducts(response.data);
-        setFilteredProducts(response.data);
+        const response = await fetch("http://localhost:4000/products");
+        const data = await response.json();
+        setProducts(data);
+        setFilteredProducts(data);
       } catch (error) {
-        console.error('Error fetching products:', error);
+        console.error("Error fetching products:", error);
       }
     };
+
     fetchProducts();
   }, []);
 
@@ -29,7 +30,7 @@ const HomePage = () => {
       return (
         (minPrice === '' || product.price >= parseInt(minPrice)) &&
         (maxPrice === '' || product.price <= parseInt(maxPrice)) &&
-        (selectedCategory === '' || product.category === selectedCategory)
+        (selectedCategory === '' || product.tag === selectedCategory)
       );
     });
     setFilteredProducts(filtered);
@@ -42,27 +43,29 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className="container mx-auto p-4 mt-6 cursor-pointer">
-      <div className="shadow-md rounded-lg h-fit mb-6 px-2 w-full items-center flex">
-        <div className="flex flex-col sm:flex-row justify-between h-fit items-center w-full space-y-4 sm:space-y-0 sm:space-x-">
+    <div className="container mx-auto p-6">
+      {/* Filter Section */}
+      <div className="bg-white shadow-lg rounded-lg p-4 mb-8">
+        <h2 className="text-2xl font-semibold mb-4"> Products</h2>
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
           <input
             type="number"
             placeholder="Min Price"
             value={minPrice}
             onChange={(e) => setMinPrice(e.target.value)}
-            className="border p-2 rounded w-full sm:w-1/3"
+            className="border border-gray-300 p-3 rounded w-full sm:w-1/3"
           />
           <input
             type="number"
             placeholder="Max Price"
             value={maxPrice}
             onChange={(e) => setMaxPrice(e.target.value)}
-            className="border-[#925FE2] p-2 rounded w-full sm:w-1/3"
+            className="border border-gray-300 p-3 rounded w-full sm:w-1/3"
           />
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="border p-2 rounded w-full sm:w-1/3 cursor-pointer"
+            className="border border-gray-300 p-3 rounded w-full sm:w-1/3 cursor-pointer"
           >
             <option value="">All Categories</option>
             {categories.map(category => (
@@ -71,17 +74,19 @@ const HomePage = () => {
           </select>
           <button
             onClick={handleFilter}
-            className="bg-[#925FE2] text-white p-2 rounded w-full text-sm sm:w-auto cursor-pointer"
+            className="bg-[#925FE2] text-white p-3 rounded w-full sm:w-auto hover:bg-purple-700 transition"
           >
             Apply Filter
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-14 cursor-pointer">
+
+      {/* Product Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {filteredProducts.map(product => (
           <div
             key={product._id}
-            className={`transition-opacity duration-700 ${isMounted ? 'opacity-100' : 'opacity-0'}`}
+            className={`transition-opacity duration-500 ${isMounted ? 'opacity-100' : 'opacity-0'}`}
           >
             <ProductCard product={product} />
           </div>
@@ -91,4 +96,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default ProductList;
