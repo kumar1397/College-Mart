@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { FaCalendarAlt, FaTag, FaInfoCircle, FaHeart, FaRegHeart } from 'react-icons/fa';
+import { FaCalendarAlt, FaTag, FaInfoCircle, FaHeart, FaRegHeart, FaUser } from 'react-icons/fa';
 
 const ProductCard = ({ product }) => {
-  const { name, price, description, date, imgUrl, tag, seller, sellerDetails } = product;
+  const { name, price, description, date, imgUrl, tag, seller } = product;
   const [showDetails, setShowDetails] = useState(false);
   const [showSellerDetails, setShowSellerDetails] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
@@ -67,7 +67,11 @@ const ProductCard = ({ product }) => {
             {showSellerDetails && (
               <div className="mt-4 p-4 border border-gray-300 rounded-lg bg-gray-50">
                 <h3 className="text-md font-semibold text-gray-800 mb-2">Seller Details:</h3>
-                <p className="text-gray-700 text-sm">{sellerDetails}</p>
+                <p className="text-gray-700 text-sm mb-2 flex items-center space-x-2">
+                  <FaUser className="text-[#925FE2] text-base" />
+                  <span>{seller.name}</span>
+                </p>
+                <p className="text-gray-600 text-sm">{seller.contactInfo}</p>
               </div>
             )}
           </div>
