@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import Header from './header';
 import Footer from './footer';
 import ProductCard from './productcard';
@@ -8,7 +9,6 @@ import { Link } from 'react-router-dom';
 import { FaPlus } from "react-icons/fa";
 import HorizontalCarousel from './HorizontalCarousel';
 import BackgroundImagePage from './intropage';
-import { useState,useEffect } from 'react';
 import Spinner from '../spinner/Spinner';
 import { MdChat } from "react-icons/md";
 
@@ -22,45 +22,130 @@ const images = [
   "Frame8.svg"
 ];
 
-function Home02() {
+const Home02 = () => {
   const [loading, setLoading] = useState(false); //spinner loading
 
   useEffect(() => {
-    const handleStart = () => setLoading(true);
-    const handleComplete = () => setLoading(false);
-
     setLoading(true);
     setTimeout(() => setLoading(false), 1000);
-
-
-    return () => {
-    };
   }, []);
+
+  const fadeInVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.8 } },
+  };
+
+  const slideDownVariants = {
+    hidden: { y: -50, opacity: 0 },
+    visible: { y: 0, opacity: 1, transition: { duration: 0.8 } },
+  };
+
+  const slideInFromLeftVariants = {
+    hidden: { x: -50, opacity: 0 },
+    visible: { x: 0, opacity: 1, transition: { duration: 0.8 } },
+  };
+
+  const fadeInScaleVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.8 } },
+  };
+
+  const staggerContainerVariants = {
+    hidden: { opacity: 1 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3,
+      },
+    },
+  };
+
+  const staggerItemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
+
+  const buttonVariants = {
+    hover: {
+      scale: 1.1,
+      rotate: 45,
+      transition: {
+        duration: 0.3,
+        yoyo: Infinity,
+      },
+    },
+  };
+
   return (
     <div>
       {loading ? (
         <Spinner />
       ) : (
-    <div className="min-h-screen flex flex-col relative mb-5 ">
-      <Navbar />
-      <div className="py-2  ">
-      <HorizontalCarousel images={images} />
-    </div>
-    <div className='p-4'>
-    <BackgroundImagePage />
-    </div>
-      <main className="flex-grow mt-4 ">
-        <ProductList />
-      </main>
-      <Link to="/home/form" className='top-[75%] z-50 fixed right-16 h-16 w-16 bg-[#925FE2] shadow-xl hover:bg-[#7a4fc2] rounded-full items-center cursor-pointer flex justify-center transition-transform transform hover:scale-90 hover:rotate-45'>
-        <img src="plus-svgrepo-com.svg" className=' w-8 h-8 object-fill transition-transform duration-300 ease-in-out invert' alt="plus" />
-        </Link>
-        <Link to="/home/chat" className='top-[75%] z-50 fixed left-9 h-16 w-16 bg-[#925FE2] shadow-xl hover:bg-[#7a4fc2] rounded-full items-center cursor-pointer flex justify-center transition-transform transform hover:scale-90 hover:rotate-45'>
-        <MdChat size={35} color='white' />
-        </Link>
-      <Footer />
-    </div>
-    )}
+        <div className="min-h-screen flex flex-col relative mb-5">
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={slideDownVariants}
+          >
+            <Navbar />
+          </motion.div>
+          <motion.div
+            className="py-2"
+            initial="hidden"
+            animate="visible"
+            variants={slideInFromLeftVariants}
+          >
+            <HorizontalCarousel images={images} />
+          </motion.div>
+          <motion.div
+            className='p-4'
+            initial="hidden"
+            animate="visible"
+            variants={fadeInScaleVariants}
+            transition={{ delay: 0.3 }}
+          >
+            <BackgroundImagePage />
+          </motion.div>
+          <motion.main
+            className="flex-grow mt-4"
+            initial="hidden"
+            animate="visible"
+            variants={staggerContainerVariants}
+            transition={{ delay: 0.6 }}
+          >
+            <ProductList />
+          </motion.main>
+          <motion.div
+            className='top-[75%] z-50 fixed right-16 h-16 w-16 bg-[#925FE2] shadow-xl rounded-full items-center cursor-pointer flex justify-center transition-transform'
+            variants={buttonVariants}
+            whileHover="hover"
+          >
+            <Link to="/home/form">
+              <img
+                src="plus-svgrepo-com.svg"
+                className='w-8 h-8 object-fill transition-transform duration-300 ease-in-out invert'
+                alt="plus"
+              />
+            </Link>
+          </motion.div>
+          <motion.div
+            className='top-[75%] z-50 fixed left-9 h-16 w-16 bg-[#925FE2] shadow-xl rounded-full items-center cursor-pointer flex justify-center transition-transform'
+            variants={buttonVariants}
+            whileHover="hover"
+          >
+            <Link to="/home/chat">
+              <MdChat size={35} color='white' />
+            </Link>
+          </motion.div>
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={slideDownVariants}
+          >
+            <Footer />
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 }
