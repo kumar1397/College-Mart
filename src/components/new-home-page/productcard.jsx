@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
+import { AiFillHeart, AiOutlineHeart, AiOutlinePlusCircle } from 'react-icons/ai';
 import CardComponent from './moreproductdetails';
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
-import { AiOutlinePlusCircle } from 'react-icons/ai';
 
 const ProductCard = ({ product }) => {
   const [showDetails, setShowDetails] = useState(false);
   const [showProduct, setShowProduct] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false); 
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const handleCardClick = () => {
     setShowDetails(!showDetails);
@@ -24,23 +23,27 @@ const ProductCard = ({ product }) => {
   const handleFavoriteClick = () => {
     setIsFavorite(!isFavorite);
   };
+
   return (
     <div>
       {/* Product Card */}
-      <div className={`border p-4 shadow-md rounded-lg hover:shadow-lg transform transition-transform duration-200 hover:scale-105 cursor-pointer`} >
-        <img onClick={handleCardClick} src={product.image} alt={product.name} className="w-full h-48 object-cover rounded-t-lg" />
+      <div
+        className={`relative border p-4 shadow-md rounded-lg hover:shadow-lg transform transition-transform duration-200 hover:scale-105 cursor-pointer`}
+        onClick={handleCardClick}
+      >
+        <img src={product.image} alt={product.name} className="w-full h-48 object-cover rounded-t-lg" />
         <h2 className="text-xl font-bold mt-2">{product.name}</h2>
-        <p className="text-gray-600">{product.price}</p>
-        {showDetails && ( 
+        <p className="text-gray-600">${product.price}</p>
+        {showDetails && (
           <div className="mt-4">
             <p className="mb-1"><strong>Description:</strong> {product.description}</p>
             <p className="mb-1"><strong>Buy Date:</strong> {product.buyDate}</p>
             <p className="mb-1"><strong>Condition:</strong> {product.condition}</p>
           </div>
         )}
-          <button
+        <button
           onClick={handleFavoriteClick}
-          className="absolute top-4  right-4 text-[#925FE2]"
+          className="absolute top-4 right-4 text-[#925FE2]"
         >
           {isFavorite ? <AiFillHeart size={24} /> : <AiOutlineHeart size={24} />}
         </button>
@@ -50,12 +53,11 @@ const ProductCard = ({ product }) => {
         >
           Show More Product Details
         </button>
-      
       </div>
 
       {/* Detailed Product Card */}
       {showProduct && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center  w-full z-50">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="relative bg-white p-8 rounded-lg shadow-lg max-w-4xl h-[65%] w-full">
             <button
               onClick={handleCloseProductClick}
@@ -67,7 +69,6 @@ const ProductCard = ({ product }) => {
           </div>
         </div>
       )}
-      
     </div>
   );
 };

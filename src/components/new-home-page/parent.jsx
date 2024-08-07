@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import Header from './header';
 import Footer from './footer';
 import ProductCard from './productcard';
-import ProductList from './productlist';
+// import ProductList from './productlist';
 import Navbar from './navbar';
 import { Link } from 'react-router-dom';
 import { FaPlus } from "react-icons/fa";
@@ -11,6 +11,7 @@ import HorizontalCarousel from './HorizontalCarousel';
 import BackgroundImagePage from './intropage';
 import Spinner from '../spinner/Spinner';
 import { MdChat } from "react-icons/md";
+import ProductList from '../demo/HomePage';
 
 const images = [
   "Frame9.svg",
