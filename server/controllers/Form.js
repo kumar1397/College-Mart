@@ -84,7 +84,7 @@ exports.fileUpload = async (req, res) => {
     });
 
     const newdata = await User.findOneAndUpdate(
-      email,
+      {email},
       {
         $push: {
           products: productdata._id,
