@@ -30,11 +30,7 @@ const formSchema = new mongoose.Schema({
     required: true 
   },
   imgUrl: [imageSchema],
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
-  }
+  
 });
 
 module.exports = mongoose.model("Product", formSchema);

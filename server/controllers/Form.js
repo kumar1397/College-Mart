@@ -30,7 +30,7 @@ async function uploadtoCloudinary(fileBuffer, folder, quality) {
 
 exports.fileUpload = async (req, res) => {
   try {
-    const { name, description, date, price, tag, email  } = req.body;
+    const { name, description, date, price, tag, email } = req.body;
 
     if (!req.files && !req.file) {
       return res.status(400).json({
@@ -73,7 +73,7 @@ exports.fileUpload = async (req, res) => {
         });
       }
     }
-  
+
     const productdata = await Product.create({
       name,
       description,

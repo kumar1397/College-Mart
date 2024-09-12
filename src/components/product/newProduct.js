@@ -9,8 +9,6 @@ function FormPage() {
   const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
-    const handleStart = () => setLoading(true);
-    const handleComplete = () => setLoading(false);
 
     setLoading(true);
     setTimeout(() => setLoading(false), 400);
@@ -43,10 +41,6 @@ function FormPage() {
       setError('You can upload a maximum of 3 images.');
       return;
     }
-    // if(files.length==0){
-    //   setError('Please select a image.');
-    //   return;
-    // }
     setError('');
     setFormData({
       ...formData,
@@ -74,7 +68,7 @@ function FormPage() {
     });
 
     try {
-      const response = await fetch('https://college-mart.onrender.com/upload/fileUpload', {
+      const response = await fetch('http://localhost:4000/upload/fileUpload', {
         method: 'POST',
         body: data,
       });
