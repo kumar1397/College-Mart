@@ -43,10 +43,6 @@ function FormPage() {
       setError('You can upload a maximum of 3 images.');
       return;
     }
-    // if(files.length==0){
-    //   setError('Please select a image.');
-    //   return;
-    // }
     setError('');
     setFormData({
       ...formData,
@@ -62,27 +58,29 @@ function FormPage() {
       return;
     }
 
+    const userId = JSON.parse(localStorage.getItem('user'))._id;
     const data = new FormData();
     data.append('name', formData.name);
     data.append('description', formData.description);
     data.append('date', formData.date);
     data.append('price', formData.price);
     data.append('tag', formData.tag);
+    data.append('user', userId);
 
-    formData.images.forEach((image, index) => {
-      data.append(`filename`, image);
+    formData.images.forEach((image) => {
+      data.append('filename', image);  // Correctly appending each image
     });
 
     try {
-      const response = await fetch('https://college-mart.onrender.com/upload/fileUpload', {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/upload/fileUpload`, {
         method: 'POST',
-        body: data,
+        body: data,  // Don't set the Content-Type manually, the browser handles it.
       });
 
       if (response.ok) {
         console.log('Form submitted successfully');
         setError('');
-        setShowPopup(true); // Show the pop-up
+        setShowPopup(true);  // Show the pop-up
       } else {
         const errorData = await response.json();
         setError(errorData.message || 'Something went wrong.');

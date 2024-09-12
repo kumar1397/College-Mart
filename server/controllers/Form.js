@@ -1,55 +1,80 @@
 const Product = require("../models/Product");
 const cloudinary = require("cloudinary").v2;
 require("dotenv").config();
-const User = require('../models/User')
+const User = require('../models/User');
+
 function isFileSupported(type, supportedTypes) {
   return supportedTypes.includes(type);
 }
 
 async function uploadtoCloudinary(fileBuffer, folder, quality) {
-  const options = { folder, resource_type: "auto" };
-  if (quality) {
-    options.quality = quality;
-  }
+  try {
+    const options = {
+      folder,
+      resource_type: "auto",
+      quality: quality || "auto",  // Set default quality if not provided
+    };
 
-  return new Promise((resolve, reject) => {
-    const stream = cloudinary.uploader.upload_stream(
-      options,
-      (error, result) => {
-        if (error) {
-          return reject(
-            new Error("Upload to Cloudinary failed: " + error.message)
-          );
+    return await new Promise((resolve, reject) => {
+      const stream = cloudinary.uploader.upload_stream(
+        options,
+        (error, result) => {
+          if (error) {
+            return reject(
+              new Error(`Upload to Cloudinary failed: ${error.message}`)
+            );
+          }
+          resolve(result);
         }
-        resolve(result);
-      }
-    );
-    stream.end(fileBuffer);
-  });
+      );
+      stream.end(fileBuffer);
+    });
+  } catch (error) {
+    console.error("Error in Cloudinary upload function:", error);
+    throw error;  // Re-throw the error to be handled elsewhere
+  }
 }
 
 exports.fileUpload = async (req, res) => {
+  console.log("Uploaded files:", req.files);
   try {
-    const { name, description, date, price, tag, email  } = req.body;
-
-    if (!req.files && !req.file) {
+    console.log("Entered fileUpload Backend");
+    const { name, description, date, price, tag, user } = req.body;
+    
+    if (!mongoose.Types.ObjectId.isValid(user)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid user ID format",
+      });
+    }
+    const userId = mongoose.Types.ObjectId(user);
+    
+    if (!req.files || req.files.length === 0) {
       return res.status(400).json({
         success: false,
         message: "No files were uploaded",
       });
     }
 
-    const files = req.file ? [req.file] : req.files;
+    const files = req.files;
     const images = [];
 
     for (let file of files) {
-      const supportedTypes = ["jpg", "jpeg", "png"];
-      const filetype = file.originalname.split(".").pop().toLowerCase();
+      // const supportedTypes = ["jpg", "jpeg", "png"];
+      // const filetype = file.originalname.split(".").pop().toLowerCase();
+      // if (!isFileSupported(filetype, supportedTypes)) {
+      //   return res.status(415).json({
+      //     success: false,
+      //     message:
+      //       "File format not supported. Allowable formats are png, jpg, and jpeg",
+      //   });
+      // }
+      const supportedTypes = ["image/jpeg", "image/png"];
+      const filetype = file.mimetype; // check MIME type
       if (!isFileSupported(filetype, supportedTypes)) {
         return res.status(415).json({
           success: false,
-          message:
-            "File format not supported. Allowable formats are png, jpg, and jpeg",
+          message: "File format not supported. Allowable formats are png, jpg, and jpeg",
         });
       }
 
@@ -65,6 +90,8 @@ exports.fileUpload = async (req, res) => {
         }
 
         images.push({ url: response.secure_url });
+        console.log("Uploaded image URL:", response.secure_url);  // Log uploaded image URL
+
       } catch (uploadError) {
         console.error("Error uploading to Cloudinary:", uploadError);
         return res.status(500).json({
@@ -73,7 +100,7 @@ exports.fileUpload = async (req, res) => {
         });
       }
     }
-  
+
     const productdata = await Product.create({
       name,
       description,
@@ -81,31 +108,35 @@ exports.fileUpload = async (req, res) => {
       price,
       tag,
       imgUrl: images,
+      user: userId
     });
 
+    console.log("Created product data:", productdata);  // Log created product data
+
     const newdata = await User.findOneAndUpdate(
-      email,
+      { _id: userId },
       {
         $push: {
           products: productdata._id,
         },
       },
       { new: true }
-    )
+    );
 
-    console.log(newdata);
+    console.log("Updated user with new product:", newdata);  // Log updated user data
+    
     res.json({
       success: true,
       imgUrl: images.map((image) => image.url),
       message: "Images uploaded successfully",
       productdata
-
     });
   } catch (error) {
-    console.error(error);
+    console.error("Error during file upload:", error.stack);  // Log stack trace
     res.status(400).json({
       success: false,
       message: "Something went wrong",
+      error: error.message  // Include error message in response
     });
   }
 };
