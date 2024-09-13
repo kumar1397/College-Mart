@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Product = require("../models/Product");
 const cloudinary = require("cloudinary").v2;
 require("dotenv").config();
@@ -8,6 +9,7 @@ function isFileSupported(type, supportedTypes) {
 }
 
 async function uploadtoCloudinary(fileBuffer, folder, quality) {
+  console.log("In uploadCloudinary!!");
   try {
     const options = {
       folder,
@@ -36,7 +38,7 @@ async function uploadtoCloudinary(fileBuffer, folder, quality) {
 }
 
 exports.fileUpload = async (req, res) => {
-  console.log("Uploaded files:", req.files);
+  console.log("In fileUpload!!");
   try {
     console.log("Entered fileUpload Backend");
     const { name, description, date, price, tag, user } = req.body;
@@ -47,7 +49,7 @@ exports.fileUpload = async (req, res) => {
         message: "Invalid user ID format",
       });
     }
-    const userId = mongoose.Types.ObjectId(user);
+    const userId = new mongoose.Types.ObjectId(user);
     
     if (!req.files || req.files.length === 0) {
       return res.status(400).json({
@@ -135,7 +137,7 @@ exports.fileUpload = async (req, res) => {
     console.error("Error during file upload:", error.stack);  // Log stack trace
     res.status(400).json({
       success: false,
-      message: "Something went wrong",
+      message: "Something went wrong in Form.js :)",
       error: error.message  // Include error message in response
     });
   }

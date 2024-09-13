@@ -59,6 +59,7 @@ function FormPage() {
     }
 
     const userId = JSON.parse(localStorage.getItem('user'))._id;
+    console.log(userId);
     const data = new FormData();
     data.append('name', formData.name);
     data.append('description', formData.description);
@@ -68,7 +69,7 @@ function FormPage() {
     data.append('user', userId);
 
     formData.images.forEach((image) => {
-      data.append('filename', image);  // Correctly appending each image
+      data.append('filename', image);  
     });
 
     try {
@@ -83,7 +84,7 @@ function FormPage() {
         setShowPopup(true);  // Show the pop-up
       } else {
         const errorData = await response.json();
-        setError(errorData.message || 'Something went wrong.');
+        setError(errorData.message || 'Something went wrong while adding newProduct.js');
       }
     } catch (error) {
       setError('Failed to submit form.');
