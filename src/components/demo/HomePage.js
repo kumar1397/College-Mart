@@ -13,7 +13,7 @@ const ProductList = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("https://college-mart.onrender.com/products");
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/products`);
         const data = await response.json();
         setProducts(data);
         setFilteredProducts(data);
