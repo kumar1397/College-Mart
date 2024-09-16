@@ -2,14 +2,14 @@ const jwt = require("jsonwebtoken");
 
 module.exports = function (req, res, next) {
   const authHeader = req.header("Authorization");
-  console.log("Authorization Header:", authHeader); // Log the authorization header
+  // console.log("Authorization Header:", authHeader); // Log the authorization header
 
   if (!authHeader) {
     return res.status(401).json({ msg: "No token, authorization denied" });
   }
 
   const token = authHeader.split(" ")[1];
-  console.log("Token:", token); // Log the token
+  // console.log("Token:", token); // Log the token
 
   if (!token) {
     return res.status(401).json({ msg: "No token, authorization denied" });

@@ -128,7 +128,7 @@ const Footer = () => {
     <div className="text-sm text-blueGray-500 font-semibold py-1">
       © 2023 College Mart. All rights reserved - 
       <span> ❤️ <a href='https://www.linkedin.com/in/anurag-roy-has-cutome-url/'>Designed by Anurag</a>,</span>
-      <span>  ❤️ <a href='https://www.linkedin.com/in/iswar-kumar-sahu-a01b721a2/'>Developed by Kumar</a>, <a href="https://www.linkedin.com/in/anubhav-shaurya-4b3946257/">Anubhav</a>, <a href="https://www.linkedin.com/in/prateek-kumar-nayak-72976822a/">Prateek</a>,<a href="https://www.linkedin.com/in/mahaprasad-prusty-0163a21b1/">Mahaprasad</a> and <a href="https://www.linkedin.com/in/tanisha-pati-06ab79271/">Tanisha</a>. </span> 
+      <span>  ❤️ <a href='https://www.linkedin.com/in/iswar-kumar-sahu-a01b721a2/'>Developed by Kumar</a>, <a href="https://www.linkedin.com/in/manjit-majhi/">Manjit</a><a href="https://www.linkedin.com/in/anubhav-shaurya-4b3946257/">Anubhav</a>, <a href="https://www.linkedin.com/in/prateek-kumar-nayak-72976822a/">Prateek</a>,<a href="https://www.linkedin.com/in/mahaprasad-prusty-0163a21b1/">Mahaprasad</a> and <a href="https://www.linkedin.com/in/tanisha-pati-06ab79271/">Tanisha</a>. </span> 
     </div>
   </div>
 </div>

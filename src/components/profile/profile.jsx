@@ -14,6 +14,9 @@ const Profile = () => {
   const [password, setPassword] = useState(""); // For password verification
   const [sortCriteria, setSortCriteria] = useState(""); // Sorting dropdown
   const navigate = useNavigate();
+  const [isChangingPassword, setIsChangingPassword] = useState(false);
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
 
   // Dummy products in case no products are found
   const dummyProducts = [
@@ -51,20 +54,35 @@ const Profile = () => {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem("token");
+
+        // Build query parameters for API call
+        const queryParams = new URLSearchParams();
+        if (searchTerm) queryParams.append('search', searchTerm);
+        if (sortCriteria === 'sold') {
+          queryParams.append('sold', 'true'); 
+        } else if (sortCriteria === 'unsold') {
+          queryParams.append('unsold', 'true');
+        } else if (sortCriteria) {
+          queryParams.append('sort', sortCriteria);
+        }
+        
+        const query = queryParams.toString();
+
         const profileResponse = await axios.get(
-          "https://college-mart.onrender.com/home/profile",
+          `${process.env.REACT_APP_BACKEND_URL}/home/profile`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
         const productsResponse = await axios.get(
-          "https://college-mart.onrender.com/products",
+          `${process.env.REACT_APP_BACKEND_URL}/home/profile/products?${query}`, // Updated API endpoint with query parameters
           {
             headers: { Authorization: `Bearer ${token}` },
           }
-        );
+        );        
+        console.log(productsResponse.data);
         setProfile(profileResponse.data);
-        setProducts(productsResponse.data.products || []); // Ensure products is an array
+        setProducts(productsResponse.data.products || dummyProducts);
         setLoading(false);
       } catch (err) {
         setError("Failed to fetch data.");
@@ -72,11 +90,22 @@ const Profile = () => {
       }
     };
     fetchProfile();
-  }, []);
+  }, [searchTerm, sortCriteria]);
 
   const handleChange = (e) => {
-    setProfile({ ...profile, [e.target.name]: e.target.value });
-  };
+    const { name, value } = e.target;
+    if (name === 'phone') {
+      setProfile({
+        ...profile,
+        user: { ...profile.user, phone: value }
+      });
+    } else {
+      setProfile({
+        ...profile,
+        [name]: value
+      });
+    }
+  };    
 
   const handleFileChange = (e) => {
     if (e.target.files.length > 0) {
@@ -85,7 +114,22 @@ const Profile = () => {
   };
 
   const handleEditClick = () => {
-    setIsEditing(!isEditing);
+    if (!isEditing) {
+      setIsEditing(true);
+      setIsChangingPassword(false);
+    } else {
+      setIsEditing(false);
+    }
+  };
+
+  const handleChangePasswordClick = () => {
+    if (!isChangingPassword) {
+      setIsChangingPassword(true);
+      setIsEditing(false);
+    } else {
+      setIsChangingPassword(false);
+      setIsEditing(true);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -95,12 +139,13 @@ const Profile = () => {
       const formData = new FormData();
       formData.append("password", password); // Final verification password
       if (profile.avatar) formData.append("avatar", profile.avatar);
+      formData.append("phone", profile.user?.phone || "");
       formData.append("bio", profile.bio || "");
       formData.append("hall_of_residence", profile.hall_of_residence || "");
       formData.append("room_number", profile.room_number || "");
 
       const response = await axios.post(
-        "https://college-mart.onrender.com/home/profile",
+        `${process.env.REACT_APP_BACKEND_URL}/home/profile`,
         formData,
         {
           headers: {
@@ -113,7 +158,7 @@ const Profile = () => {
       setProfile(response.data.profile);
       alert("Profile updated successfully");
     } catch (err) {
-      setError("Failed to update profile.");
+      alert("Wrong Password or Server Error !!");
     }
   };
 
@@ -131,6 +176,36 @@ const Profile = () => {
     navigate("/auth");
   };
 
+  const handlePasswordChange = async (e) => {
+    e.preventDefault();
+    try {
+      const token = localStorage.getItem("token");
+      console.log("1");
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/home/profile/update-password`,
+        {
+          oldPassword,
+          newPassword,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      console.log("2");
+      if (response.data.success) {
+        alert('Password updated successfully');
+        setIsChangingPassword(false);
+        setOldPassword('');
+        setNewPassword('');
+        setIsEditing(true);
+      } else {
+        alert('Failed to update password');
+      }
+    } catch (err) {
+      console.error('Error in handlePasswordChange:', err);
+      alert("Password update failed: " + (err.response?.data?.message || err.message));
+    }
+  };
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
@@ -192,27 +267,62 @@ const Profile = () => {
                 size="sm"
               />
               <h3 className="text-md">
-                {profile.phone || "+91 XXXXXXXXXX"}
+                {profile.user && profile.user.phone
+                  ? profile.user.phone
+                  : "+91 XXXXXXXXXX"}
+              </h3>
+            </div>
+
+            <div className="flex items-center justify-center mb-4">
+              <h3 className="text-md">
+                {profile.bio || ""}
               </h3>
             </div>
           </div>
         )}
 
-        <button
-          onClick={handleEditClick}
-          className="bg-blue-600 text-white px-4 py-2 rounded mb-4 w-full"
-        >
-          {isEditing ? "Cancel" : "Edit"}
-        </button>
-
-        {isEditing && (
-          <button className="bg-blue-500 text-white px-4 py-2 rounded mb-4 w-full">
-            Change Password
+        {/* Edit and Change Password Buttons */}
+        {!isChangingPassword && (
+          <button
+            onClick={handleEditClick}
+            className="bg-blue-600 text-white px-4 py-2 rounded mb-4 w-full"
+          >
+            {isEditing ? "Cancel" : "Edit"}
           </button>
         )}
 
+        {!isEditing && (
+          <button
+            onClick={handleChangePasswordClick}
+            className="bg-blue-500 text-white px-4 py-2 rounded mb-4 w-full"
+          >
+            {isChangingPassword ? "Cancel" : "Change Password"}
+          </button>
+        )}
+
+        {/* Edit Form */}
         {isEditing && (
           <form onSubmit={handleSubmit} className="w-full">
+            {/* <div className="mb-3">
+              <label className="block text-gray-700">Email:</label>
+              <input
+                type="email"
+                name="email"
+                value={profile.user?.email || ""}
+                onChange={handleChange}
+                className="input-field w-full bg-gray-200 rounded-lg px-3"
+              />
+            </div> */}
+            <div className="mb-3">
+              <label className="block text-gray-700">Phone Number:</label>
+              <input
+                type="text"
+                name="phone"
+                value={profile.user?.phone || ""}
+                onChange={handleChange}
+                className="input-field w-full bg-gray-200 rounded-lg px-3"
+              />
+            </div>
             <div className="mb-3">
               <label className="block text-gray-700">Bio:</label>
               <textarea
@@ -237,7 +347,7 @@ const Profile = () => {
               <input
                 type="text"
                 name="room_number"
-                value={""} // Make default blank
+                value={profile.room_number || ""} 
                 onChange={handleChange}
                 className="input-field w-full bg-gray-200 rounded-lg px-3"
               />
@@ -249,7 +359,6 @@ const Profile = () => {
               <input
                 type="password"
                 name="password"
-                value={""} // Make default blank
                 onChange={(e) => setPassword(e.target.value)}
                 className="input-field w-full bg-gray-200 rounded-lg px-3"
               />
@@ -263,7 +372,41 @@ const Profile = () => {
           </form>
         )}
 
-        {!isEditing && (
+        {/* Change Password Form */}
+        {isChangingPassword && (
+          <form onSubmit={handlePasswordChange} className="w-full">
+            <div className="mb-3">
+              <label className="block text-gray-700">Old Password:</label>
+              <input
+                type="password"
+                name="oldPassword"
+                value={oldPassword}
+                onChange={(e) => setOldPassword(e.target.value)}
+                className="input-field w-full bg-gray-200 rounded-lg px-3"
+                required
+              />
+            </div>
+            <div className="mb-3">
+              <label className="block text-gray-700">New Password:</label>
+              <input
+                type="password"
+                name="newPassword"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                className="input-field w-full bg-gray-200 rounded-lg px-3"
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              className="bg-blue-500 text-white px-4 py-2 rounded w-full"
+            >
+              Update Password
+            </button>
+          </form>
+        )}
+
+        {!isEditing && !isChangingPassword && (
           <button
             onClick={handleLogout}
             className="bg-red-500 text-white px-4 py-2 mt-4 rounded w-full"
@@ -300,12 +443,12 @@ const Profile = () => {
             onChange={handleSortChange}
             className="input-field bg-gray-200 h-6 w-40 rounded-lg px-3"
           >
-            <option value="">Select</option>
+            <option value="">ALL</option>
             <option value="sold">SOLD</option>
             <option value="unsold">UNSOLD</option>
             <option value="date">DATE</option>
             <option value="price">PRICE</option>
-            <option value="ratings">RATINGS</option>
+            {/* <option value="ratings">RATINGS</option> */}
           </select>
         </div>
 
@@ -314,17 +457,15 @@ const Profile = () => {
           {Array.isArray(products) && products.length > 0
             ? products
                 .filter((product) =>
-                  product.name
-                    ?.toLowerCase()
-                    .includes(searchTerm.toLowerCase())
+                  product.name?.toLowerCase().includes(searchTerm.toLowerCase())
                 )
                 .map((product) => (
                   <div
-                    key={product.id}
+                    key={product._id} // Use _id as key instead of product.id
                     className="card bg-white shadow-lg p-4 transform transition-transform hover:scale-105 hover:shadow-xl hover:z-10"
                   >
                     <img
-                      src={product.image}
+                      src={product.imgUrl[0]?.url || "https://via.placeholder.com/150"} // Use product image or placeholder
                       alt={product.name}
                       className="w-full h-48 object-cover mb-4"
                     />
