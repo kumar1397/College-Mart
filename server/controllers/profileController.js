@@ -81,8 +81,8 @@ exports.getProfile = async (req, res) => {
 exports.updateProfile = async (req, res) => {
   try {
 
-    console.log('req.body:', req.body);
-    console.log('req.files:', req.files);
+    // console.log('req.body:', req.body);
+    // console.log('req.files:', req.files);
 
     const { bio, hall_of_residence, room_number, password, phone } = req.body;
     let profileFields = {};
@@ -106,10 +106,9 @@ exports.updateProfile = async (req, res) => {
     }
 
     // Process files if present
-    let images = [];
-    if (req.files && req.files.images) {
+    if (req.files && req.files.avatar && req.files.avatar.length > 0) {
       const supportedTypes = ["jpg", "jpeg", "png"];
-      for (let file of req.files.images) {
+      for (let file of req.files.avatar) {
         const filetype = file.originalname.split(".").pop().toLowerCase();
         if (!supportedTypes.includes(filetype)) {
           return res.status(415).json({
@@ -118,14 +117,18 @@ exports.updateProfile = async (req, res) => {
           });
         }
 
-        const fileBuffer = file.buffer;
-        const fileName = file.originalname.split(".")[0];
+        const avatarFile = req.files.avatar[0];
+        console.log('Uploaded avatar file:', avatarFile);
+        const fileBuffer = avatarFile.buffer;
+        const fileName = avatarFile.originalname.split(".")[0];
         const result = await uploadToCloudinary(
           fileBuffer,
           fileName,
           process.env.FOLDER_NAME
         );
-        images.push({ url: result.secure_url });
+        if (result) {
+          profileFields.avatar = result.secure_url;
+        }
       }
     }
 
@@ -133,7 +136,6 @@ exports.updateProfile = async (req, res) => {
     if (bio) profileFields.bio = bio;
     if (hall_of_residence) profileFields.hall_of_residence = hall_of_residence;
     if (room_number) profileFields.room_number = room_number;
-    // profileFields.images = images;
 
     // Update profile document
     let profile = await Profile.findOneAndUpdate(

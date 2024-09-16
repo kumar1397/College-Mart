@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Profile = () => {
   const [profile, setProfile] = useState({});
@@ -22,31 +24,31 @@ const Profile = () => {
   const dummyProducts = [
     {
       id: 1,
-      name: "Dummy Product 1",
-      description: "This is a dummy product description.",
+      name: "Instant",
+      description: "White and black polaroid one step 2 instant camera.",
       price: "10",
-      image: "https://via.placeholder.com/150",
+      image: "https://unsplash.com/photos/white-and-black-polaroid-one-step-2-instant-camera-on-white-board-KsLPTsYaqIQ",
     },
     {
       id: 2,
-      name: "Dummy Product 2",
-      description: "This is a dummy product description.",
+      name: "Nike Air 2",
+      description: "Red Nike Sneaker.",
       price: "15",
-      image: "https://via.placeholder.com/150",
+      image: "https://unsplash.com/photos/unpaired-red-nike-sneaker-164_6wVEHfI",
     },
     {
       id: 3,
-      name: "Dummy Product 3",
-      description: "This is a dummy product description.",
+      name: "Apple Watch 3",
+      description: "Round white watch with white band.",
       price: "20",
-      image: "https://via.placeholder.com/150",
+      image: "https://unsplash.com/photos/round-white-watch-with-white-band-2cFZ_FB08UM",
     },
     {
       id: 4,
-      name: "Dummy Product 4",
-      description: "This is a dummy product description.",
+      name: "Ban Wayfarer Sunglass",
+      description: "Black ray ban wayfarer sunglasses.",
       price: "25",
-      image: "https://via.placeholder.com/150",
+      image: "https://unsplash.com/photos/shallow-focus-photo-of-black-ray-ban-wayfarer-sunglasses-K62u25Jk6vo",
     },
   ];
 
@@ -156,9 +158,13 @@ const Profile = () => {
       );
 
       setProfile(response.data.profile);
-      alert("Profile updated successfully");
+      toast.success("Profile updated successfully", {
+        position: "top-center"
+      });
     } catch (err) {
-      alert("Wrong Password or Server Error !!");
+      toast.error("Wrong Password or Server Error !!", {
+        position: "top-center"
+      });
     }
   };
 
@@ -193,17 +199,23 @@ const Profile = () => {
       );
       console.log("2");
       if (response.data.success) {
-        alert('Password updated successfully');
+        toast.success('Password updated successfully', {
+          position: "top-center"
+        });
         setIsChangingPassword(false);
         setOldPassword('');
         setNewPassword('');
         setIsEditing(true);
       } else {
-        alert('Failed to update password');
+        toast.error('Failed to update password', {
+          position: "top-center"
+        });
       }
     } catch (err) {
       console.error('Error in handlePasswordChange:', err);
-      alert("Password update failed: " + (err.response?.data?.message || err.message));
+      toast.error("Password update failed: " + (err.response?.data?.message || err.message), {
+        position: "top-center"
+      });
     }
   };
   if (loading) return <p>Loading...</p>;
@@ -211,6 +223,7 @@ const Profile = () => {
 
   return (
     <div className="flex flex-col sm:flex-row h-screen">
+      <ToastContainer />
       {/* Left Edit Section */}
       <div className="w-full sm:w-1/4 bg-[#ADD8E6] p-6 flex flex-col items-center">
         {/* Profile Image */}
