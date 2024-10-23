@@ -32,9 +32,16 @@ const formSchema = new mongoose.Schema({
   imgUrl: [imageSchema],
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'user',
     required: true,
-  }
-});
-
+  },
+  sold: {
+    type: Boolean,
+    default: false,
+  },
+  // ratings: {
+  //   type: Number,
+  //   default: 0,
+  // },
+}, { timestamps: true }); 
 module.exports = mongoose.model("Product", formSchema);

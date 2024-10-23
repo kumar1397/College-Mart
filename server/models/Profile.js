@@ -19,6 +19,7 @@ const ProfileSchema = new mongoose.Schema({
   },
   room_number: {
     type: String,
+    default:null,
   },
 });
 

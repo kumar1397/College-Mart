@@ -4,7 +4,7 @@ module.exports = function(app) {
   app.use(
     '/api',
     createProxyMiddleware({
-      target: 'https://college-mart.onrender.com/',
+      target: `${process.env.REACT_APP_BACKEND_URL}/`,
       changeOrigin: true,
     })
   );

@@ -56,30 +56,33 @@ function FormPage() {
       return;
     }
 
+    const userId = JSON.parse(localStorage.getItem('user'))._id;
+    console.log(userId);
     const data = new FormData();
     data.append('name', formData.name);
     data.append('description', formData.description);
     data.append('date', formData.date);
     data.append('price', formData.price);
     data.append('tag', formData.tag);
+    data.append('user', userId);
 
-    formData.images.forEach((image, index) => {
-      data.append(`filename`, image);
+    formData.images.forEach((image) => {
+      data.append('filename', image);  
     });
 
     try {
-      const response = await fetch('http://localhost:4000/upload/fileUpload', {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/upload/fileUpload`, {
         method: 'POST',
-        body: data,
+        body: data,  // Don't set the Content-Type manually, the browser handles it.
       });
 
       if (response.ok) {
         console.log('Form submitted successfully');
         setError('');
-        setShowPopup(true); // Show the pop-up
+        setShowPopup(true);  // Show the pop-up
       } else {
         const errorData = await response.json();
-        setError(errorData.message || 'Something went wrong.');
+        setError(errorData.message || 'Something went wrong while adding newProduct.js');
       }
     } catch (error) {
       setError('Failed to submit form.');

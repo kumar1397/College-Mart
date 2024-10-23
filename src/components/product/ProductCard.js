@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import { Carousel } from 'react-responsive-carousel';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import VerticalCarousel from './crousal';
 import InfiniteScrollContainer from './newcrousal';
+
 function ProductFormCard() {
   const [product, setProduct] = useState({
     filename: '',
@@ -14,32 +12,34 @@ function ProductFormCard() {
     price: ''
   });
 
-  // Function to handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
     setProduct({ ...product, [name]: value });
   };
 
-  // Function to handle image upload
   const handleImageUpload = (e) => {
     const { name, value } = e.target;
     const newvalue = value.split('\\')[2];
-    console.log(name, value, newvalue);
     setProduct({ ...product, [name]: newvalue });
   };
 
-  // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(product);
-    const res = await fetch("https://college-mart.onrender.com/upload/fileupload", {
+    const formData = new FormData();
+
+    formData.append('filename', product.filename);
+    formData.append('name', product.name);
+    formData.append('buyDate', product.buyDate);
+    formData.append('tag', product.tag);
+    formData.append('condition', product.condition);
+    formData.append('details', product.details);
+    formData.append('price', product.price);
+
+    const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/upload/fileUpload`, {
       method: "POST",
-      headers: {
-        "Content-Type": "multipart/form-data"
-      },
-      body: JSON.stringify(product),
+      body: formData,  // The browser will automatically set the appropriate Content-Type header
     });
+
     const data = await res.json();
     if (res.status === 400) {
       window.alert(data.message);
@@ -51,19 +51,16 @@ function ProductFormCard() {
   return (
     <div className="bg-black h-screen w-full flex justify-center items-center">
       <div className="w-full md:w-[90%] mx-auto bg-white shadow-lg rounded-lg overflow-hidden flex flex-col lg:flex-row my-2">
-        {/* Left section for product rules */}
         <div className="w-full h-[400px] lg:h-auto lg:w-1/2 p-4 bg-gray-800 text-white flex justify-around flex-col items-center">
-          <div  className='bg-red-400 w-full'>
-        <InfiniteScrollContainer/>
-        </div>
+          <div className='bg-red-400 w-full'>
+            <InfiniteScrollContainer/>
+          </div>
         </div>
 
-        {/* Right section for product form */}
         <div className="w-full lg:w-1/2 bg-[#8C52FF]  p-8 ">
           <form method="POST" onSubmit={handleSubmit} className="space-y-6">
             <h2 className="text-2xl font-semibold mb-6 text-white">Upload Product</h2>
 
-            {/* Upload Image section */}
             <div>
               <label htmlFor="image" className="block text-sm font-semibold mb-1 text-white">Product Image</label>
               <input
@@ -75,7 +72,6 @@ function ProductFormCard() {
               />
             </div>
 
-            {/* Product Name section */}
             <div>
               <label htmlFor="name" className="block text-sm font-semibold mb-1 text-white">Product Name</label>
               <input
@@ -90,8 +86,6 @@ function ProductFormCard() {
               />
             </div>
 
-
-            {/* Product Condition section */}
             <div>
               <label htmlFor="condition" className="block text-sm font-semibold mb-1 text-white">Product Condition</label>
               <input
@@ -106,7 +100,6 @@ function ProductFormCard() {
               />
             </div>
 
-            {/* Buy Date and tag section */}
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label htmlFor="buyDate" className="block text-sm font-semibold mb-1 text-white">Buy Date</label>
@@ -139,7 +132,6 @@ function ProductFormCard() {
               </div>
             </div>
 
-            {/* Product Details section */}
             <div>
               <label htmlFor="details" className="block text-sm font-semibold mb-1 text-white">Product Details</label>
               <textarea
@@ -154,7 +146,6 @@ function ProductFormCard() {
               />
             </div>
 
-            {/* Product Price section */}
             <div>
               <label htmlFor="price" className="block text-sm font-semibold mb-1 text-white">Price</label>
               <input
@@ -169,7 +160,6 @@ function ProductFormCard() {
               />
             </div>
 
-            {/* Submit Button */}
             <button
               type="submit"
               className="w-full  bg-gray-200 text-[#8C52FF] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"

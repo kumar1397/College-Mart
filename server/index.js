@@ -28,39 +28,41 @@ const dbConnect = require("./config/database");
 dbConnect();
 
 // Socket.IO setup
-const { createServer } = require("http");
-const { Server } = require("socket.io");
 
-const httpServer = createServer(app);
 
-const io = new Server(httpServer, {
-  cors: {
-    origin: "*",
-    methods: ["GET", "POST"],
-  },
-});
+// const { createServer } = require("http");
+// const { Server } = require("socket.io");
 
-io.on("connection", (socket) => {
-  console.log(`User Connected: ${socket.id}`);
+// const httpServer = createServer(app);
 
-  socket.on("join_room", (data) => {
-    socket.join(data);
-    console.log(`User with ID: ${socket.id} joined room: ${data}`);
-  });
+// const io = new Server(httpServer, {
+//   cors: {
+//     origin: "*",
+//     methods: ["GET", "POST"],
+//   },
+// });
 
-  socket.on("send_message", (data) => {
-    socket.to(data.room).emit("receive_message", data);
-    console.log("Message sent:", data);
-  });
+// io.on("connection", (socket) => {
+//   console.log(`User Connected: ${socket.id}`);
 
-  socket.on("disconnect", () => {
-    console.log("User Disconnected", socket.id);
-  });
-});
+//   socket.on("join_room", (data) => {
+//     socket.join(data);
+//     console.log(`User with ID: ${socket.id} joined room: ${data}`);
+//   });
 
-httpServer.listen(9000, () => {
-  console.log("Socket.IO server is listening at port 9000");
-});
+//   socket.on("send_message", (data) => {
+//     socket.to(data.room).emit("receive_message", data);
+//     console.log("Message sent:", data);
+//   });
+
+//   socket.on("disconnect", () => {
+//     console.log("User Disconnected", socket.id);
+//   });
+// });
+
+// httpServer.listen(9000, () => {
+//   console.log("Socket.IO server is listening at port 9000");
+// });
 
 // Cloudinary configuration
 const cloudinary = require("./config/cloudinary");
