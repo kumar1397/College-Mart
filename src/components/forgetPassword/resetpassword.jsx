@@ -19,7 +19,7 @@ const notify = (message, type) => {
   };
   const handleSubmit = async(e) => {
     e.preventDefault();
-    const res = await fetch(`http://localhost:4000/reset-password/${token}`, {
+    const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/reset-password/${token}`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',

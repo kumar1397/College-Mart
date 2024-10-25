@@ -27,6 +27,8 @@ const Hero = () => {
       const x = (window.innerWidth / 2 - e.clientX) / 25;
       const y = (window.innerHeight / 2 - e.clientY) / 25;
       container.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+      console.log(process.env.BACKEND2_URL);
+      console.log(process.env.REACT_APP_BACKEND_URL);
     };
 
     container.addEventListener('mousemove', onMouseMove);

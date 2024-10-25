@@ -25,8 +25,8 @@ exports.resetPasswordToken = async (req, res) => {
     )
     console.log("DETAILS", updatedDetails)
 
-    // const url = `http://localhost:3001/reset/${token}`
-    const url = `https://college-mart.vercel.app/reset/${token}`
+
+    const url = `${process.env.FRONTEND_URL}/reset/${token}`
 
     const kk = await mailSender(
       email,

@@ -4,7 +4,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
-
+  console.log(process.env.REACT_APP_BACKEND_URL);
   const notify = (message, type) => {
     if (type === 'error') {
       toast.error(message);
@@ -20,7 +20,7 @@ const ForgotPassword = () => {
     console.log(email);
 
     try {
-      const res = await fetch('http://localhost:4000/reset-password-token', {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/reset-password-token`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
