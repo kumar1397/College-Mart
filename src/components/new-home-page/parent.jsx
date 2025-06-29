@@ -10,7 +10,6 @@ import { FaPlus } from "react-icons/fa";
 import HorizontalCarousel from './HorizontalCarousel';
 import BackgroundImagePage from './intropage';
 import Spinner from '../spinner/Spinner';
-import { MdChat } from "react-icons/md";
 import ProductList from '../demo/HomePage';
 
 const images = [
@@ -127,15 +126,6 @@ const Home02 = () => {
                 className='w-8 h-8 object-fill transition-transform duration-300 ease-in-out invert'
                 alt="plus"
               />
-            </Link>
-          </motion.div>
-          <motion.div
-            className='top-[75%] z-50 fixed left-9 h-16 w-16 bg-[#925FE2] shadow-xl rounded-full items-center cursor-pointer flex justify-center transition-transform'
-            variants={buttonVariants}
-            whileHover="hover"
-          >
-            <Link to="/home/chat">
-              <MdChat size={35} color='white' />
             </Link>
           </motion.div>
           <motion.div
